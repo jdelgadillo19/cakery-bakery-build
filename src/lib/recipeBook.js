@@ -69,7 +69,7 @@ const DEFAULT_PARIS = [
 ];
 
 const PURCHASABLE_PARIS = [
-  { id: "paris_eclair",     name: "Éclair",            yield: 12, rarity: "uncommon", cost: 25, base_price: 4.5,  incomeMultiplier: 1.35, emoji: "🍫", ingredients: { flour: "1 cup", butter: "½ cup", eggs: "4 eggs", milk: "1 cup", chocolate: "¾ cup" }, ingredientsGrams: { flour: 120, butter: 115, eggs: 4, milk: 240, chocolate: 135 } },
+  { id: "paris_eclair",     name: "Éclair",            yield: 12, rarity: "uncommon", cost: 25, base_price: 4.5,  incomeMultiplier: 1.35, emoji: "⚡", ingredients: { flour: "1 cup", butter: "½ cup", eggs: "4 eggs", milk: "1 cup", chocolate: "¾ cup" }, ingredientsGrams: { flour: 120, butter: 115, eggs: 4, milk: 240, chocolate: 135 } },
   { id: "paris_tarte",      name: "Tarte Tatin",       yield: 8,  rarity: "uncommon", cost: 30, base_price: 5.2,  incomeMultiplier: 1.35, emoji: "🍰", ingredients: { flour: "2 cups", butter: "1 cup", sugar: "¾ cup", fruit: "2½ cups" }, ingredientsGrams: { flour: 240, butter: 230, sugar: 150, fruit: 375 } },
   { id: "paris_mille",      name: "Mille-feuille",     yield: 6,  rarity: "specialty",cost: 65, base_price: 8.5,  incomeMultiplier: 2.0,  emoji: "🥐", ingredients: { flour: "3 cups", butter: "1½ cups", milk: "2 cups", sugar: "1 cup", eggs: "4 eggs" }, ingredientsGrams: { flour: 360, butter: 345, milk: 480, sugar: 200, eggs: 4 } },
   { id: "paris_croquembouche", name: "Croquembouche",  yield: 20, rarity: "signature",cost: 180, base_price: 18, incomeMultiplier: 3.0,  emoji: "🎂", ingredients: { flour: "2 cups", butter: "1 cup", eggs: "8 eggs", chocolate: "2 cups", sugar: "2 cups" }, ingredientsGrams: { flour: 240, butter: 230, eggs: 8, chocolate: 360, sugar: 400 } },

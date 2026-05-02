@@ -21,7 +21,7 @@ export const VILLAGES = {
     currency: "$",
     currencyName: "dollars",
     description: "A bustling frontier town where gold miners and cowboys need their daily bread.",
-    bgImage: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=800",
+    bgImage: "/sprites/scenes/frontier_us.webp",
     accent: "from-amber-700 to-yellow-600",
     customerNames: [
       "Sheriff Buck", "Miss Dolly", "Old Pete", "Cowboy Jake", "Widow Martha",
@@ -36,7 +36,7 @@ export const VILLAGES = {
     currency: "₣",
     currencyName: "francs",
     description: "A charming Parisian quarter where artists and poets crave your pastries.",
-    bgImage: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800",
+    bgImage: "/sprites/scenes/paris.webp",
     accent: "from-rose-600 to-pink-500",
     customerNames: [
       "Monsieur Pierre", "Madame Colette", "Le Petit Louis", "Mademoiselle Sophie",
@@ -52,7 +52,7 @@ export const VILLAGES = {
     currency: "文",
     currencyName: "wén",
     description: "A peaceful watertown where scholars and merchants appreciate fine mooncakes.",
-    bgImage: "https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?w=800",
+    bgImage: "/sprites/scenes/ming_china.webp",
     accent: "from-red-700 to-orange-600",
     customerNames: [
       "Scholar Wang", "Merchant Li", "Grandmother Chen", "Young Mei",
@@ -68,7 +68,7 @@ export const VILLAGES = {
     currency: "d",
     currencyName: "pence",
     description: "A foggy London market where chimney sweeps and lords alike love your scones.",
-    bgImage: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800",
+    bgImage: "/sprites/scenes/london.webp",
     accent: "from-slate-700 to-slate-500",
     customerNames: [
       "Lord Pemberton", "Mrs. Higgins", "Young Oliver", "Lady Ashworth",
@@ -92,7 +92,7 @@ export const PRODUCTS = {
   paris: [
     { id: "baguette", name: "Baguette", emoji: "🥖", basePrice: 3 },
     { id: "croissant", name: "Croissant", emoji: "🥐", basePrice: 2 },
-    { id: "eclair", name: "Éclair", emoji: "🍫", basePrice: 4 },
+    { id: "eclair", name: "Éclair", emoji: "⚡", basePrice: 4 },
     { id: "macaron", name: "Macaron", emoji: "🟣", basePrice: 2 },
     { id: "pain_chocolat", name: "Pain au Chocolat", emoji: "🍫", basePrice: 3 },
     { id: "tarte", name: "Tarte aux Fruits", emoji: "🍰", basePrice: 5 },
@@ -277,11 +277,13 @@ export function generateCustomerOrder(villageKey, difficulty, products, couponPc
   // Sprite config — get gender for this portrait, then pick a matching name
   const spriteConfig = loadSpriteConfig();
   const spriteMeta = getSpriteMetadata(villageKey, portraitIndex, spriteConfig);
-  const name = pickName(villageKey, spriteMeta.gender, spriteConfig);
+  const ageBand = spriteMeta.ageBand || "adult";
+  const name = pickName(villageKey, spriteMeta.gender, ageBand, spriteConfig);
 
   return {
     customerName: name,
     customerGender: spriteMeta.gender,
+    customerAgeBand: ageBand,
     customerTitle: spriteMeta.title,
     items: orderItems,
     subtotal,

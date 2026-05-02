@@ -81,56 +81,59 @@ export default function Home() {
         >
 
           {/* ── ARCADE MODE ── Primary CTA */}
-          <motion.div
+          <motion.button
+            type="button"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => { playSFX("click"); navigate("/arcade-setup"); }}
-            className="bg-primary rounded-2xl p-5 shadow-xl cursor-pointer border-2 border-primary/50"
+            className="w-full text-left bg-primary rounded-2xl p-5 shadow-xl cursor-pointer border-2 border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/60"
           >
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0" aria-hidden>
                 <Zap className="w-6 h-6 text-white" />
               </div>
-              <div className="flex-1">
+              <div className="flex-1 min-w-0">
                 <h2 className="font-display font-bold text-xl text-white mb-0.5">Arcade Mode</h2>
                 <p className="font-body text-sm text-white/80 leading-snug">
                   Single run, high score, leaderboard glory. No saves needed — just play!
                 </p>
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="bg-white/20 text-white font-display font-bold text-xs px-2 py-0.5 rounded-full">Quick Play</span>
-                  <span className="bg-white/20 text-white font-display font-bold text-xs px-2 py-0.5 rounded-full">Global Rankings</span>
-                </div>
+                <p className="mt-3 pt-3 border-t border-white/15 font-body text-xs text-white/70 leading-relaxed">
+                  <span className="sr-only">Mode highlights: </span>
+                  Quick sessions with global leaderboard rankings — runs stay on this device until you submit a score.
+                </p>
               </div>
             </div>
-          </motion.div>
+          </motion.button>
 
           {/* ── STORY MODE ── */}
-          <motion.div
+          <motion.button
+            type="button"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => { playSFX("click"); navigate("/story"); }}
-            className="bg-card/20 border-2 border-white/30 rounded-2xl p-5 cursor-pointer hover:bg-card/30 transition-colors"
+            className="w-full text-left bg-card/20 border-2 border-white/30 rounded-2xl p-5 cursor-pointer hover:bg-card/30 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/60"
           >
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0" aria-hidden>
                 <BookMarked className="w-6 h-6 text-white/80" />
               </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-0.5">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-0.5 flex-wrap">
                   <h2 className="font-display font-bold text-xl text-white">Story Mode</h2>
-                  <span className="bg-white/20 text-white font-display font-bold text-xs px-2 py-0.5 rounded-full">Beta</span>
+                  <span className="bg-white/20 text-white font-display font-bold text-xs px-2 py-0.5 rounded-full" title="Story mode is still in beta">
+                    Beta
+                  </span>
                 </div>
                 <p className="font-body text-sm text-white/70 leading-snug">
                   Multi-week bakery journey across historic villages. Save your progress, unlock recipes, master every role.
                 </p>
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="bg-white/10 text-white/70 font-display font-bold text-xs px-2 py-0.5 rounded-full">Multi-day</span>
-                  <span className="bg-white/10 text-white/70 font-display font-bold text-xs px-2 py-0.5 rounded-full">Save Files</span>
-                  <span className="bg-white/10 text-white/70 font-display font-bold text-xs px-2 py-0.5 rounded-full">Recipes</span>
-                </div>
+                <p className="mt-3 pt-3 border-t border-white/10 font-body text-xs text-white/60 leading-relaxed">
+                  <span className="sr-only">Mode highlights: </span>
+                  Multi-day pacing with up to five save slots on this device, recipe progression, and rotating roles.
+                </p>
               </div>
             </div>
-          </motion.div>
+          </motion.button>
 
           {/* Leaderboard shortcut */}
           <Link to="/leaderboard" onClick={() => playSFX("click")}>
@@ -142,21 +145,25 @@ export default function Home() {
 
         </motion.div>
 
-        {/* Debug mode panel */}
-        <AnimatePresence>
-          {debugMode && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              className="w-full max-w-md mt-4"
-            >
-              <DebugPanel saves={saves} onOpenSpriteMenu={() => setSpriteMenuOpen(true)} />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {import.meta.env.DEV && (
+          <>
+            {/* Debug mode panel */}
+            <AnimatePresence>
+              {debugMode && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="w-full max-w-md mt-4"
+                >
+                  <DebugPanel saves={saves} onOpenSpriteMenu={() => setSpriteMenuOpen(true)} />
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-        {debugMode && <BuildConfigDebug />}
+            {debugMode && <BuildConfigDebug />}
+          </>
+        )}
 
         <motion.div
           initial={{ opacity: 0 }}
@@ -166,15 +173,18 @@ export default function Home() {
         >
           <AudioManager />
           <p className="text-sm text-white/60 font-body text-center">A math adventure for curious minds 🧮</p>
-          <button
-            onClick={() => setDebugMode((v) => !v)}
-            className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-all font-display ${
-              debugMode ? "bg-yellow-400/20 border-yellow-400 text-yellow-300" : "bg-white/10 border-white/20 text-white/40 hover:text-white/60"
-            }`}
-          >
-            <Bug className="w-3 h-3" />
-            {debugMode ? "Debug ON" : "Debug"}
-          </button>
+          {import.meta.env.DEV && (
+            <button
+              type="button"
+              onClick={() => setDebugMode((v) => !v)}
+              className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-all font-display ${
+                debugMode ? "bg-yellow-400/20 border-yellow-400 text-yellow-300" : "bg-white/10 border-white/20 text-white/40 hover:text-white/60"
+              }`}
+            >
+              <Bug className="w-3 h-3" />
+              {debugMode ? "Debug ON" : "Debug"}
+            </button>
+          )}
         </motion.div>
 
       </div> {/* end content layer */}

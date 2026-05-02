@@ -18,6 +18,7 @@ export default function NumericInput({
   autoFocus = false,
   prefix,
   suffix,
+  ...rest
 }) {
   const [error, setError] = useState("");
   const inputRef = useRef(null);
@@ -100,6 +101,7 @@ export default function NumericInput({
             error ? "border-destructive focus-visible:ring-destructive/30" : "",
             className
           )}
+          {...rest}
         />
         {suffix && (
           <span className="absolute right-3 top-1/2 -translate-y-1/2 font-display text-sm text-muted-foreground select-none pointer-events-none">

@@ -412,19 +412,24 @@ export default function ArcadePlay() {
       <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${SCENE_IMAGES[villageKey]})` }} />
       <div className="absolute inset-0 bg-black/30" />
 
-      {/* Debug toggle */}
-      <button
-        onClick={() => setDebugMode((v) => !v)}
-        className={`fixed bottom-4 right-4 z-50 flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-all font-display ${
-          debugMode ? "bg-yellow-400/30 border-yellow-400 text-yellow-300" : "bg-black/40 border-white/20 text-white/40 hover:text-white/60"
-        }`}
-      >
-        <Bug className="w-3 h-3" />
-        {debugMode ? `Debug [${phase}]` : "Debug"}
-      </button>
+      {import.meta.env.DEV && (
+        <>
+          {/* Debug toggle */}
+          <button
+            type="button"
+            onClick={() => setDebugMode((v) => !v)}
+            className={`fixed bottom-4 right-4 z-50 flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-all font-display ${
+              debugMode ? "bg-yellow-400/30 border-yellow-400 text-yellow-300" : "bg-black/40 border-white/20 text-white/40 hover:text-white/60"
+            }`}
+          >
+            <Bug className="w-3 h-3" />
+            {debugMode ? `Debug [${phase}]` : "Debug"}
+          </button>
 
-      {debugMode && dayState && (
-        <DebugOverlay dayState={dayState} gameSave={arcadeSession} customerIndex={dayState.completedOrders} totalProblems={null} />
+          {debugMode && dayState && (
+            <DebugOverlay dayState={dayState} gameSave={arcadeSession} customerIndex={dayState.completedOrders} totalProblems={null} />
+          )}
+        </>
       )}
 
       <div className="relative z-10 flex flex-col min-h-screen">
@@ -464,7 +469,14 @@ export default function ArcadePlay() {
                   hasExpired={phase === "lastCall" || phase === "done"}
                 />
                 {dayState && (
-                  <span className="font-display text-xs text-white/70">{dayState.completedOrders} served</span>
+                  <span className="font-display text-xs text-white/70 inline-flex items-center gap-2">
+                    <span>{dayState.completedOrders} served</span>
+                    {dayState.currentStreak >= 2 && (
+                      <span className="text-amber-200 font-semibold whitespace-nowrap" title="Customers served without a mistake">
+                        {dayState.currentStreak} streak
+                      </span>
+                    )}
+                  </span>
                 )}
               </div>
             )}
@@ -490,9 +502,17 @@ export default function ArcadePlay() {
                 <p className="font-body text-sm text-muted-foreground mb-1">
                   {village?.name} · {DIFFICULTY_CONFIG[difficulty]?.label}
                 </p>
-                <p className="font-body text-sm text-muted-foreground mb-6">
+                <p className="font-body text-sm text-muted-foreground mb-4">
                   Serve as many customers as you can before time runs out!
                 </p>
+                <div className="rounded-xl bg-muted/40 border border-border/60 px-4 py-3 mb-6 text-left">
+                  <p className="font-display text-xs font-bold text-foreground mb-2">Quick tips</p>
+                  <ul className="font-body text-xs text-muted-foreground space-y-1.5 list-disc pl-4 leading-snug">
+                    <li>Use <strong className="text-foreground font-semibold">Today&apos;s Menu</strong> prices for every line item.</li>
+                    <li>Enter the <strong className="text-foreground font-semibold">order total</strong> first.</li>
+                    <li>Then enter <strong className="text-foreground font-semibold">change</strong> from what the customer pays.</li>
+                  </ul>
+                </div>
                 <Button onClick={handleStart} size="lg" className="w-full h-12 font-display font-bold">
                   <Zap className="w-5 h-5 mr-2" />
                   Start Run!

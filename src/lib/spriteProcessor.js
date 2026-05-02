@@ -11,7 +11,7 @@ import { loadSpriteConfig, DEFAULT_SPRITES } from "@/lib/spriteConfig";
 const OWNER_PORTRAITS_MAP = OWNER_PORTRAIT_BY_VILLAGE;
 
 const CACHE_KEY = "cakery_processed_sprites";
-const CACHE_VERSION = 4; // bump when portrait URLs change
+const CACHE_VERSION = 6; // bump when portrait URLs / slot count changes
 
 // ── Background removal via canvas ────────────────────────────────────────────
 
@@ -277,9 +277,11 @@ export function getCustomerSpriteUrl(villageKey, portraitIndex, registry) {
 /**
  * Given a villageKey, get the owner's processed URL from the registry.
  */
+const DEFAULT_OWNER_SPRITE = "/sprites/npc/owner_baker_neutral.png";
+
 export function getOwnerSpriteUrl(villageKey, registry) {
   const id = `owner_${villageKey}`;
-  return getProcessedUrl(id, registry) || null;
+  return getProcessedUrl(id, registry) || DEFAULT_OWNER_SPRITE;
 }
 
 /**

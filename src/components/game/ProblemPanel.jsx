@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useId } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Check, X, Calculator } from "lucide-react";
@@ -7,6 +7,10 @@ import NumericInput from "@/components/game/NumericInput";
 
 export default function ProblemPanel({ problem, currency, onSubmit, feedback, attempts, maxAttempts = 2 }) {
   const [answer, setAnswer] = useState("");
+  const headingId = useId();
+  const hintId = useId();
+  const feedbackId = useId();
+  const inputId = useId();
 
   if (!problem) return null;
 
@@ -83,23 +87,28 @@ export default function ProblemPanel({ problem, currency, onSubmit, feedback, at
     ? problem.phase === "boxes" ? ` ${problem.container || "boxes"}` : ` ${problem.itemName?.toLowerCase() || "items"}`
     : "";
 
+  const describedBy = [hintId, feedback ? feedbackId : null].filter(Boolean).join(" ");
+
   return (
     <div className="bg-card rounded-xl border-2 border-primary/20 p-5 shadow-lg">
       <div className="flex items-center gap-2 mb-4">
-        <Calculator className="w-5 h-5 text-primary" />
-        <h3 className="font-display font-bold text-foreground">{getTitle()}</h3>
+        <Calculator className="w-5 h-5 text-primary shrink-0" aria-hidden />
+        <h3 id={headingId} className="font-display font-bold text-foreground">{getTitle()}</h3>
         <span className="ml-auto text-xs font-display text-muted-foreground bg-muted rounded-full px-2 py-0.5">
           Attempt {attempts + 1}/{maxAttempts}
         </span>
       </div>
 
-      <div className="bg-muted/50 rounded-lg p-3 mb-4">
+      <div id={hintId} className="bg-muted/50 rounded-lg p-3 mb-4">
         {getHint()}
       </div>
 
       <AnimatePresence mode="wait">
         {feedback && (
           <motion.div
+            id={feedbackId}
+            role="status"
+            aria-live="polite"
             key={feedback.type + feedback.message}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -119,6 +128,9 @@ export default function ProblemPanel({ problem, currency, onSubmit, feedback, at
 
       <form onSubmit={handleSubmit} className="flex gap-2 items-start">
         <NumericInput
+          id={inputId}
+          aria-labelledby={headingId}
+          aria-describedby={describedBy}
           value={answer}
           onChange={setAnswer}
           placeholder="0"

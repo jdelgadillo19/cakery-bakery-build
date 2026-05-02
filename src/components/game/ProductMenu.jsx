@@ -10,6 +10,7 @@ function ProductThumb({ product }) {
       <img
         src={product.image}
         alt=""
+        aria-hidden
         className="w-8 h-8 object-contain flex-shrink-0"
         onError={() => setBroken(true)}
       />

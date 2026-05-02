@@ -761,20 +761,25 @@ export default function GameDay() {
         style={{ backgroundImage: `url(${SCENE_IMAGES[gameSave.village]})` }} />
       <div className="absolute inset-0 bg-black/30" />
 
-      {/* Debug toggle */}
-      <button
-        onClick={() => setDebugMode((v) => !v)}
-        className={`fixed bottom-4 right-4 z-50 flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-all font-display ${
-          debugMode ? "bg-yellow-400/30 border-yellow-400 text-yellow-300"
-                    : "bg-black/40 border-white/20 text-white/40 hover:text-white/60"}`}
-      >
-        <Bug className="w-3 h-3" />
-        {debugMode ? `Debug ON [${dayPhase}]` : "Debug"}
-      </button>
+      {import.meta.env.DEV && (
+        <>
+          {/* Debug toggle */}
+          <button
+            type="button"
+            onClick={() => setDebugMode((v) => !v)}
+            className={`fixed bottom-4 right-4 z-50 flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-all font-display ${
+              debugMode ? "bg-yellow-400/30 border-yellow-400 text-yellow-300"
+                        : "bg-black/40 border-white/20 text-white/40 hover:text-white/60"}`}
+          >
+            <Bug className="w-3 h-3" />
+            {debugMode ? `Debug ON [${dayPhase}]` : "Debug"}
+          </button>
 
-      {debugMode && dayState && (
-        <DebugOverlay dayState={dayState} gameSave={gameSave}
-          customerIndex={dayState.completedOrders} totalProblems={null} />
+          {debugMode && dayState && (
+            <DebugOverlay dayState={dayState} gameSave={gameSave}
+              customerIndex={dayState.completedOrders} totalProblems={null} />
+          )}
+        </>
       )}
 
       <GameMenu open={menuOpen} onClose={() => setMenuOpen(false)}

@@ -1,80 +1,193 @@
 // ============================================================
-// CAKERY BAKERY — Sprite Metadata & Name Pool System
-// Handles gender-validated name assignment for all NPCs.
-// Persisted to localStorage under "cakery_sprite_config".
+// CAKERY BAKERY — Sprite metadata & name pools (gender × age band)
+// Portrait index i maps to archetype bands (3 sprites each):
+//   0–2 elder men, 3–5 elder women, 6–8 adult men, 9–11 adult women,
+//   12–14 boys, 15–17 girls — consistent across villages (tile art rotates).
+// Persisted under localStorage "cakery_sprite_config".
 // ============================================================
 
-// ── Default Name Pools ───────────────────────────────────────────────────────
+export const VILLAGE_KEYS = ["frontier_us", "paris", "ming_china", "london"];
 
-export const DEFAULT_MALE_NAMES = {
-  frontier_us: ["Sheriff Buck", "Old Pete", "Cowboy Jake", "Doc Holiday", "Little Timmy", "Prospector Dan", "Reverend John", "Farmer Hank", "Blacksmith Joe", "Deputy Sam", "Rancher Bill"],
-  paris:       ["Monsieur Pierre", "Le Petit Louis", "Artiste Claude", "Professeur Henri", "Boulanger Jean", "Poète Marcel", "Musicien Rémy", "Docteur François"],
-  ming_china:  ["Scholar Wang", "Merchant Li", "Fisherman Zhou", "Teacher Huang", "Captain Zhang", "Poet Su", "Farmer Guo", "Tea Master Wu", "Calligrapher Xu", "Boatman He"],
-  london:      ["Lord Pemberton", "Young Oliver", "Constable Wells", "Chimney Tom", "Sir Reginald", "Newsboy Charlie", "Butler Graves", "Professor Morley", "Merchant Brown"],
-};
-
-export const DEFAULT_FEMALE_NAMES = {
-  frontier_us: ["Miss Dolly", "Widow Martha", "Miss Clara", "Teacher Anne"],
-  paris:       ["Madame Colette", "Mademoiselle Sophie", "Fleuriste Marie", "Danseuse Lila", "Comtesse Élise", "Couturière Amélie"],
-  ming_china:  ["Grandmother Chen", "Young Mei", "Healer Lin", "Silk Weaver Bai", "Herbalist Qian"],
-  london:      ["Mrs. Higgins", "Lady Ashworth", "Miss Primrose", "Cook Bertha", "Governess Jane", "Flower Girl Eliza"],
-};
-
-// ── Sprite Definitions ───────────────────────────────────────────────────────
-// Each sprite has a stable id, gender, and a portrait index (which image it maps to)
-
-export const DEFAULT_SPRITES = {
-  frontier_us: [
-    { id: "frontier_us_0", gender: "male",   title: "customer", portraitIndex: 0, villageKey: "frontier_us" },
-    { id: "frontier_us_1", gender: "female",  title: "customer", portraitIndex: 1, villageKey: "frontier_us" },
-  ],
-  paris: [
-    { id: "paris_0", gender: "male",   title: "customer", portraitIndex: 0, villageKey: "paris" },
-    { id: "paris_1", gender: "female",  title: "customer", portraitIndex: 1, villageKey: "paris" },
-  ],
-  ming_china: [
-    { id: "ming_china_0", gender: "male",   title: "customer", portraitIndex: 0, villageKey: "ming_china" },
-    { id: "ming_china_1", gender: "female",  title: "customer", portraitIndex: 1, villageKey: "ming_china" },
-  ],
-  london: [
-    { id: "london_0", gender: "male",   title: "customer", portraitIndex: 0, villageKey: "london" },
-    { id: "london_1", gender: "female",  title: "customer", portraitIndex: 1, villageKey: "london" },
-  ],
-};
+/** Three portraits per archetype × six archetypes = 18 slots / village */
+export const PORTRAITS_PER_VILLAGE = 18;
 
 export const SPRITE_TITLES = ["customer", "baker", "chef", "merchant", "scholar", "artist", "constable", "farmer"];
 
-// ── LocalStorage persistence ─────────────────────────────────────────────────
+/** Archetype for portrait indices 0–17 (repeat pattern every village). */
+function archetypeAtIndex(portraitIndex) {
+  const bands = [
+    { gender: "male", ageBand: "elder" },
+    { gender: "female", ageBand: "elder" },
+    { gender: "male", ageBand: "adult" },
+    { gender: "female", ageBand: "adult" },
+    { gender: "male", ageBand: "child" },
+    { gender: "female", ageBand: "child" },
+  ];
+  const band = bands[Math.floor(portraitIndex / 3)];
+  return band || { gender: "male", ageBand: "adult" };
+}
+
+export function buildDefaultSpritesForVillage(villageKey) {
+  return Array.from({ length: PORTRAITS_PER_VILLAGE }, (_, portraitIndex) => {
+    const { gender, ageBand } = archetypeAtIndex(portraitIndex);
+    return {
+      id: `${villageKey}_${portraitIndex}`,
+      gender,
+      ageBand,
+      title: "customer",
+      portraitIndex,
+      villageKey,
+    };
+  });
+}
+
+/** Curated pools — ≥3 names per bucket per locale for rotation variety. */
+export const DEFAULT_NAME_POOLS = {
+  frontier_us: {
+    male: {
+      elder: ["Old Pete", "Prospector Dan", "Reverend John"],
+      adult: ["Sheriff Buck", "Cowboy Jake", "Farmer Hank", "Deputy Sam", "Rancher Bill", "Blacksmith Joe"],
+      child: ["Little Timmy", "Young Caleb", "Billy Tate"],
+    },
+    female: {
+      elder: ["Widow Martha", "Granny Lou", "Miss Agnes Hart"],
+      adult: ["Miss Dolly", "Miss Clara", "Teacher Anne"],
+      child: ["Little Annie", "Sally Mae", "Young Lucy"],
+    },
+  },
+  paris: {
+    male: {
+      elder: ["Monsieur Étienne", "Monsieur Laurent", "Monsieur Aubert"],
+      adult: ["Monsieur Pierre", "Artiste Claude", "Professeur Henri", "Boulanger Jean", "Poète Marcel", "Musicien Rémy"],
+      child: ["Le Petit Louis", "Young Antoine", "Little Gaston"],
+    },
+    female: {
+      elder: ["Madame Thérèse", "Madame Blanche", "Grand-mère Solène"],
+      adult: ["Madame Colette", "Mademoiselle Sophie", "Fleuriste Marie", "Danseuse Lila", "Comtesse Élise", "Couturière Amélie"],
+      child: ["Little Cosette", "Young Fleur", "Little Marie"],
+    },
+  },
+  ming_china: {
+    male: {
+      elder: ["Grandfather Chen", "Elder Zhou", "Old Teacher Huang"],
+      adult: ["Scholar Wang", "Merchant Li", "Fisherman Zhou", "Captain Zhang", "Poet Su", "Farmer Guo"],
+      child: ["Young Wei", "Boy Xiaolong", "Little Feng"],
+    },
+    female: {
+      elder: ["Grandmother Chen", "Old Maid Lin", "Elder Aunt Bai"],
+      adult: ["Young Mei", "Healer Lin", "Silk Weaver Bai", "Herbalist Qian", "Tea Mistress Wu", "Boatwoman Su"],
+      child: ["Little Mei-Lin", "Girl Xiao Qing", "Young Ping"],
+    },
+  },
+  london: {
+    male: {
+      elder: ["Old Mr. Pemberton", "Elder Tom Grey", "Grandfather Wells"],
+      adult: ["Lord Pemberton", "Constable Wells", "Sir Reginald", "Butler Graves", "Professor Morley", "Merchant Brown"],
+      child: ["Young Oliver", "Newsboy Charlie", "Boy Pip"],
+    },
+    female: {
+      elder: ["Mrs. Abernathy", "Old Widow Higgins", "Grandmother Primrose"],
+      adult: ["Mrs. Higgins", "Lady Ashworth", "Miss Primrose", "Cook Bertha", "Governess Jane", "Flower Girl Eliza"],
+      child: ["Little Jane", "Girl Annie", "Young Rose"],
+    },
+  },
+};
+
+export const DEFAULT_SPRITES = Object.fromEntries(
+  VILLAGE_KEYS.map((vk) => [vk, buildDefaultSpritesForVillage(vk)]),
+);
 
 const STORAGE_KEY = "cakery_sprite_config";
 
+function clone(o) {
+  return JSON.parse(JSON.stringify(o));
+}
+
+function mergeNamePools(base, overlay) {
+  const out = clone(base);
+  if (!overlay) return out;
+  for (const vk of VILLAGE_KEYS) {
+    if (!overlay[vk]) continue;
+    for (const gender of ["male", "female"]) {
+      if (!overlay[vk][gender]) continue;
+      for (const band of ["elder", "adult", "child"]) {
+        const patch = overlay[vk][gender][band];
+        if (!Array.isArray(patch) || patch.length === 0) continue;
+        const merged = [...(out[vk][gender][band] || []), ...patch];
+        out[vk][gender][band] = [...new Set(merged.map((s) => String(s).trim()).filter(Boolean))];
+      }
+    }
+  }
+  return out;
+}
+
+function migrateLegacyNamePools(parsed, basePools) {
+  const out = clone(basePools);
+  for (const vk of VILLAGE_KEYS) {
+    const males = parsed.maleNames?.[vk];
+    const females = parsed.femaleNames?.[vk];
+    if (Array.isArray(males) && males.length) {
+      out[vk].male.adult = [...new Set([...out[vk].male.adult, ...males.map(String)])];
+    }
+    if (Array.isArray(females) && females.length) {
+      out[vk].female.adult = [...new Set([...out[vk].female.adult, ...females.map(String)])];
+    }
+  }
+  return out;
+}
+
+function mergeSpritesForVillage(villageKey, savedSprites, defaultList) {
+  if (!Array.isArray(savedSprites) || savedSprites.length === 0) return defaultList;
+  return defaultList.map((def) => {
+    const saved = savedSprites.find((s) => s.portraitIndex === def.portraitIndex);
+    if (!saved) return def;
+    return {
+      ...def,
+      ...saved,
+      gender: saved.gender === "female" || saved.gender === "male" ? saved.gender : def.gender,
+      ageBand: ["elder", "adult", "child"].includes(saved.ageBand) ? saved.ageBand : def.ageBand,
+      title: saved.title || def.title,
+      portraitIndex: def.portraitIndex,
+      villageKey,
+    };
+  });
+}
+
 function getDefaults() {
   return {
-    sprites: JSON.parse(JSON.stringify(DEFAULT_SPRITES)),
-    maleNames: JSON.parse(JSON.stringify(DEFAULT_MALE_NAMES)),
-    femaleNames: JSON.parse(JSON.stringify(DEFAULT_FEMALE_NAMES)),
+    sprites: clone(DEFAULT_SPRITES),
+    namePools: clone(DEFAULT_NAME_POOLS),
   };
 }
 
 export function loadSpriteConfig() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return getDefaults();
-    const parsed = JSON.parse(raw);
-    // Merge with defaults so new villages/sprites always appear
     const defaults = getDefaults();
-    return {
-      sprites:     { ...defaults.sprites,     ...(parsed.sprites || {}) },
-      maleNames:   { ...defaults.maleNames,   ...(parsed.maleNames || {}) },
-      femaleNames: { ...defaults.femaleNames, ...(parsed.femaleNames || {}) },
-    };
+    if (!raw) return defaults;
+    const parsed = JSON.parse(raw);
+
+    const sprites = {};
+    for (const vk of VILLAGE_KEYS) {
+      sprites[vk] = mergeSpritesForVillage(vk, parsed.sprites?.[vk], defaults.sprites[vk]);
+    }
+
+    const namePools = parsed.namePools
+      ? mergeNamePools(defaults.namePools, parsed.namePools)
+      : migrateLegacyNamePools(parsed, defaults.namePools);
+
+    return { sprites, namePools };
   } catch {
     return getDefaults();
   }
 }
 
 export function saveSpriteConfig(config) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+  const payload = {
+    sprites: config.sprites,
+    namePools: config.namePools,
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
 }
 
 export function resetSpriteConfig() {
@@ -82,28 +195,40 @@ export function resetSpriteConfig() {
   return getDefaults();
 }
 
-// ── Name generation (gender-validated) ──────────────────────────────────────
-
 /**
- * Pick a random name from the correct gender pool for a village.
- * @param {string} villageKey
- * @param {"male"|"female"} gender
- * @param {object} config  — loaded sprite config (contains maleNames, femaleNames)
+ * Random name matching gender + age band, with graceful fallback within gender.
  */
-export function pickName(villageKey, gender, config) {
-  const pool = gender === "female"
-    ? (config.femaleNames[villageKey] || DEFAULT_FEMALE_NAMES[villageKey] || [])
-    : (config.maleNames[villageKey]   || DEFAULT_MALE_NAMES[villageKey]   || []);
+export function pickName(villageKey, gender, ageBand, config) {
+  const poolsRoot = config?.namePools || DEFAULT_NAME_POOLS;
+  const v = poolsRoot[villageKey];
+  if (!v) return "Guest";
 
-  if (pool.length === 0) return gender === "female" ? "Customer" : "Customer";
+  const gKey = gender === "female" ? "female" : "male";
+  const genderPools = v[gKey];
+  if (!genderPools) return "Guest";
+
+  const band = ["elder", "adult", "child"].includes(ageBand) ? ageBand : "adult";
+
+  let pool = genderPools[band];
+  if (!Array.isArray(pool) || pool.length === 0) pool = genderPools.adult;
+  if (!Array.isArray(pool) || pool.length === 0) {
+    pool = [...(genderPools.elder || []), ...(genderPools.child || [])];
+  }
+  if (!Array.isArray(pool) || pool.length === 0) return "Guest";
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
-/**
- * Given a portrait index, look up the sprite definition for that village/index.
- * Returns the sprite metadata (gender, title) or a safe default.
- */
 export function getSpriteMetadata(villageKey, portraitIndex, config) {
   const sprites = config.sprites[villageKey] || DEFAULT_SPRITES[villageKey] || [];
-  return sprites.find((s) => s.portraitIndex === portraitIndex) || { gender: "male", title: "customer" };
+  const hit = sprites.find((s) => s.portraitIndex === portraitIndex);
+  if (hit) return hit;
+  const { gender, ageBand } = archetypeAtIndex(portraitIndex);
+  return {
+    id: `${villageKey}_${portraitIndex}_fallback`,
+    gender,
+    ageBand,
+    title: "customer",
+    portraitIndex,
+    villageKey,
+  };
 }

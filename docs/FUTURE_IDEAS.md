@@ -52,3 +52,21 @@ After menu unification, the cashier `ProductMenu` keys off `recipe.id` (e.g. `pa
 
 - Short term: a recipe-id-to-legacy-sprite map for the four default recipes per locale (handled inside the menu rebuild plan).
 - Long term: drop new PNGs as `public/sprites/products/{recipe.id}.png` so the map can be removed.
+
+## Locale-authentic customer portraits (18 × 4 locales)
+
+Today `tile_00…tile_17` come from a **coarse grid** on `Historical characters in vibrant cultures.png`, rotated per village — fine as placeholders, not as final gender/locale reads.
+
+Target:
+
+- **18 archetypes per locale**: 3 elder men, 3 elder women, 3 adult men, 3 adult women, 3 boys, 3 girls — **locale-costumed** (Paris ≠ Montana ≠ Suzhou ≠ London).
+- **Data binding**: each PNG maps to `{ portraitIndex, gender, ageBand }`; names come only from matching buckets in `namePools` (already enforced in game logic).
+
+Suggested pipeline:
+
+1. Commission or generate consistent sheets per locale (same body proportions / brush style as sticker reference).
+2. Export transparent PNGs named e.g. `public/sprites/customers/paris/elder_male_0.png` … or keep flat tiles + manifest JSON mapping filename → `{ villageKey, portraitIndex }`.
+3. Replace `customerPortraitUrls()` rotation hack with explicit URLs per village × index (or keep tiles but separate folders per locale).
+4. Optional: light QA tool that previews portrait + rolled name pool bucket so writers catch mismatches before shipping.
+
+Until those assets exist, rely on Sprite Menu overrides + keyed exports under `sprites/source/` from `npm run import-assets`.
