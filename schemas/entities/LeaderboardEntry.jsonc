@@ -1,0 +1,54 @@
+{
+  "name": "LeaderboardEntry",
+  "type": "object",
+  "properties": {
+    "player_name": {
+      "type": "string",
+      "description": "Player display name"
+    },
+    "bakery_name": {
+      "type": "string",
+      "description": "Bakery name"
+    },
+    "score": {
+      "type": "number",
+      "description": "Final score for this run"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "beginner",
+        "easy",
+        "medium",
+        "hard",
+        "expert"
+      ],
+      "description": "Difficulty level played"
+    },
+    "accuracy_pct": {
+      "type": "number",
+      "description": "Accuracy percentage (0-100)"
+    },
+    "customers_served": {
+      "type": "integer",
+      "description": "Number of customers served"
+    },
+    "village": {
+      "type": "string",
+      "description": "Village/locale played"
+    },
+    "tips_earned": {
+      "type": "number",
+      "description": "Tips earned this run"
+    },
+    "correct_transactions": {
+      "type": "integer",
+      "description": "Number of correctly completed transactions"
+    }
+  },
+  "required": [
+    "player_name",
+    "score",
+    "difficulty"
+  ]
+}

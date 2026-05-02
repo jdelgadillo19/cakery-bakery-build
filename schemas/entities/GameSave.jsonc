@@ -1,0 +1,129 @@
+{
+  "name": "GameSave",
+  "type": "object",
+  "properties": {
+    "player_name": {
+      "type": "string",
+      "description": "Player's name"
+    },
+    "bakery_name": {
+      "type": "string",
+      "description": "Name of the bakery"
+    },
+    "village": {
+      "type": "string",
+      "description": "Selected village/setting key"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "default": "easy"
+    },
+    "current_week": {
+      "type": "integer",
+      "default": 0,
+      "description": "0 = tutorial week"
+    },
+    "current_day": {
+      "type": "integer",
+      "default": 1
+    },
+    "total_coins": {
+      "type": "number",
+      "default": 0
+    },
+    "weekly_sales": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "week": {
+            "type": "integer"
+          },
+          "daily_totals": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "weekly_total": {
+            "type": "number"
+          },
+          "accuracy": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "streak": {
+      "type": "integer",
+      "default": 0
+    },
+    "total_customers_served": {
+      "type": "integer",
+      "default": 0
+    },
+    "tutorial_complete": {
+      "type": "boolean",
+      "default": false,
+      "description": "True once tutorial (week 0) is done"
+    },
+    "recipe_book": {
+      "type": "object",
+      "description": "Per-locale recipe book state",
+      "default": {},
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "unlocked": {
+            "type": "boolean"
+          },
+          "tutorialComplete": {
+            "type": "boolean"
+          },
+          "ownedRecipeIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "equipped_recipe_ids": {
+      "type": "array",
+      "description": "IDs of recipes currently in active menu slots",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "menu_slots": {
+      "type": "object",
+      "description": "Menu slot configuration",
+      "properties": {
+        "maxSlots": {
+          "type": "integer",
+          "default": 6
+        },
+        "unlockedSlots": {
+          "type": "integer",
+          "default": 6
+        }
+      },
+      "default": {
+        "maxSlots": 6,
+        "unlockedSlots": 6
+      }
+    }
+  },
+  "required": [
+    "player_name",
+    "bakery_name",
+    "village"
+  ]
+}
