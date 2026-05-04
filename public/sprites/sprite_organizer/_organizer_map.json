@@ -1,0 +1,3610 @@
+{
+  "version": 2,
+  "geometry": "process_character_sheet row_bands + column_slices + extract_slot_baked_style",
+  "match_threshold": 0.94,
+  "grid_log": [
+    {
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "band_index": 0,
+      "locale": "paris",
+      "ncols": 6,
+      "blank_column_4_convention": true
+    },
+    {
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "band_index": 1,
+      "locale": "paris",
+      "ncols": 6,
+      "blank_column_4_convention": true
+    },
+    {
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "band_index": 2,
+      "locale": "paris",
+      "ncols": 6,
+      "blank_column_4_convention": true
+    },
+    {
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "band_index": 3,
+      "locale": "london",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "band_index": 4,
+      "locale": "london",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "band_index": 5,
+      "locale": "frontier_us",
+      "ncols": 6,
+      "blank_column_4_convention": true
+    },
+    {
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "band_index": 6,
+      "locale": "frontier_us",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "band_index": 7,
+      "locale": "ming_china",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "band_index": 8,
+      "locale": "ming_china",
+      "ncols": 8,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "band_index": 9,
+      "locale": "ming_china",
+      "ncols": 6,
+      "blank_column_4_convention": true
+    },
+    {
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "band_index": 0,
+      "locale": "paris",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "band_index": 1,
+      "locale": "paris",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "band_index": 2,
+      "locale": "paris",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "band_index": 3,
+      "locale": "london",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "band_index": 4,
+      "locale": "london",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "band_index": 5,
+      "locale": "frontier_us",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "band_index": 6,
+      "locale": "frontier_us",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "band_index": 7,
+      "locale": "ming_china",
+      "ncols": 8,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "band_index": 8,
+      "locale": "ming_china",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "band_index": 9,
+      "locale": "ming_china",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "band_index": 0,
+      "locale": "paris",
+      "ncols": 6,
+      "blank_column_4_convention": true
+    },
+    {
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "band_index": 1,
+      "locale": "paris",
+      "ncols": 6,
+      "blank_column_4_convention": true
+    },
+    {
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "band_index": 2,
+      "locale": "paris",
+      "ncols": 6,
+      "blank_column_4_convention": true
+    },
+    {
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "band_index": 3,
+      "locale": "london",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "band_index": 4,
+      "locale": "london",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "band_index": 5,
+      "locale": "frontier_us",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "band_index": 6,
+      "locale": "frontier_us",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "band_index": 7,
+      "locale": "ming_china",
+      "ncols": 11,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "band_index": 8,
+      "locale": "ming_china",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    },
+    {
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "band_index": 9,
+      "locale": "ming_china",
+      "ncols": 7,
+      "blank_column_4_convention": false
+    }
+  ],
+  "results": [
+    {
+      "filename": "character_000.png",
+      "matched": true,
+      "score": 0.9897546167467746,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 0,
+      "col": 0,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_000.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        0,
+        0
+      ]
+    },
+    {
+      "filename": "character_001.png",
+      "matched": true,
+      "score": 0.9896670493685419,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 0,
+      "col": 1,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_001.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        0,
+        1
+      ]
+    },
+    {
+      "filename": "character_002.png",
+      "matched": true,
+      "score": 0.9865877712031558,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 0,
+      "col": 2,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_002.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        0,
+        2
+      ]
+    },
+    {
+      "filename": "character_003.png",
+      "matched": true,
+      "score": 0.9779630732578916,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 0,
+      "col": 3,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_003.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        0,
+        3
+      ]
+    },
+    {
+      "filename": "character_004.png",
+      "matched": true,
+      "score": 0.9794146825396826,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 0,
+      "col": 4,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_004.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        0,
+        4
+      ]
+    },
+    {
+      "filename": "character_005.png",
+      "matched": true,
+      "score": 0.9828437132784958,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 0,
+      "col": 5,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_005.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        0,
+        5
+      ]
+    },
+    {
+      "filename": "character_006.png",
+      "matched": true,
+      "score": 0.98462441314554,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 1,
+      "col": 0,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_006.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        1,
+        0
+      ]
+    },
+    {
+      "filename": "character_007.png",
+      "matched": true,
+      "score": 0.9854838709677419,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 1,
+      "col": 1,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_007.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        1,
+        1
+      ]
+    },
+    {
+      "filename": "character_008.png",
+      "matched": true,
+      "score": 0.9875056792367106,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 1,
+      "col": 2,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_008.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        1,
+        2
+      ]
+    },
+    {
+      "filename": "character_010.png",
+      "matched": true,
+      "score": 0.9759431383269547,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 1,
+      "col": 3,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_010.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        1,
+        4
+      ]
+    },
+    {
+      "filename": "character_012.png",
+      "matched": true,
+      "score": 0.9780311457174639,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 1,
+      "col": 4,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_012.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        1,
+        6
+      ]
+    },
+    {
+      "filename": "character_013.png",
+      "matched": true,
+      "score": 0.9780913978494624,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 1,
+      "col": 5,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_013.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        1,
+        7
+      ]
+    },
+    {
+      "filename": "character_014.png",
+      "matched": true,
+      "score": 0.9842597147073291,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 2,
+      "col": 0,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_014.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        2,
+        0
+      ]
+    },
+    {
+      "filename": "character_015.png",
+      "matched": true,
+      "score": 0.983177570093458,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 2,
+      "col": 1,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_015.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        2,
+        1
+      ]
+    },
+    {
+      "filename": "character_016.png",
+      "matched": true,
+      "score": 0.9813218390804598,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 2,
+      "col": 2,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_016.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        2,
+        2
+      ]
+    },
+    {
+      "filename": "character_017.png",
+      "matched": true,
+      "score": 0.9765866873065016,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 3,
+      "col": 3,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_017.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        2,
+        3
+      ]
+    },
+    {
+      "filename": "character_018.png",
+      "matched": true,
+      "score": 0.9753265602322206,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 2,
+      "col": 3,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_018.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        2,
+        4
+      ]
+    },
+    {
+      "filename": "character_019.png",
+      "matched": true,
+      "score": 0.9744194484760522,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 2,
+      "col": 4,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_019.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        2,
+        5
+      ]
+    },
+    {
+      "filename": "character_020.png",
+      "matched": true,
+      "score": 0.9738341046635813,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 2,
+      "col": 5,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_020.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        2,
+        6
+      ]
+    },
+    {
+      "filename": "character_021.png",
+      "matched": true,
+      "score": 0.9869891320985764,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 3,
+      "col": 0,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_021.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        3,
+        0
+      ]
+    },
+    {
+      "filename": "character_022.png",
+      "matched": true,
+      "score": 0.9864624429488668,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 3,
+      "col": 1,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_022.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        3,
+        1
+      ]
+    },
+    {
+      "filename": "character_023.png",
+      "matched": true,
+      "score": 0.982126146359723,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 3,
+      "col": 2,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_023.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        3,
+        2
+      ]
+    },
+    {
+      "filename": "character_025.png",
+      "matched": true,
+      "score": 0.9766242317822651,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 3,
+      "col": 4,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_025.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        3,
+        4
+      ]
+    },
+    {
+      "filename": "character_026.png",
+      "matched": true,
+      "score": 0.9792986425339366,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 3,
+      "col": 5,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_026.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        3,
+        5
+      ]
+    },
+    {
+      "filename": "character_027.png",
+      "matched": true,
+      "score": 0.9758098891730606,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 3,
+      "col": 6,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_027.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        3,
+        6
+      ]
+    },
+    {
+      "filename": "character_028.png",
+      "matched": true,
+      "score": 0.9829931972789115,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 4,
+      "col": 0,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_028.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        4,
+        0
+      ]
+    },
+    {
+      "filename": "character_029.png",
+      "matched": true,
+      "score": 0.9779441797140912,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 4,
+      "col": 1,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_029.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        4,
+        1
+      ]
+    },
+    {
+      "filename": "character_030.png",
+      "matched": true,
+      "score": 0.9821668007508716,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 4,
+      "col": 2,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_030.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        4,
+        2
+      ]
+    },
+    {
+      "filename": "character_031.png",
+      "matched": true,
+      "score": 0.9820327165459909,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 4,
+      "col": 3,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_031.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        4,
+        3
+      ]
+    },
+    {
+      "filename": "character_032.png",
+      "matched": true,
+      "score": 0.9808899808899809,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 4,
+      "col": 4,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_032.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        4,
+        4
+      ]
+    },
+    {
+      "filename": "character_033.png",
+      "matched": true,
+      "score": 0.9785421785421785,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 4,
+      "col": 5,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_033.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        4,
+        5
+      ]
+    },
+    {
+      "filename": "character_034.png",
+      "matched": true,
+      "score": 0.9773984510826617,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 4,
+      "col": 6,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_034.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        4,
+        6
+      ]
+    },
+    {
+      "filename": "character_035.png",
+      "matched": false,
+      "best_score": 0.2762340634194181,
+      "best_cell": {
+        "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        "row": 5,
+        "col": 0
+      },
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        5,
+        0
+      ]
+    },
+    {
+      "filename": "character_036.png",
+      "matched": true,
+      "score": 0.9871754523996853,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 5,
+      "col": 1,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_036.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        5,
+        1
+      ]
+    },
+    {
+      "filename": "character_037.png",
+      "matched": true,
+      "score": 0.9856711915535445,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 5,
+      "col": 2,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_037.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        5,
+        2
+      ]
+    },
+    {
+      "filename": "character_038.png",
+      "matched": true,
+      "score": 0.9795698924731183,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 5,
+      "col": 3,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_038.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        5,
+        3
+      ]
+    },
+    {
+      "filename": "character_039.png",
+      "matched": true,
+      "score": 0.9798763736263736,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 5,
+      "col": 4,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_039.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        5,
+        4
+      ]
+    },
+    {
+      "filename": "character_040.png",
+      "matched": true,
+      "score": 0.9767890248424175,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 5,
+      "col": 5,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_040.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        5,
+        5
+      ]
+    },
+    {
+      "filename": "character_041.png",
+      "matched": true,
+      "score": 0.9813131313131314,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 6,
+      "col": 0,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_041.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        6,
+        0
+      ]
+    },
+    {
+      "filename": "character_042.png",
+      "matched": true,
+      "score": 0.97892948173322,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 6,
+      "col": 1,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_042.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        6,
+        1
+      ]
+    },
+    {
+      "filename": "character_043.png",
+      "matched": true,
+      "score": 0.9780864197530864,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 6,
+      "col": 2,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_043.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        6,
+        2
+      ]
+    },
+    {
+      "filename": "character_044.png",
+      "matched": true,
+      "score": 0.973647924007967,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 6,
+      "col": 3,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_044.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        6,
+        3
+      ]
+    },
+    {
+      "filename": "character_045.png",
+      "matched": true,
+      "score": 0.9768518518518519,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 6,
+      "col": 4,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_045.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        6,
+        4
+      ]
+    },
+    {
+      "filename": "character_046.png",
+      "matched": true,
+      "score": 0.9763513513513513,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 6,
+      "col": 5,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_046.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        6,
+        5
+      ]
+    },
+    {
+      "filename": "character_047.png",
+      "matched": true,
+      "score": 0.9786389155141723,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 6,
+      "col": 6,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_047.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        6,
+        6
+      ]
+    },
+    {
+      "filename": "character_048.png",
+      "matched": true,
+      "score": 0.9796296296296296,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 7,
+      "col": 0,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_048.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        7,
+        0
+      ]
+    },
+    {
+      "filename": "character_049.png",
+      "matched": true,
+      "score": 0.9996816807257679,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 7,
+      "col": 1,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_049.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        7,
+        1
+      ]
+    },
+    {
+      "filename": "character_050.png",
+      "matched": true,
+      "score": 0.9814521926671459,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 7,
+      "col": 2,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_050.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        7,
+        2
+      ]
+    },
+    {
+      "filename": "character_052.png",
+      "matched": true,
+      "score": 0.9803090386982086,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 8,
+      "col": 4,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_052.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        7,
+        4
+      ]
+    },
+    {
+      "filename": "character_053.png",
+      "matched": true,
+      "score": 0.979934029686641,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 7,
+      "col": 3,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_053.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        7,
+        5
+      ]
+    },
+    {
+      "filename": "character_054.png",
+      "matched": true,
+      "score": 0.975504799735187,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 7,
+      "col": 4,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_054.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        7,
+        6
+      ]
+    },
+    {
+      "filename": "character_056.png",
+      "matched": true,
+      "score": 0.9744988207547169,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 7,
+      "col": 6,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_056.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        7,
+        8
+      ]
+    },
+    {
+      "filename": "character_057.png",
+      "matched": true,
+      "score": 0.9732142857142857,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 8,
+      "col": 0,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_057.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        8,
+        0
+      ]
+    },
+    {
+      "filename": "character_058.png",
+      "matched": true,
+      "score": 0.9837657170141652,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 8,
+      "col": 1,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_058.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        8,
+        1
+      ]
+    },
+    {
+      "filename": "character_059.png",
+      "matched": true,
+      "score": 0.9820388349514563,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 8,
+      "col": 2,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_059.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        8,
+        2
+      ]
+    },
+    {
+      "filename": "character_062.png",
+      "matched": true,
+      "score": 0.979516806722689,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 8,
+      "col": 5,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_062.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        8,
+        5
+      ]
+    },
+    {
+      "filename": "character_063.png",
+      "matched": true,
+      "score": 0.9762040738625547,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 8,
+      "col": 6,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_063.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        8,
+        6
+      ]
+    },
+    {
+      "filename": "character_064.png",
+      "matched": true,
+      "score": 0.9782824933687002,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 8,
+      "col": 7,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_064.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        8,
+        7
+      ]
+    },
+    {
+      "filename": "character_065.png",
+      "matched": true,
+      "score": 0.9736842105263158,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 9,
+      "col": 0,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_065.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        9,
+        0
+      ]
+    },
+    {
+      "filename": "character_066.png",
+      "matched": true,
+      "score": 0.9717565597667639,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 9,
+      "col": 1,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_066.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        9,
+        1
+      ]
+    },
+    {
+      "filename": "character_067.png",
+      "matched": true,
+      "score": 0.9692087361260293,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 9,
+      "col": 2,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_067.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        9,
+        2
+      ]
+    },
+    {
+      "filename": "character_072.png",
+      "matched": true,
+      "score": 0.978784609852571,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 9,
+      "col": 3,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_072.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        9,
+        7
+      ]
+    },
+    {
+      "filename": "character_073.png",
+      "matched": true,
+      "score": 0.9727124183006536,
+      "sheet": "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+      "sheet_order": 0,
+      "row": 9,
+      "col": 4,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_073.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_2c8rgf2c8rgf2c8r-Photoroom.png",
+        9,
+        8
+      ]
+    },
+    {
+      "filename": "character_075.png",
+      "matched": true,
+      "score": 0.9924735297869626,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 0,
+      "col": 0,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_075.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        0,
+        0
+      ]
+    },
+    {
+      "filename": "character_076.png",
+      "matched": true,
+      "score": 0.9894776876267748,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 0,
+      "col": 1,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_076.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        0,
+        1
+      ]
+    },
+    {
+      "filename": "character_077.png",
+      "matched": true,
+      "score": 0.9881465517241379,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 0,
+      "col": 2,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_077.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        0,
+        2
+      ]
+    },
+    {
+      "filename": "character_078.png",
+      "matched": true,
+      "score": 0.989783796626277,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 0,
+      "col": 3,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_078.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        0,
+        3
+      ]
+    },
+    {
+      "filename": "character_079.png",
+      "matched": false,
+      "best_score": 0.3313877307921382,
+      "best_cell": {
+        "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        "row": 0,
+        "col": 3
+      },
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        0,
+        4
+      ]
+    },
+    {
+      "filename": "character_080.png",
+      "matched": true,
+      "score": 0.9806338028169014,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 0,
+      "col": 5,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_080.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        0,
+        5
+      ]
+    },
+    {
+      "filename": "character_081.png",
+      "matched": true,
+      "score": 0.981893984514592,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 0,
+      "col": 6,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_081.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        0,
+        6
+      ]
+    },
+    {
+      "filename": "character_082.png",
+      "matched": true,
+      "score": 0.9890756302521009,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 1,
+      "col": 0,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_082.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        1,
+        0
+      ]
+    },
+    {
+      "filename": "character_083.png",
+      "matched": true,
+      "score": 0.9898954703832753,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 1,
+      "col": 1,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_083.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        1,
+        1
+      ]
+    },
+    {
+      "filename": "character_084.png",
+      "matched": true,
+      "score": 0.9887340301974449,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 1,
+      "col": 2,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_084.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        1,
+        2
+      ]
+    },
+    {
+      "filename": "character_086.png",
+      "matched": true,
+      "score": 0.9778525371460611,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 1,
+      "col": 4,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_086.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        1,
+        4
+      ]
+    },
+    {
+      "filename": "character_087.png",
+      "matched": true,
+      "score": 0.9754695822820297,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 1,
+      "col": 5,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_087.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        1,
+        5
+      ]
+    },
+    {
+      "filename": "character_088.png",
+      "matched": true,
+      "score": 0.9750585641449635,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 1,
+      "col": 6,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_088.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        1,
+        6
+      ]
+    },
+    {
+      "filename": "character_089.png",
+      "matched": true,
+      "score": 0.9888814016172507,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 2,
+      "col": 0,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_089.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        2,
+        0
+      ]
+    },
+    {
+      "filename": "character_090.png",
+      "matched": true,
+      "score": 0.9874785591766724,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 2,
+      "col": 1,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_090.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        2,
+        1
+      ]
+    },
+    {
+      "filename": "character_091.png",
+      "matched": true,
+      "score": 0.9895729890764647,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 2,
+      "col": 2,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_091.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        2,
+        2
+      ]
+    },
+    {
+      "filename": "character_092.png",
+      "matched": true,
+      "score": 0.9864493996569468,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 2,
+      "col": 3,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_092.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        2,
+        3
+      ]
+    },
+    {
+      "filename": "character_093.png",
+      "matched": true,
+      "score": 0.9785714285714285,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 2,
+      "col": 4,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_093.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        2,
+        4
+      ]
+    },
+    {
+      "filename": "character_094.png",
+      "matched": true,
+      "score": 0.9767399267399267,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 2,
+      "col": 5,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_094.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        2,
+        5
+      ]
+    },
+    {
+      "filename": "character_095.png",
+      "matched": true,
+      "score": 0.9764600179694519,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 2,
+      "col": 6,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_095.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        2,
+        6
+      ]
+    },
+    {
+      "filename": "character_096.png",
+      "matched": true,
+      "score": 0.9883902134954028,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 3,
+      "col": 0,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_096.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        3,
+        0
+      ]
+    },
+    {
+      "filename": "character_097.png",
+      "matched": true,
+      "score": 0.9855636658556367,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 3,
+      "col": 1,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_097.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        3,
+        1
+      ]
+    },
+    {
+      "filename": "character_098.png",
+      "matched": true,
+      "score": 0.9842859469141834,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 3,
+      "col": 2,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_098.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        3,
+        2
+      ]
+    },
+    {
+      "filename": "character_099.png",
+      "matched": true,
+      "score": 0.9750487329434698,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 3,
+      "col": 3,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_099.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        3,
+        3
+      ]
+    },
+    {
+      "filename": "character_100.png",
+      "matched": true,
+      "score": 0.978220011055832,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 3,
+      "col": 4,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_100.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        3,
+        4
+      ]
+    },
+    {
+      "filename": "character_101.png",
+      "matched": true,
+      "score": 0.9781196581196581,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 3,
+      "col": 5,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_101.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        3,
+        5
+      ]
+    },
+    {
+      "filename": "character_102.png",
+      "matched": true,
+      "score": 0.9797750378542073,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 3,
+      "col": 6,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_102.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        3,
+        6
+      ]
+    },
+    {
+      "filename": "character_103.png",
+      "matched": true,
+      "score": 0.9876126126126126,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 4,
+      "col": 0,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_103.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        4,
+        0
+      ]
+    },
+    {
+      "filename": "character_104.png",
+      "matched": true,
+      "score": 0.9832293832293832,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 4,
+      "col": 1,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_104.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        4,
+        1
+      ]
+    },
+    {
+      "filename": "character_105.png",
+      "matched": true,
+      "score": 0.9857954545454546,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 4,
+      "col": 2,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_105.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        4,
+        2
+      ]
+    },
+    {
+      "filename": "character_106.png",
+      "matched": true,
+      "score": 0.9825487012987013,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 4,
+      "col": 3,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_106.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        4,
+        3
+      ]
+    },
+    {
+      "filename": "character_107.png",
+      "matched": true,
+      "score": 0.9855371900826446,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 4,
+      "col": 4,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_107.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        4,
+        4
+      ]
+    },
+    {
+      "filename": "character_108.png",
+      "matched": true,
+      "score": 0.9784090909090909,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 4,
+      "col": 5,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_108.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        4,
+        5
+      ]
+    },
+    {
+      "filename": "character_109.png",
+      "matched": true,
+      "score": 0.9731310257626047,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 4,
+      "col": 6,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_109.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        4,
+        6
+      ]
+    },
+    {
+      "filename": "character_110.png",
+      "matched": true,
+      "score": 0.9857244318181818,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 5,
+      "col": 0,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_110.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        5,
+        0
+      ]
+    },
+    {
+      "filename": "character_111.png",
+      "matched": true,
+      "score": 0.987212643678161,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 5,
+      "col": 1,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_111.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        5,
+        1
+      ]
+    },
+    {
+      "filename": "character_112.png",
+      "matched": true,
+      "score": 0.988740959894806,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 5,
+      "col": 2,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_112.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        5,
+        2
+      ]
+    },
+    {
+      "filename": "character_113.png",
+      "matched": true,
+      "score": 0.9788077659283566,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 5,
+      "col": 3,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_113.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        5,
+        3
+      ]
+    },
+    {
+      "filename": "character_114.png",
+      "matched": true,
+      "score": 0.9804945054945055,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 5,
+      "col": 4,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_114.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        5,
+        4
+      ]
+    },
+    {
+      "filename": "character_115.png",
+      "matched": true,
+      "score": 0.9782648401826484,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 5,
+      "col": 5,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_115.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        5,
+        5
+      ]
+    },
+    {
+      "filename": "character_116.png",
+      "matched": true,
+      "score": 0.9779510811768877,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 5,
+      "col": 6,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_116.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        5,
+        6
+      ]
+    },
+    {
+      "filename": "character_117.png",
+      "matched": true,
+      "score": 0.9861543786777431,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 6,
+      "col": 0,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_117.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        6,
+        0
+      ]
+    },
+    {
+      "filename": "character_118.png",
+      "matched": true,
+      "score": 0.9821580288870009,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 6,
+      "col": 1,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_118.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        6,
+        1
+      ]
+    },
+    {
+      "filename": "character_119.png",
+      "matched": true,
+      "score": 0.9792491683827024,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 6,
+      "col": 2,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_119.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        6,
+        2
+      ]
+    },
+    {
+      "filename": "character_120.png",
+      "matched": true,
+      "score": 0.9751572327044025,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 6,
+      "col": 3,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_120.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        6,
+        3
+      ]
+    },
+    {
+      "filename": "character_121.png",
+      "matched": true,
+      "score": 0.9793314162473041,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 6,
+      "col": 4,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_121.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        6,
+        4
+      ]
+    },
+    {
+      "filename": "character_122.png",
+      "matched": true,
+      "score": 0.9733471789546556,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 6,
+      "col": 5,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_122.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        6,
+        5
+      ]
+    },
+    {
+      "filename": "character_123.png",
+      "matched": true,
+      "score": 0.9710280373831776,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 6,
+      "col": 6,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_123.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        6,
+        6
+      ]
+    },
+    {
+      "filename": "character_124.png",
+      "matched": true,
+      "score": 0.9776893808370806,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 7,
+      "col": 0,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_124.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        7,
+        0
+      ]
+    },
+    {
+      "filename": "character_125.png",
+      "matched": true,
+      "score": 0.969396551724138,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 7,
+      "col": 1,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_125.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        7,
+        1
+      ]
+    },
+    {
+      "filename": "character_126.png",
+      "matched": true,
+      "score": 0.9828900071890726,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 7,
+      "col": 2,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_126.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        7,
+        2
+      ]
+    },
+    {
+      "filename": "character_128.png",
+      "matched": true,
+      "score": 0.9778219132737505,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 7,
+      "col": 4,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_128.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        7,
+        4
+      ]
+    },
+    {
+      "filename": "character_129.png",
+      "matched": true,
+      "score": 0.9721269296740995,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 7,
+      "col": 5,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_129.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        7,
+        5
+      ]
+    },
+    {
+      "filename": "character_130.png",
+      "matched": true,
+      "score": 0.9757727652464494,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 7,
+      "col": 6,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_130.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        7,
+        6
+      ]
+    },
+    {
+      "filename": "character_131.png",
+      "matched": true,
+      "score": 0.971577380952381,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 7,
+      "col": 7,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_131.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        7,
+        7
+      ]
+    },
+    {
+      "filename": "character_132.png",
+      "matched": true,
+      "score": 0.9798214285714286,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 8,
+      "col": 0,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_132.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        8,
+        0
+      ]
+    },
+    {
+      "filename": "character_133.png",
+      "matched": true,
+      "score": 0.9834967320261437,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 8,
+      "col": 1,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_133.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        8,
+        1
+      ]
+    },
+    {
+      "filename": "character_134.png",
+      "matched": true,
+      "score": 0.9828431372549019,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 8,
+      "col": 2,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_134.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        8,
+        2
+      ]
+    },
+    {
+      "filename": "character_135.png",
+      "matched": true,
+      "score": 0.9830260462393913,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 8,
+      "col": 3,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_135.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        8,
+        3
+      ]
+    },
+    {
+      "filename": "character_136.png",
+      "matched": true,
+      "score": 0.9853832442067736,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 8,
+      "col": 4,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_136.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        8,
+        4
+      ]
+    },
+    {
+      "filename": "character_137.png",
+      "matched": true,
+      "score": 0.9772815533980582,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 8,
+      "col": 5,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_137.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        8,
+        5
+      ]
+    },
+    {
+      "filename": "character_138.png",
+      "matched": true,
+      "score": 0.97920892494929,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 8,
+      "col": 6,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_138.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        8,
+        6
+      ]
+    },
+    {
+      "filename": "character_139.png",
+      "matched": true,
+      "score": 0.9726894555977573,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 9,
+      "col": 0,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_139.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        9,
+        0
+      ]
+    },
+    {
+      "filename": "character_140.png",
+      "matched": true,
+      "score": 0.966678939617084,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 9,
+      "col": 1,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_140.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        9,
+        1
+      ]
+    },
+    {
+      "filename": "character_141.png",
+      "matched": true,
+      "score": 0.9733063328424153,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 9,
+      "col": 2,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_141.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        9,
+        2
+      ]
+    },
+    {
+      "filename": "character_142.png",
+      "matched": true,
+      "score": 0.9716141001855287,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 9,
+      "col": 3,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_142.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        9,
+        3
+      ]
+    },
+    {
+      "filename": "character_143.png",
+      "matched": true,
+      "score": 0.9745824255628177,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 9,
+      "col": 4,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_143.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        9,
+        4
+      ]
+    },
+    {
+      "filename": "character_144.png",
+      "matched": true,
+      "score": 0.9775577557755776,
+      "sheet": "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+      "sheet_order": 1,
+      "row": 9,
+      "col": 5,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_144.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_np1bgtnp1bgtnp1b-Photoroom.png",
+        9,
+        5
+      ]
+    },
+    {
+      "filename": "character_146.png",
+      "matched": true,
+      "score": 0.988363268403744,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 0,
+      "col": 0,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_146.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        0,
+        0
+      ]
+    },
+    {
+      "filename": "character_147.png",
+      "matched": true,
+      "score": 0.9884801189149015,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 0,
+      "col": 1,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_147.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        0,
+        1
+      ]
+    },
+    {
+      "filename": "character_148.png",
+      "matched": true,
+      "score": 0.9865877712031558,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 0,
+      "col": 2,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_148.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        0,
+        2
+      ]
+    },
+    {
+      "filename": "character_149.png",
+      "matched": false,
+      "reason": "empty_crop"
+    },
+    {
+      "filename": "character_150.png",
+      "matched": true,
+      "score": 0.9780821917808219,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 0,
+      "col": 3,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_150.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        0,
+        4
+      ]
+    },
+    {
+      "filename": "character_151.png",
+      "matched": true,
+      "score": 0.9802827380952381,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 0,
+      "col": 4,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_151.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        0,
+        5
+      ]
+    },
+    {
+      "filename": "character_152.png",
+      "matched": true,
+      "score": 0.9787309048178613,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 0,
+      "col": 5,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_152.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        0,
+        6
+      ]
+    },
+    {
+      "filename": "character_153.png",
+      "matched": true,
+      "score": 0.9870892018779343,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 1,
+      "col": 0,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_153.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        1,
+        0
+      ]
+    },
+    {
+      "filename": "character_154.png",
+      "matched": true,
+      "score": 0.9882488479262673,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 1,
+      "col": 1,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_154.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        1,
+        1
+      ]
+    },
+    {
+      "filename": "character_155.png",
+      "matched": true,
+      "score": 0.9854611540208996,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 1,
+      "col": 2,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_155.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        1,
+        2
+      ]
+    },
+    {
+      "filename": "character_156.png",
+      "matched": false,
+      "reason": "empty_crop"
+    },
+    {
+      "filename": "character_157.png",
+      "matched": true,
+      "score": 0.9744395844723893,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 1,
+      "col": 3,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_157.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        1,
+        4
+      ]
+    },
+    {
+      "filename": "character_159.png",
+      "matched": true,
+      "score": 0.9755283648498332,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 1,
+      "col": 4,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_159.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        1,
+        6
+      ]
+    },
+    {
+      "filename": "character_160.png",
+      "matched": true,
+      "score": 0.9760752688172043,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 1,
+      "col": 5,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_160.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        1,
+        7
+      ]
+    },
+    {
+      "filename": "character_161.png",
+      "matched": true,
+      "score": 0.9837678307919331,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 2,
+      "col": 0,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_161.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        2,
+        0
+      ]
+    },
+    {
+      "filename": "character_162.png",
+      "matched": true,
+      "score": 0.9839786381842457,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 2,
+      "col": 1,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_162.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        2,
+        1
+      ]
+    },
+    {
+      "filename": "character_163.png",
+      "matched": true,
+      "score": 0.9822936972059779,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 2,
+      "col": 2,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_163.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        2,
+        2
+      ]
+    },
+    {
+      "filename": "character_164.png",
+      "matched": true,
+      "score": 0.9761996904024768,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 3,
+      "col": 3,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_164.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        2,
+        3
+      ]
+    },
+    {
+      "filename": "character_165.png",
+      "matched": true,
+      "score": 0.977866473149492,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 2,
+      "col": 3,
+      "locale": "paris",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/paris/female/character_165.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        2,
+        4
+      ]
+    },
+    {
+      "filename": "character_166.png",
+      "matched": true,
+      "score": 0.9726052249637155,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 2,
+      "col": 4,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_166.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        2,
+        5
+      ]
+    },
+    {
+      "filename": "character_167.png",
+      "matched": true,
+      "score": 0.9743681025275899,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 2,
+      "col": 5,
+      "locale": "paris",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/paris/male/character_167.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        2,
+        6
+      ]
+    },
+    {
+      "filename": "character_168.png",
+      "matched": true,
+      "score": 0.9866829940303077,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 3,
+      "col": 0,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_168.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        3,
+        0
+      ]
+    },
+    {
+      "filename": "character_169.png",
+      "matched": true,
+      "score": 0.9833333333333333,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 3,
+      "col": 1,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_169.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        3,
+        1
+      ]
+    },
+    {
+      "filename": "character_170.png",
+      "matched": true,
+      "score": 0.9828137490007993,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 3,
+      "col": 2,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_170.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        3,
+        2
+      ]
+    },
+    {
+      "filename": "character_172.png",
+      "matched": true,
+      "score": 0.9781606672519754,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 3,
+      "col": 4,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_172.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        3,
+        4
+      ]
+    },
+    {
+      "filename": "character_173.png",
+      "matched": true,
+      "score": 0.9763574660633484,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 3,
+      "col": 5,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_173.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        3,
+        5
+      ]
+    },
+    {
+      "filename": "character_174.png",
+      "matched": true,
+      "score": 0.9763187429854097,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 3,
+      "col": 6,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_174.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        3,
+        6
+      ]
+    },
+    {
+      "filename": "character_175.png",
+      "matched": true,
+      "score": 0.9836774553571429,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 4,
+      "col": 0,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_175.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        4,
+        0
+      ]
+    },
+    {
+      "filename": "character_176.png",
+      "matched": true,
+      "score": 0.9832539142273655,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 4,
+      "col": 1,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_176.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        4,
+        1
+      ]
+    },
+    {
+      "filename": "character_177.png",
+      "matched": true,
+      "score": 0.9804237060874229,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 4,
+      "col": 2,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_177.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        4,
+        2
+      ]
+    },
+    {
+      "filename": "character_178.png",
+      "matched": true,
+      "score": 0.9830933826443006,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 4,
+      "col": 3,
+      "locale": "london",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/london/female/character_178.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        4,
+        3
+      ]
+    },
+    {
+      "filename": "character_179.png",
+      "matched": true,
+      "score": 0.9822549822549822,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 4,
+      "col": 4,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_179.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        4,
+        4
+      ]
+    },
+    {
+      "filename": "character_180.png",
+      "matched": true,
+      "score": 0.9747425997425997,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 4,
+      "col": 5,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_180.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        4,
+        5
+      ]
+    },
+    {
+      "filename": "character_181.png",
+      "matched": true,
+      "score": 0.9742373952900268,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 4,
+      "col": 6,
+      "locale": "london",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/london/male/character_181.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        4,
+        6
+      ]
+    },
+    {
+      "filename": "character_182.png",
+      "matched": true,
+      "score": 0.982483076278875,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 5,
+      "col": 0,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_182.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        5,
+        0
+      ]
+    },
+    {
+      "filename": "character_183.png",
+      "matched": true,
+      "score": 0.9836510316270436,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 5,
+      "col": 1,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_183.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        5,
+        1
+      ]
+    },
+    {
+      "filename": "character_184.png",
+      "matched": true,
+      "score": 0.9867711905928467,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 5,
+      "col": 2,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_184.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        5,
+        2
+      ]
+    },
+    {
+      "filename": "character_185.png",
+      "matched": true,
+      "score": 0.9774802191113816,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 5,
+      "col": 3,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_185.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        5,
+        3
+      ]
+    },
+    {
+      "filename": "character_186.png",
+      "matched": true,
+      "score": 0.9811813186813186,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 5,
+      "col": 4,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_186.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        5,
+        4
+      ]
+    },
+    {
+      "filename": "character_187.png",
+      "matched": true,
+      "score": 0.97550576068221,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 5,
+      "col": 5,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_187.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        5,
+        5
+      ]
+    },
+    {
+      "filename": "character_188.png",
+      "matched": true,
+      "score": 0.9759791490560721,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 5,
+      "col": 6,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_188.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        5,
+        6
+      ]
+    },
+    {
+      "filename": "character_189.png",
+      "matched": true,
+      "score": 0.9826599326599327,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 6,
+      "col": 0,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_189.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        6,
+        0
+      ]
+    },
+    {
+      "filename": "character_190.png",
+      "matched": true,
+      "score": 0.9792929292929293,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 6,
+      "col": 1,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_190.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        6,
+        1
+      ]
+    },
+    {
+      "filename": "character_191.png",
+      "matched": true,
+      "score": 0.9796296296296296,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 6,
+      "col": 2,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_191.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        6,
+        2
+      ]
+    },
+    {
+      "filename": "character_192.png",
+      "matched": true,
+      "score": 0.9725754557989889,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 6,
+      "col": 3,
+      "locale": "frontier_us",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/frontier_us/female/character_192.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        6,
+        3
+      ]
+    },
+    {
+      "filename": "character_193.png",
+      "matched": true,
+      "score": 0.9786324786324786,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 6,
+      "col": 4,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_193.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        6,
+        4
+      ]
+    },
+    {
+      "filename": "character_194.png",
+      "matched": true,
+      "score": 0.9761659807956105,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 6,
+      "col": 5,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_194.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        6,
+        5
+      ]
+    },
+    {
+      "filename": "character_195.png",
+      "matched": true,
+      "score": 0.9749955027882713,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 6,
+      "col": 6,
+      "locale": "frontier_us",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/frontier_us/male/character_195.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        6,
+        6
+      ]
+    },
+    {
+      "filename": "character_196.png",
+      "matched": true,
+      "score": 0.9781144781144782,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 7,
+      "col": 0,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_196.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        7,
+        0
+      ]
+    },
+    {
+      "filename": "character_197.png",
+      "matched": true,
+      "score": 0.9681939190135912,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 7,
+      "col": 1,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_197.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        7,
+        1
+      ]
+    },
+    {
+      "filename": "character_198.png",
+      "matched": true,
+      "score": 0.9787203450754852,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 7,
+      "col": 4,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_198.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        7,
+        2
+      ]
+    },
+    {
+      "filename": "character_199.png",
+      "matched": true,
+      "score": 0.9757644762524398,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 7,
+      "col": 5,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_199.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        7,
+        3
+      ]
+    },
+    {
+      "filename": "character_201.png",
+      "matched": true,
+      "score": 0.9741616272677295,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 7,
+      "col": 7,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_201.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        7,
+        5
+      ]
+    },
+    {
+      "filename": "character_202.png",
+      "matched": true,
+      "score": 0.9771598808341608,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 7,
+      "col": 8,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_202.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        7,
+        6
+      ]
+    },
+    {
+      "filename": "character_204.png",
+      "matched": true,
+      "score": 0.972435141509434,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 7,
+      "col": 10,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_204.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        7,
+        8
+      ]
+    },
+    {
+      "filename": "character_205.png",
+      "matched": true,
+      "score": 0.978500171998624,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 8,
+      "col": 0,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_205.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        8,
+        0
+      ]
+    },
+    {
+      "filename": "character_206.png",
+      "matched": true,
+      "score": 0.9809008435460768,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 8,
+      "col": 1,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_206.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        8,
+        1
+      ]
+    },
+    {
+      "filename": "character_207.png",
+      "matched": true,
+      "score": 0.9781951297151043,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 8,
+      "col": 2,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_207.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        8,
+        2
+      ]
+    },
+    {
+      "filename": "character_208.png",
+      "matched": true,
+      "score": 0.9831524842946887,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 8,
+      "col": 3,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_208.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        8,
+        3
+      ]
+    },
+    {
+      "filename": "character_209.png",
+      "matched": true,
+      "score": 0.9809173669467787,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 8,
+      "col": 4,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_209.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        8,
+        4
+      ]
+    },
+    {
+      "filename": "character_210.png",
+      "matched": true,
+      "score": 0.9773462783171522,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 8,
+      "col": 5,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_210.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        8,
+        5
+      ]
+    },
+    {
+      "filename": "character_211.png",
+      "matched": true,
+      "score": 0.9757957559681698,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 8,
+      "col": 6,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_211.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        8,
+        6
+      ]
+    },
+    {
+      "filename": "character_212.png",
+      "matched": true,
+      "score": 0.9720730397422127,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 9,
+      "col": 0,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_212.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        9,
+        0
+      ]
+    },
+    {
+      "filename": "character_213.png",
+      "matched": true,
+      "score": 0.9754744002864304,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 9,
+      "col": 1,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_213.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        9,
+        1
+      ]
+    },
+    {
+      "filename": "character_214.png",
+      "matched": true,
+      "score": 0.9708199069101324,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 9,
+      "col": 2,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_214.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        9,
+        2
+      ]
+    },
+    {
+      "filename": "character_215.png",
+      "matched": true,
+      "score": 0.9698773448773449,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 9,
+      "col": 3,
+      "locale": "ming_china",
+      "gender": "female",
+      "dest": "public/sprites/sprite_organizer/ming_china/female/character_215.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        9,
+        3
+      ]
+    },
+    {
+      "filename": "character_216.png",
+      "matched": true,
+      "score": 0.9724919093851133,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 9,
+      "col": 4,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_216.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        9,
+        4
+      ]
+    },
+    {
+      "filename": "character_217.png",
+      "matched": true,
+      "score": 0.9696239151398264,
+      "sheet": "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+      "sheet_order": 2,
+      "row": 9,
+      "col": 5,
+      "locale": "ming_china",
+      "gender": "male",
+      "dest": "public/sprites/sprite_organizer/ming_china/male/character_217.png",
+      "manifest_slot": [
+        "Gemini_Generated_Image_qgs1z9qgs1z9qgs1-Photoroom.png",
+        9,
+        5
+      ]
+    }
+  ],
+  "unmatched": [
+    "character_035.png",
+    "character_079.png",
+    "character_149.png",
+    "character_156.png"
+  ]
+}
