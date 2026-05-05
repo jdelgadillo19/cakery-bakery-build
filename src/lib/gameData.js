@@ -3,14 +3,84 @@
 // ============================================
 
 import { loadSpriteConfig, pickName, getSpriteMetadata } from "@/lib/spriteConfig";
-import { customerPortraitUrls } from "@/lib/localAssets";
+import { customerPortraitSvgOnlyStrip } from "@/lib/localAssets";
+import { bakedGoodsImageUrl } from "@/lib/bakedGoodsImageUrl";
+import { getDefaultVillageBgUrl } from "@/lib/localeScenes";
+import { pickHonorificForLocale } from "@/lib/customerHonorifics";
+import {
+  hasPortraitInventoryForVillage,
+  pickPortraitCatalogEntry,
+  catalogEntryToUrl,
+  buildCatalogPortraitStrip,
+} from "@/lib/customerPortraitInventory";
 
-// Character portraits per village — placeholders until art ships
+/** Strip pooled honorifics so we can prefix the locale-specific honorific once */
+const ADDRESS_PREFIXES = [
+  "Young Mistress",
+  "Young Master",
+  "Mademoiselle",
+  "Professeur",
+  "Maîtresse",
+  "Grandmother",
+  "Grandfather",
+  "Grand-mère",
+  "Le Petit",
+  "Old Maid",
+  "Old Sir",
+  "Old Mr.",
+  "Old Widow",
+  "Flower Girl",
+  "Tea Mistress",
+  "Tea Master",
+  "Silk Weaver",
+  "Miss",
+  "Mrs.",
+  "Mrs",
+  "Mr.",
+  "Mr",
+  "Lady",
+  "Lord",
+  "Sir",
+  "Madame",
+  "Monsieur",
+  "Madam",
+  "Sheriff",
+  "Deputy",
+  "Reverend",
+  "Teacher",
+  "Little",
+  "Young",
+  "Boy",
+  "Girl",
+];
+
+function stripAddressPrefix(displayName) {
+  let s = String(displayName || "").trim();
+  if (!s) return "Guest";
+  const sorted = [...ADDRESS_PREFIXES].sort((a, b) => b.length - a.length);
+  for (const p of sorted) {
+    const esc = p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const re = new RegExp(`^${esc}\\.?\\s+`, "i");
+    if (re.test(s)) {
+      s = s.replace(re, "").trim();
+      break;
+    }
+  }
+  return s || "Guest";
+}
+
+function customerPortraitsForVillage(villageKey) {
+  return hasPortraitInventoryForVillage(villageKey)
+    ? buildCatalogPortraitStrip(villageKey)
+    : customerPortraitSvgOnlyStrip(villageKey);
+}
+
+// Character portraits per village — sprite_organizer index when populated, else SVG placeholders
 export const CUSTOMER_PORTRAITS = {
-  frontier_us: customerPortraitUrls("frontier_us"),
-  paris: customerPortraitUrls("paris"),
-  ming_china: customerPortraitUrls("ming_china"),
-  london: customerPortraitUrls("london"),
+  frontier_us: customerPortraitsForVillage("frontier_us"),
+  paris: customerPortraitsForVillage("paris"),
+  ming_china: customerPortraitsForVillage("ming_china"),
+  london: customerPortraitsForVillage("london"),
 };
 
 export const VILLAGES = {
@@ -21,7 +91,7 @@ export const VILLAGES = {
     currency: "$",
     currencyName: "dollars",
     description: "A bustling frontier town where gold miners and cowboys need their daily bread.",
-    bgImage: "/sprites/scenes/frontier_us.webp",
+    bgImage: getDefaultVillageBgUrl("frontier_us"),
     accent: "from-amber-700 to-yellow-600",
     customerNames: [
       "Sheriff Buck", "Miss Dolly", "Old Pete", "Cowboy Jake", "Widow Martha",
@@ -36,7 +106,7 @@ export const VILLAGES = {
     currency: "₣",
     currencyName: "francs",
     description: "A charming Parisian quarter where artists and poets crave your pastries.",
-    bgImage: "/sprites/scenes/paris.webp",
+    bgImage: getDefaultVillageBgUrl("paris"),
     accent: "from-rose-600 to-pink-500",
     customerNames: [
       "Monsieur Pierre", "Madame Colette", "Le Petit Louis", "Mademoiselle Sophie",
@@ -52,7 +122,7 @@ export const VILLAGES = {
     currency: "文",
     currencyName: "wén",
     description: "A peaceful watertown where scholars and merchants appreciate fine mooncakes.",
-    bgImage: "/sprites/scenes/ming_china.webp",
+    bgImage: getDefaultVillageBgUrl("ming_china"),
     accent: "from-red-700 to-orange-600",
     customerNames: [
       "Scholar Wang", "Merchant Li", "Grandmother Chen", "Young Mei",
@@ -68,7 +138,7 @@ export const VILLAGES = {
     currency: "d",
     currencyName: "pence",
     description: "A foggy London market where chimney sweeps and lords alike love your scones.",
-    bgImage: "/sprites/scenes/london.webp",
+    bgImage: getDefaultVillageBgUrl("london"),
     accent: "from-slate-700 to-slate-500",
     customerNames: [
       "Lord Pemberton", "Mrs. Higgins", "Young Oliver", "Lady Ashworth",
@@ -211,7 +281,7 @@ export function getProductsForDifficulty(villageKey, difficulty) {
     return {
       ...p,
       price: Math.round(price * 100) / 100,
-      image: `/sprites/products/${p.id}.png`,
+      image: bakedGoodsImageUrl(p.id),
     };
   });
 }
@@ -267,24 +337,55 @@ export function generateCustomerOrder(villageKey, difficulty, products, couponPc
   const nextTen = nextFive % 10 === 0 ? nextFive : nextFive + 5;
   const payment = Math.random() < 0.4 ? nextTen : nextFive;
 
-  // Portrait — pick randomly from available portraits, then look up gender-validated name
+  const spriteConfig = loadSpriteConfig();
+
+  // sprite_organizer: honorific → gender (+ age for names); portrait = random PNG in village/gender folder
+  if (hasPortraitInventoryForVillage(villageKey)) {
+    const honor = pickHonorificForLocale(villageKey);
+    const gender = honor.gender;
+    const ageBand = honor.ageBand;
+    const pooled = pickName(villageKey, gender, ageBand, spriteConfig);
+    const shortName = stripAddressPrefix(pooled);
+    const catalogHit = pickPortraitCatalogEntry(villageKey, gender);
+    const portrait = catalogEntryToUrl(catalogHit);
+    return {
+      customerName: shortName,
+      customerHonorific: honor.honorific,
+      customerGender: gender,
+      customerAgeBand: ageBand,
+      customerTitle: honor.honorific || "customer",
+      portraitCatalogId: catalogHit?.id ?? null,
+      items: orderItems,
+      subtotal,
+      couponPct: couponPct || null,
+      discountAmount,
+      orderTotal,
+      payment,
+      correctChange: Math.round((payment - orderTotal) * 100) / 100,
+      portrait,
+      portraitIndex: 0,
+      portraitFallback: null,
+    };
+  }
+
+  // Legacy tiles — random portrait, then gender from sprite metadata / archetype band
   const portraits = CUSTOMER_PORTRAITS[villageKey] || [];
   const portraitIndex = portraits.length > 0 ? Math.floor(Math.random() * portraits.length) : 0;
   const entry = portraits[portraitIndex];
   const portrait = typeof entry === "string" ? entry : entry?.url ?? null;
   const portraitFallback = typeof entry === "string" ? null : entry?.fallback ?? null;
 
-  // Sprite config — get gender for this portrait, then pick a matching name
-  const spriteConfig = loadSpriteConfig();
   const spriteMeta = getSpriteMetadata(villageKey, portraitIndex, spriteConfig);
-  const ageBand = spriteMeta.ageBand || "adult";
-  const name = pickName(villageKey, spriteMeta.gender, ageBand, spriteConfig);
+  const legacyAgeBand = spriteMeta.ageBand || "adult";
+  const name = pickName(villageKey, spriteMeta.gender, legacyAgeBand, spriteConfig);
 
   return {
     customerName: name,
+    customerHonorific: null,
     customerGender: spriteMeta.gender,
-    customerAgeBand: ageBand,
+    customerAgeBand: legacyAgeBand,
     customerTitle: spriteMeta.title,
+    portraitCatalogId: null,
     items: orderItems,
     subtotal,
     couponPct: couponPct || null,

@@ -299,7 +299,7 @@ Convert all `src/lib/*.js` -> `.ts` (or `.tsx` if React present), starting with:
 - `src/lib/recipeBook.js`
 - `src/lib/recipeData.js`
 - `src/lib/gameEngine.js`
-- `src/lib/spriteProcessor.js`
+- `src/lib/customerPortraitInventory.js`
 - `src/lib/leaderboard.js`
 - `src/lib/AuthContext.jsx` -> `src/lib/AuthContext.tsx`
 
@@ -395,7 +395,7 @@ Mitigation:
 
 Hotspots:
 
-- `src/lib/spriteProcessor.js`
+- `src/data/spriteOrganizerPortraitIndex.json` (generated index; `npm run build-sprite-index`)
 - `src/lib/localNames.js`
 - `src/lib/freeSessionState.js`
 

@@ -24,11 +24,15 @@ export default function CustomerOrder({ order, currency, showTotal }) {
   const [portraitBroken, setPortraitBroken] = useState(false);
   useEffect(() => {
     setPortraitBroken(false);
-  }, [order?.portrait, order?.customerName]);
+  }, [order?.portrait, order?.customerName, order?.customerHonorific]);
 
   if (!order) return null;
 
   const portraitSrc = portraitBroken && order.portraitFallback ? order.portraitFallback : order.portrait;
+
+  const displayName = order.customerHonorific
+    ? `${order.customerHonorific} ${order.customerName}`.trim()
+    : order.customerName;
 
   return (
     <motion.div
@@ -39,7 +43,7 @@ export default function CustomerOrder({ order, currency, showTotal }) {
       <div className="flex items-center gap-4 mb-4">
         {/* Character portrait */}
         <motion.div
-          key={order.customerName}
+          key={`${order.customerHonorific ?? ""}-${order.customerName}-${order.portrait ?? ""}`}
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -48,7 +52,7 @@ export default function CustomerOrder({ order, currency, showTotal }) {
           {portraitSrc ? (
             <img
               src={portraitSrc}
-              alt={order.customerName}
+              alt={displayName}
               className="w-full h-full object-contain drop-shadow-md"
               onError={() => setPortraitBroken(true)}
             />
@@ -62,7 +66,7 @@ export default function CustomerOrder({ order, currency, showTotal }) {
         {/* Speech bubble */}
         <div className="flex-1 relative bg-secondary/60 rounded-2xl rounded-tl-sm px-4 py-3 border border-border">
           <div className="absolute -left-2 top-4 w-0 h-0 border-t-8 border-t-transparent border-r-8 border-r-secondary/60 border-b-8 border-b-transparent" />
-          <h3 className="font-display font-bold text-foreground text-sm">{order.customerName}</h3>
+          <h3 className="font-display font-bold text-foreground text-sm">{displayName}</h3>
           <p className="text-xs text-muted-foreground font-body italic mt-0.5">
             "Hello! I'd like to order..."
           </p>

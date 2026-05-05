@@ -32,3 +32,13 @@ dist-ssr
 
 # Cursor / local IDE
 .cursor/
+
+# Sprite QA — regenerated after extraction changes (gitignore until corpus stabilizes)
+public/sprites/characters_extracted/_border_line_audit.json
+public/sprites/characters_extracted/_border_line_audit_report.md
+public/sprites/_sprite_duplicate_audit.md
+
+# Local BGM tuning artifacts
+.bgmLoopConstraints.dev.json
+scripts/__pycache__/
+tmp_refs/

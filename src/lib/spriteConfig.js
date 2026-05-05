@@ -2,7 +2,7 @@
 // CAKERY BAKERY — Sprite metadata & name pools (gender × age band)
 // Portrait index i maps to archetype bands (3 sprites each):
 //   0–2 elder men, 3–5 elder women, 6–8 adult men, 9–11 adult women,
-//   12–14 boys, 15–17 girls — consistent across villages (tile art rotates).
+//   12–14 boys, 15–17 girls — consistent across villages (catalog or SVG strip).
 // Persisted under localStorage "cakery_sprite_config".
 // ============================================================
 
@@ -14,7 +14,7 @@ export const PORTRAITS_PER_VILLAGE = 18;
 export const SPRITE_TITLES = ["customer", "baker", "chef", "merchant", "scholar", "artist", "constable", "farmer"];
 
 /** Archetype for portrait indices 0–17 (repeat pattern every village). */
-function archetypeAtIndex(portraitIndex) {
+export function archetypeAtIndex(portraitIndex) {
   const bands = [
     { gender: "male", ageBand: "elder" },
     { gender: "female", ageBand: "elder" },

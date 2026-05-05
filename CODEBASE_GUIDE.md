@@ -75,13 +75,15 @@ Defined in `src/App.jsx`:
 
 ### Sprite assets under `public/sprites/`
 
-Ship PNGs here (optional — the UI falls back to emoji or SVG placeholders if files are missing):
+Ship PNGs/WebP here (optional — the UI falls back to emoji or SVG placeholders if files are missing):
 
-- `public/sprites/customers/{villageKey}_{0|1}.png` (e.g. `paris_0.png`, `frontier_us_1.png`)
-- `public/sprites/owner/{villageKey}.png`
-- `public/sprites/products/{productId}.png` (IDs match rows in `PRODUCTS` per village in [`src/lib/gameData.js`](src/lib/gameData.js))
+- **Customer portraits (runtime):** `public/sprites/sprite_organizer/<villageKey>/<male|female>/character_*.png` — filenames indexed in [`src/data/spriteOrganizerPortraitIndex.json`](src/data/spriteOrganizerPortraitIndex.json) (regenerate with `npm run build-sprite-index`). [`pickHonorificForLocale`](src/lib/customerHonorifics.js) fixes **gender** per locale; [`pickName`](src/lib/spriteConfig.js) uses the same gender + **age band** from that honorific. Each order picks a **random** PNG in the matching village + gender folder via [`pickPortraitCatalogEntry`](src/lib/customerPortraitInventory.js). [`CUSTOMER_PORTRAITS`](src/lib/gameData.js) uses [`buildCatalogPortraitStrip`](src/lib/customerPortraitInventory.js) for Sprite Menu (deterministic per slot).
+- **Locale backdrops:** `public/sprites/scenes/<villageKey>.webp` — village `bgImage` in [`src/lib/gameData.js`](src/lib/gameData.js) via [`publicUrl`](src/lib/publicUrl.js).
+- **Baker / owner:** `public/sprites/owner/<villageKey>.png` per locale from **`Head Bakers-Photoroom.png`** (`public/sprites/source/`): run [`Sprite Cleanup Tools/tools/extract_head_bakers_sheet.py`](../Sprite%20Cleanup%20Tools/tools/extract_head_bakers_sheet.py) (4-column strip **Paris \| London \| Ming China \| Frontier US** left→right). Extraction keeps only the **largest opaque connected component** (removes floating islands and stray caption pixels), crops with padding, then **centers** the sprite on a transparent square canvas. Re-run **`--refine-owner-dir-only`** if you hand-edit PNGs. Copies Paris into `npc/owner_baker_neutral.png` & `owner_baker_carrying.png` until carrying-specific art ships ([`getOwnerPortraitUrl`](src/lib/localAssets.js)).
+- **Cashier products:** `public/sprites/baked_goods/{file}.png` — [`src/lib/bakedGoodsImageUrl.js`](src/lib/bakedGoodsImageUrl.js) + [`src/lib/gameData.js`](src/lib/gameData.js) / [`src/lib/recipeBook.js`](src/lib/recipeBook.js).
+- **Source-only (not loaded by the game):** `public/sprites/source/` — keyed sheets and intermediates from [`scripts/import-sticker-assets.mjs`](scripts/import-sticker-assets.mjs) for offline promotion into the folders above.
 
-Bump `CACHE_VERSION` in [`src/lib/spriteProcessor.js`](src/lib/spriteProcessor.js) when customer or owner source URLs change so cached processed sprites refresh.
+**No runtime sprite processing:** the game loads static URLs only. If you need background removal or cleanup, do it in your asset pipeline before committing PNGs. **QA:** `../Sprite Cleanup Tools/audits/report_border_line_sprites.py` scores **straight silhouette segments** with separate **vertical vs horizontal** σ thresholds (including **soft** LR and **top-only loose** bands gated on color), merges gaps, ignores the bottom **26%** of rows for left/right (legs), and adds **color confidence**. It writes `_border_line_audit.json` / `_border_line_audit_report.md` next to the sprites (**gitignored** during pipeline churn). Optional **`--enforce-straight-cut-contract`** applies CI checks only after you repopulate calibrated ID sets at the top of that script.
 
 ### Story difficulty & end-of-day recipe shop
 
@@ -225,7 +227,7 @@ Domain-specific components:
 - Problem/order presentation (`ProblemPanel`, `CustomerOrder`, `ProductMenu`)
 - Phase/end screens (`EndDayDebrief`, `ArcadeEndScreen`, `ArcadeTallyScreen`)
 - Diagnostics (`DebugOverlay`, `DebugPanel`)
-- Audio/sprite helpers (`AudioManager`, `SpriteProcessingOverlay`)
+- Audio helper (`AudioManager`)
 
 ### Generic UI Components (`src/components/ui`)
 
@@ -256,13 +258,13 @@ Used to unlock/limit features (for example role availability in free vs full beh
 - `src/lib/audio.js`
 - `AudioManager` component and page-level music/sfx triggers
 
-### Sprite/Asset Processing
+### Customer portraits & sprite metadata
 
-- `src/hooks/useSpriteRegistry.js`
-- `src/lib/spriteConfig.js`
-- `src/lib/spriteProcessor.js`
+- [`src/lib/spriteConfig.js`](src/lib/spriteConfig.js) — per-slot gender/age bands, editable name pools (Sprite Menu / localStorage).
+- [`src/lib/customerHonorifics.js`](src/lib/customerHonorifics.js) — locale honorific pools used when the portrait catalog is enabled.
+- [`src/lib/customerPortraitInventory.js`](src/lib/customerPortraitInventory.js) — reads `spriteOrganizerPortraitIndex.json`, picks portraits from `sprite_organizer/<village>/<gender>/` (random at order time).
 
-Used to resolve and process character/owner image variants.
+Static URLs only at runtime; preprocessing lives under `scripts/`.
 
 ---
 
@@ -322,4 +324,9 @@ Reference: `README.md`
 - Adjust feature access/free-full behavior:
   - `src/lib/buildConfig.js`
   - `src/lib/freeSessionState.js`
+
+- Customer portraits / locale extracts:
+  - Generation (outside repo): `../Sprite Cleanup Tools/tools/process_character_sheet.py`, `../Sprite Cleanup Tools/tools/audit_and_organize_customers.py`, `../Sprite Cleanup Tools/tools/customer_locale_config.json`
+  - Bad-cut report: `../Sprite Cleanup Tools/audits/report_border_line_sprites.py` → `_border_line_audit_report.md` (alongside sprites; gitignored by default)
+  - Runtime: [`src/lib/gameData.js`](src/lib/gameData.js) (`generateCustomerOrder`), [`src/lib/customerPortraitInventory.js`](src/lib/customerPortraitInventory.js)
 

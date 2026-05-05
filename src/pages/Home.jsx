@@ -31,8 +31,11 @@ export default function Home() {
   const [debugMode, setDebugMode] = useState(false);
   const [spriteMenuOpen, setSpriteMenuOpen] = useState(false);
 
-  // Start menu music on first interaction
+  // Menu music follows this screen; streamed arcade/game BGM stops here immediately.
+  // First interaction still unlocks AudioContext autoplay limits.
   useEffect(() => {
+    unlockAudio();
+    playBGM("menu");
     const handleFirstInteraction = () => {
       unlockAudio();
       playBGM("menu");
@@ -58,11 +61,15 @@ export default function Home() {
         {/* Title */}
         <motion.div initial={{ opacity: 0, y: -30 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
           <motion.div
-            className="text-7xl mb-4 drop-shadow-xl"
+            className="mb-4 drop-shadow-xl flex justify-center"
             animate={{ scale: [1, 1.05, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            🧁
+            <img
+              src="/sprites/ui/menu_cupcake.png"
+              alt="Floating cupcake"
+              className="w-20 h-20 object-contain"
+            />
           </motion.div>
           <h1 className="font-display font-bold text-5xl md:text-6xl text-white drop-shadow-lg mb-2">
             Cakery Bakery

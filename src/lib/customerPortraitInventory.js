@@ -1,30 +1,37 @@
-// Indexed portraits under public/sprites/customers_locale/<villageKey>/ (PNG bytes synced from sprite_organizer).
-// Catalog: src/data/customerPortraitInventory.json
+// Customer portraits from public/sprites/sprite_organizer/<village>/<male|female>/
+// (correct gender folders). Index: src/data/spriteOrganizerPortraitIndex.json
+// — regenerate with: npm run build-sprite-index
 
-import inventory from "../data/customerPortraitInventory.json";
+import organizerIndex from "../data/spriteOrganizerPortraitIndex.json";
 import { publicUrl } from "@/lib/publicUrl";
+import { archetypeAtIndex, PORTRAITS_PER_VILLAGE } from "@/lib/spriteConfig";
+import { customerPortraitSvgFallback } from "@/lib/localAssets";
 
-/** True when JSON lists at least one portrait for this village. */
-export function hasPortraitInventoryForVillage(villageKey) {
-  if (!inventory.enabled || !Array.isArray(inventory.entries)) return false;
-  return inventory.entries.some((e) => e.villageKey === villageKey);
+/** @param {"male"|"female"} gender */
+function pathsForGender(villageKey, gender) {
+  const v = organizerIndex.byVillage?.[villageKey];
+  if (!v) return [];
+  const g = gender === "female" ? "female" : "male";
+  const list = v[g];
+  return Array.isArray(list) ? list : [];
 }
 
-function matchesGenderAge(e, gender, ageBand) {
-  return e.gender === gender && e.ageBand === ageBand;
+/** True when organizer has at least one portrait for this village. */
+export function hasPortraitInventoryForVillage(villageKey) {
+  return pathsForGender(villageKey, "male").length + pathsForGender(villageKey, "female").length > 0;
 }
 
 /**
- * Pick a catalog portrait matching locale + demographics; widen gender-only then locale-only if sparse.
+ * Random portrait for cashier customers: `sprite_organizer/<village>/<gender>/`.
+ * Widen to the other gender’s folder if the preferred pool is empty.
  */
-export function pickPortraitCatalogEntry(villageKey, gender, ageBand) {
-  const entries = inventory.entries || [];
-  let pool = entries.filter((e) => e.villageKey === villageKey && matchesGenderAge(e, gender, ageBand));
+export function pickPortraitCatalogEntry(villageKey, gender) {
+  const makePool = (g) => pathsForGender(villageKey, g).map((p) => ({ id: p.replace(/[^\w]/g, "_"), path: p }));
+
+  let pool = makePool(gender);
   if (pool.length === 0) {
-    pool = entries.filter((e) => e.villageKey === villageKey && e.gender === gender);
-  }
-  if (pool.length === 0) {
-    pool = entries.filter((e) => e.villageKey === villageKey);
+    const alt = gender === "male" ? "female" : "male";
+    pool = makePool(alt);
   }
   if (pool.length === 0) return null;
   return pool[Math.floor(Math.random() * pool.length)];
@@ -33,4 +40,20 @@ export function pickPortraitCatalogEntry(villageKey, gender, ageBand) {
 export function catalogEntryToUrl(entry) {
   if (!entry?.path) return null;
   return publicUrl(entry.path);
+}
+
+/**
+ * One `{ url, fallback }` per cashier sprite slot (0–17), by archetype gender
+ * (stable picks for SpriteMenu; age band is not encoded in filenames).
+ */
+export function buildCatalogPortraitStrip(villageKey) {
+  return Array.from({ length: PORTRAITS_PER_VILLAGE }, (_, portraitIndex) => {
+    const { gender } = archetypeAtIndex(portraitIndex);
+    const paths = pathsForGender(villageKey, gender);
+    const path = paths.length ? paths[portraitIndex % paths.length] : null;
+    return {
+      url: path ? publicUrl(path) : null,
+      fallback: customerPortraitSvgFallback(villageKey, portraitIndex),
+    };
+  });
 }

@@ -5,6 +5,7 @@
 
 import { pickCentsForDifficulty } from "@/lib/gameData";
 import { computeRecipeDisplayPrice } from "@/lib/recipePricing";
+import { bakedGoodsImageUrl } from "@/lib/bakedGoodsImageUrl";
 
 export const RARITY_CONFIG = {
   common:     { label: "Common",     stars: 1, color: "text-muted-foreground", bg: "bg-muted/60",       multiplier: 1.0  },
@@ -24,7 +25,7 @@ export const SLOT_UPGRADE_COSTS = { 5: 40, 6: 95 };
 /** New story saves start with 4 active slots out of 6 max. Legacy saves omit menu_slots → treat as 6/6. */
 export const DEFAULT_MENU_SLOTS = Object.freeze({ maxSlots: 6, unlockedSlots: 4 });
 
-/** Maps recipe_book ids → legacy cashier sprite filenames under public/sprites/products */
+/** Maps recipe_book ids → legacy cashier sprite keys (see bakedGoodsImageUrl.js → sprites/baked_goods/) */
 export const LEGACY_PRODUCT_SPRITE_BY_RECIPE_ID = {
   paris_baguette: "baguette",
   paris_croissant: "croissant",
@@ -153,7 +154,7 @@ export function getMenuProducts(gameSave, difficulty) {
       emoji: r.emoji || "🧁",
       basePrice: baseDisplay,
       price,
-      image: `/sprites/products/${spriteKey}.png`,
+      image: bakedGoodsImageUrl(spriteKey),
     };
   });
 }

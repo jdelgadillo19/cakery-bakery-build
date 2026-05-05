@@ -47,12 +47,9 @@ import DebugOverlay from "@/components/game/DebugOverlay";
 import EndDayDebrief from "@/components/game/EndDayDebrief";
 import ManagerOverview from "@/components/game/ManagerOverview";
 import GameMenu from "@/components/game/GameMenu";
-import SpriteProcessingOverlay from "@/components/game/SpriteProcessingOverlay";
-import { useSpriteRegistry } from "@/hooks/useSpriteRegistry";
-
-const SCENE_IMAGES = Object.fromEntries(
-  Object.keys(VILLAGES).map((k) => [k, VILLAGES[k].bgImage]),
-);
+import WorkdaySceneBackdrop from "@/components/game/WorkdaySceneBackdrop";
+import { getOwnerPortraitUrl } from "@/lib/localAssets";
+import { useWorkDayWeather } from "@/hooks/useWorkDayWeather";
 
 const MAX_ATTEMPTS = 2;
 
@@ -102,9 +99,21 @@ export default function GameDay() {
   const [day5UnlockModal,   setDay5UnlockModal]    = useState(false);
   const [freeRunTotalEarned,setFreeRunTotalEarned] = useState(0);
 
-  const { isProcessing, progress, getCustomerUrl, getOwnerUrl } = useSpriteRegistry();
+  /** @type {'morning'|'afternoon'|'night'} */
+  const [scenePeriod, setScenePeriod] = useState("morning");
+  const [weatherSessionKey, setWeatherSessionKey] = useState(0);
 
   const village = gameSave ? VILLAGES[gameSave.village] : null;
+
+  const weatherActive = dayPhase === "activeDay" || dayPhase === "lastCall";
+  const { isRaining, rainingAtClockOut, captureClockOut } = useWorkDayWeather(dayDuration, {
+    active: weatherActive,
+    resetKey: weatherSessionKey,
+  });
+
+  const showRainPlate =
+    (weatherActive && isRaining) ||
+    (rainingAtClockOut && scenePeriod === "afternoon");
 
   // ── Timer ─────────────────────────────────────────────────────────────────
   // onExpire: transition preDay→lastCall. Guard: only fires during activeDay.
@@ -186,18 +195,14 @@ export default function GameDay() {
     }
     else                          problem = generateCashierProblem(save.village, diff, prods);
 
-    // Resolve processed portrait
-    if (problem?.order) {
-      const idx = problem.order.portraitIndex ?? 0;
-      const url = getCustomerUrl(save.village, idx);
-      if (url) problem = { ...problem, order: { ...problem.order, portrait: url } };
-    }
     return problem;
   }
 
   // ── Enter dayComplete phase ───────────────────────────────────────────────
   const enterDayComplete = useCallback(() => {
     if (dayPhaseRef.current === "dayComplete") return; // guard: no double-trigger
+    captureClockOut();
+    setScenePeriod("afternoon");
     setDayPhase("dayComplete");
     dayPhaseRef.current = "dayComplete";
     timer.stop();
@@ -222,7 +227,7 @@ export default function GameDay() {
       const pay = breakdown.playerEarningsScore;
       setPendingWalletAfterPay(Math.round(((save.total_coins || 0) + pay) * 100) / 100);
     }
-  }, [gameSave, timer]);
+  }, [gameSave, timer, captureClockOut]);
 
   // ── Role selection → enter activeDay ─────────────────────────────────────
   const handleSelectRole = useCallback((role) => {
@@ -238,6 +243,8 @@ export default function GameDay() {
 
     playSFX("click");
     playFastBGM(gameSave.village);
+    setScenePeriod("morning");
+    setWeatherSessionKey((k) => k + 1);
 
     // Reset timer for this day (critical: destroys any previous interval)
     timer.reset(getDayDuration(getEffectiveDifficulty(gameSave)));
@@ -659,6 +666,7 @@ export default function GameDay() {
     timer.reset(getDayDuration(getEffectiveDifficulty(saveForNextDifficulty))); // destroy old timer
     setDayPhase("preDay");
     dayPhaseRef.current = "preDay";
+    setScenePeriod("morning");
   };
 
   // ── Menu actions ──────────────────────────────────────────────────────────
@@ -753,12 +761,11 @@ export default function GameDay() {
       />
       <Day5UnlockModal open={day5UnlockModal} onClose={() => setDay5UnlockModal(false)} />
 
-      <AnimatePresence>
-        {isProcessing && <SpriteProcessingOverlay progress={progress} />}
-      </AnimatePresence>
-
-      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${SCENE_IMAGES[gameSave.village]})` }} />
+      <WorkdaySceneBackdrop
+        villageKey={gameSave.village}
+        period={scenePeriod}
+        raining={showRainPlate}
+      />
       <div className="absolute inset-0 bg-black/30" />
 
       {import.meta.env.DEV && (
@@ -912,6 +919,8 @@ export default function GameDay() {
             <EndDayDebrief
               gameSave={gameSave}
               villageKey={gameSave.village}
+              rainedAtClockOut={rainingAtClockOut}
+              onLeavingBakery={() => setScenePeriod("night")}
               currency={village.currency}
               role={role}
               receipts={dayState.receipts}
@@ -927,7 +936,7 @@ export default function GameDay() {
               walletAfterPay={pendingWalletAfterPay ?? (gameSave.total_coins || 0)}
               currentDay={gameSave.current_day || 1}
               isTutorial={isTutorial}
-              ownerPortraitUrl={getOwnerUrl(gameSave.village)}
+              ownerPortraitUrl={getOwnerPortraitUrl(gameSave.village)}
               scoreBreakdown={pendingScoreBreakdown}
               isNewTop={pendingIsNewTop}
               onComplete={handleDayComplete}

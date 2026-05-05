@@ -4,6 +4,10 @@ Ideas captured here are intentionally **not yet implemented**. Promote items out
 
 ---
 
+## Locale scene backgrounds: lock camera perspective
+
+The generated counter backgrounds under `public/sprites/scenes/` (`*_counter_{morning|afternoon|night|rain}.png`) work for now, but **perspective and framing drift between locales and variants** (counter height, horizon line, window proportions). On a future art pass, standardize a single orthographic or fixed-view template per locale (same lens height, same counter plane, same window crop) so time-of-day and weather swaps crossfade without “jumping” the room. Reference the Paris set as the baseline only after locking one canonical angle document.
+
 ## Arcade Mode: Recipe Progression
 
 Independent recipe unlocks for Arcade Mode. Same/similar recipe pool as Story Mode, but unlock state is tracked separately so progress in one mode does not leak into the other.
@@ -48,14 +52,14 @@ When the player picks Market vs Home (and Recipe vs Apartment within Market), pl
 
 ## Recipe Sprite Assets
 
-After menu unification, the cashier `ProductMenu` keys off `recipe.id` (e.g. `paris_eclair`) instead of legacy product ids (e.g. `eclair`). Existing PNGs under `public/sprites/products/` use legacy ids.
+After menu unification, the cashier `ProductMenu` may key directly off `recipe.id` (e.g. `paris_eclair`) instead of legacy product ids (e.g. `eclair`). Today cashier art lives under `public/sprites/baked_goods/` with stems from [`src/lib/bakedGoodsImageUrl.js`](../src/lib/bakedGoodsImageUrl.js) and [`LEGACY_PRODUCT_SPRITE_BY_RECIPE_ID`](../src/lib/recipeBook.js).
 
-- Short term: a recipe-id-to-legacy-sprite map for the four default recipes per locale (handled inside the menu rebuild plan).
-- Long term: drop new PNGs as `public/sprites/products/{recipe.id}.png` so the map can be removed.
+- Short term: keep the legacy-key indirection when the menu still exposes product-shaped rows.
+- Long term: optional per-recipe PNGs under `public/sprites/baked_goods/` (or a new folder) keyed by `recipe.id`, then trim the map.
 
 ## Locale-authentic customer portraits (18 × 4 locales)
 
-Today `tile_00…tile_17` come from a **coarse grid** on `Historical characters in vibrant cultures.png`, rotated per village — fine as placeholders, not as final gender/locale reads.
+Runtime portraits are **`public/sprites/sprite_organizer/<village>/<male|female>/`** with an index from [`spriteOrganizerPortraitIndex.json`](../src/data/spriteOrganizerPortraitIndex.json) (`npm run build-sprite-index`). The import script still writes **keyed intermediates** under `public/sprites/source/` for offline tooling.
 
 Target:
 
@@ -65,8 +69,11 @@ Target:
 Suggested pipeline:
 
 1. Commission or generate consistent sheets per locale (same body proportions / brush style as sticker reference).
-2. Export transparent PNGs named e.g. `public/sprites/customers/paris/elder_male_0.png` … or keep flat tiles + manifest JSON mapping filename → `{ villageKey, portraitIndex }`.
-3. Replace `customerPortraitUrls()` rotation hack with explicit URLs per village × index (or keep tiles but separate folders per locale).
-4. Optional: light QA tool that previews portrait + rolled name pool bucket so writers catch mismatches before shipping.
+2. Offline extraction → **`../Sprite Cleanup Tools/tools/process_character_sheet.py`** (RGBA flood + bleed carve, same family as `scripts/process_baked_goods_sheet.py`) → `public/sprites/characters_extracted/`.
+3. **`../Sprite Cleanup Tools/audits/report_border_line_sprites.py`** → `_border_line_audit_report.md` (straight silhouette / slice detector; optional calibrated contract via `--enforce-straight-cut-contract`).
+4. Offline tooling can still feed **`public/sprites/sprite_organizer/<village>/<male|female>/`**; run **`npm run build-sprite-index`** so [`spriteOrganizerPortraitIndex.json`](../src/data/spriteOrganizerPortraitIndex.json) stays in sync (**no** in-browser processing).
+5. If `sprite_organizer` is empty for a locale, **`customerPortraitSvgOnlyStrip()`** in [`src/lib/localAssets.js`](src/lib/localAssets.js) supplies SVG placeholders for that village’s portrait strip.
+
+Optional: light QA tool that previews portrait + rolled name pool bucket so writers catch mismatches before shipping.
 
 Until those assets exist, rely on Sprite Menu overrides + keyed exports under `sprites/source/` from `npm run import-assets`.

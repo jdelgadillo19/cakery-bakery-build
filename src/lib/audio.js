@@ -1,8 +1,18 @@
 /**
  * Cakery Bakery — Audio System
- * Uses the Web Audio API to synthesize simple sound effects (no external files needed).
- * Background music is generated procedurally via oscillators.
+ * SFX: Web Audio API tones. BGM: streamed MP3 loop via Web Audio (see `bgmStream.js`)
+ * with procedural fallbacks (menu, ming_china, and when stream unavailable).
  */
+
+import {
+  isStreamTrack,
+  playStreamTrack,
+  stopStream,
+  isStreamPlaying,
+  pauseStream,
+  resumeStreamIfPossible,
+  resumeBgmContext,
+} from "@/lib/bgmStream";
 
 let ctx = null;
 let bgmNode = null;
@@ -185,9 +195,18 @@ function tickArpeggio(track) {
 }
 
 export function playBGM(track) {
-  if (!TRACKS[track]) return;
   currentTrack = track; // always remember the last requested track
+
+  if (isStreamTrack(track)) {
+    if (isStreamPlaying(track)) return;
+    stopArpeggio();
+    playStreamTrack(track, musicEnabled);
+    return;
+  }
+
+  if (!TRACKS[track]) return;
   if (currentArpeggioTrack === track) return; // already playing
+  stopStream();
   stopArpeggio();
   if (!musicEnabled) return;
   currentArpeggioTrack = track;
@@ -196,6 +215,7 @@ export function playBGM(track) {
 }
 
 export function stopBGM() {
+  stopStream();
   stopArpeggio();
 }
 
@@ -219,10 +239,12 @@ export function playSlowBGM(localeKey) {
 export function setMusicEnabled(val) {
   musicEnabled = val;
   if (!val) {
-    stopBGM();
+    stopArpeggio();
+    pauseStream();
   } else {
-    // Resume the last known track if one was playing before mute
-    if (currentTrack) {
+    if (currentTrack && isStreamTrack(currentTrack)) {
+      resumeStreamIfPossible(true);
+    } else if (currentTrack) {
       playBGM(currentTrack);
     }
   }
@@ -246,4 +268,5 @@ export function unlockAudio() {
   if (c && c.state === "suspended") {
     c.resume().catch(() => {});
   }
+  resumeBgmContext();
 }

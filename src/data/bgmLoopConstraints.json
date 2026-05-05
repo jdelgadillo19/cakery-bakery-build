@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "tracks": {
+    "audio/bgm/paris_piano.mp3": {
+      "bufferDurationSec": 108.434271,
+      "loopStartPct": 0.005262788805,
+      "loopEndPct": 0.971381472454,
+      "gridStepPct": 0.002495239211,
+      "gridDivisions": 384,
+      "targetPauseSec": 0.5,
+      "firstPassFromFileStart": true,
+      "analysisSource": "transient-grid-v1",
+      "manualTune": {
+        "startGridOffset": 0,
+        "startFineAdjustSec": 0,
+        "endGridOffset": 1,
+        "endFineAdjustSec": 0.05
+      }
+    },
+    "audio/bgm/frontier_band.mp3": {
+      "bufferDurationSec": 141.72,
+      "loopStartPct": 0.015761321226,
+      "loopEndPct": 0.93298052498,
+      "gridStepPct": 0.002418893279,
+      "gridDivisions": 384,
+      "targetPauseSec": 0.5,
+      "firstPassFromFileStart": true,
+      "analysisSource": "transient-grid-v1",
+      "manualTune": {
+        "startGridOffset": 0,
+        "startFineAdjustSec": 0,
+        "endGridOffset": 0,
+        "endFineAdjustSec": 0.03
+      }
+    },
+    "audio/bgm/london_piano.mp3": {
+      "bufferDurationSec": 100.944,
+      "loopStartPct": 0.000158503725,
+      "loopEndPct": 0.94092764305,
+      "gridStepPct": 0.002446901252,
+      "gridDivisions": 384,
+      "targetPauseSec": 0.5,
+      "firstPassFromFileStart": true,
+      "analysisSource": "transient-grid-v1",
+      "manualTune": {
+        "startGridOffset": 0,
+        "startFineAdjustSec": 0,
+        "endGridOffset": -1,
+        "endFineAdjustSec": -0.13
+      }
+    }
+  }
+}

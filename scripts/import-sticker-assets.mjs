@@ -2,14 +2,15 @@
 /**
  * Import sticker sheets from a local folder (default: ~/Downloads/Assets) into public/sprites/.
  *
- * Products — labeled grid (row = locale, column = item left→right):
- *   "ChatGPT Image Apr 28, 2026, 07_12_59 PM.png" → 4×6 crops → product ids (PNG)
+ * Baked goods — labeled grid (row = locale, column = item left→right):
+ *   "ChatGPT Image Apr 28, 2026, 07_12_59 PM.png" → 4×6 crops → PNGs in public/sprites/baked_goods/
+ *   (stems match src/lib/bakedGoodsImageUrl.js)
  *
  * Scenes — 2×2 bakery interiors:
  *   "Four charming bakery scenes across cultures.png"
  *
- * Customers — coarse grid from keyed historical sheet → tile_00…tile_17.png ;
- *   optional *_generated_image.png (white keyed) pasted onto girl slots (15–17).
+ * Customers — coarse grid from keyed historical sheet → keyed intermediates under
+ *   sprites/source/ only (runtime portraits: sprites/sprite_organizer/…; run npm run build-sprite-index after changes).
  *
  * NPC — baker duo from a5856f827_generated_image.png (white keyed, split).
  *
@@ -26,8 +27,35 @@ import os from "os";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
 const OUT_SCENES = path.join(ROOT, "public/sprites/scenes");
-const OUT_PRODUCTS = path.join(ROOT, "public/sprites/products");
-const OUT_CUSTOMERS = path.join(ROOT, "public/sprites/customers");
+const OUT_BAKED_GOODS = path.join(ROOT, "public/sprites/baked_goods");
+
+/** Legacy grid slot id → PNG filename stem (keep in sync with src/lib/bakedGoodsImageUrl.js) */
+const BAKED_GOOD_STEM = {
+  apple_pie: "apple_pie",
+  baguette: "baguette",
+  biscuit: "buttermilk_biscuit",
+  chelsea_bun: "chelsea_bun",
+  cinnamon_roll: "cinnamon_roll",
+  cookie: "molasses_cookie",
+  cornbread: "cornbread",
+  croissant: "croissant",
+  crumpet: "crumpet",
+  eclair: "eclair",
+  egg_tart: "egg_tart",
+  macaron: "macaron",
+  mantou: "mantou_bun",
+  meat_pie: "meat_pie",
+  mooncake: "mooncake",
+  pain_chocolat: "pain_au_chocolat",
+  red_bean_bun: "red_bean_bun",
+  scone: "scone",
+  sesame_ball: "sesame_ball",
+  shortbread: "shortbread",
+  sourdough: "sourdough_loaf",
+  tangyuan: "tangyuan",
+  tarte: "tarte_aux_fruits",
+  victoria_sponge: "victoria_sponge",
+};
 const OUT_NPC = path.join(ROOT, "public/sprites/npc");
 const OUT_SOURCE = path.join(ROOT, "public/sprites/source");
 
@@ -108,27 +136,6 @@ async function keyTileBlack(tileBuf) {
   return keySolidBackdrop(tileBuf, "black").then((s) => s.png().toBuffer());
 }
 
-async function fitSpriteIntoTile(spriteBuf, cw, ch, pad = 12) {
-  const innerW = Math.max(32, cw - pad * 2);
-  const innerH = Math.max(32, ch - pad * 2);
-  const resized = await sharp(spriteBuf)
-    .resize({ width: innerW, height: innerH, fit: "inside", background: { r: 0, g: 0, b: 0, alpha: 0 } })
-    .png()
-    .toBuffer();
-
-  return sharp({
-    create: {
-      width: cw,
-      height: ch,
-      channels: 4,
-      background: { r: 0, g: 0, b: 0, alpha: 0 },
-    },
-  })
-    .composite([{ input: resized, gravity: "center" }])
-    .png()
-    .toBuffer();
-}
-
 async function fileExists(p) {
   try {
     await fs.access(p);
@@ -142,8 +149,7 @@ async function main() {
   const ASSETS_DIR = process.env.ASSETS_DIR || path.join(os.homedir(), "Downloads", "Assets");
 
   await ensureDir(OUT_SCENES);
-  await ensureDir(OUT_PRODUCTS);
-  await ensureDir(OUT_CUSTOMERS);
+  await ensureDir(OUT_BAKED_GOODS);
   await ensureDir(OUT_NPC);
   await ensureDir(OUT_SOURCE);
 
@@ -202,7 +208,8 @@ async function main() {
       let buf = tiles[i];
       const meta = await sharp(buf).metadata();
       if (!meta.hasAlpha || meta.channels === 3) buf = await keyTileBlack(buf);
-      const dest = path.join(OUT_PRODUCTS, `${ids[i]}.png`);
+      const stem = BAKED_GOOD_STEM[ids[i]] ?? ids[i];
+      const dest = path.join(OUT_BAKED_GOODS, `${stem}.png`);
       await fs.writeFile(dest, buf);
       console.log("  wrote", path.relative(ROOT, dest));
     }
@@ -210,9 +217,9 @@ async function main() {
     console.warn("Skip products — missing:", foodsLabelledGrid);
   }
 
-  // ── Customer placeholders — Historical sheet coarse grid ───────────────────
+  // ── Customer source — keyed historical sheet + optional generated refs in /source
   if (await fileExists(charSheet)) {
-    console.log("Customer tiles from:", charSheet);
+    console.log("Customer sheet (source intermediates):", charSheet);
     const buf = await sharp(charSheet).png().toBuffer();
     const keyed = await keySolidBackdrop(buf, "black");
     const keyedBuf = await keyed.png().toBuffer();
@@ -226,23 +233,12 @@ async function main() {
     );
     console.log(`  grid cells ~${cellWidth}×${cellHeight}px`);
 
-    let idx = 0;
-    for (const tileBuf of tiles) {
-      if (idx >= 18) break;
-      const dest = path.join(OUT_CUSTOMERS, `tile_${String(idx).padStart(2, "0")}.png`);
-      await fs.writeFile(dest, tileBuf);
-      console.log("  wrote", path.relative(ROOT, dest));
-      idx++;
-    }
-
     const entries = await fs.readdir(ASSETS_DIR).catch(() => []);
     const generatedFiles = entries
       .filter((f) => f.endsWith("_generated_image.png") && f !== "a5856f827_generated_image.png")
       .sort();
 
-    const cw = cellWidth;
-    const ch = cellHeight;
-    const overlays = [];
+    let keyedGenCount = 0;
     for (const gf of generatedFiles) {
       const p = path.join(ASSETS_DIR, gf);
       const raw = await sharp(p).png().toBuffer();
@@ -250,24 +246,14 @@ async function main() {
       const kb = await keyedGen.png().toBuffer();
       const safeName = gf.replace(/[^a-z0-9_-]/gi, "_");
       await fs.writeFile(path.join(OUT_SOURCE, `generated_keyed_${safeName}`), kb);
-      overlays.push(await fitSpriteIntoTile(kb, cw, ch));
+      keyedGenCount += 1;
       console.log("  keyed generated sprite:", gf);
     }
-
-    // Paste generated sprites onto archetyped **girl** portrait indices only (15–17),
-    // so we don’t visually mismatch male-child slots. Extra generated PNGs are keyed to /source only.
-    if (overlays[0]) {
-      for (const gIdx of [15, 16, 17]) {
-        const dest = path.join(OUT_CUSTOMERS, `tile_${String(gIdx).padStart(2, "0")}.png`);
-        await fs.writeFile(dest, overlays[0]);
-        console.log("  pasted generated sprite onto girl tile →", path.relative(ROOT, dest));
-      }
-    }
-    if (overlays.length > 1) {
-      console.log(`  note: ${overlays.length - 1} additional generated PNG(s) keyed under sprites/source — assign manually when art direction is clearer`);
+    if (keyedGenCount > 0) {
+      console.log(`  note: ${keyedGenCount} generated PNG(s) in sprites/source — promote into sprite_organizer via offline tools, then npm run build-sprite-index`);
     }
   } else {
-    console.warn("Skip customer tiles — missing:", charSheet);
+    console.warn("Skip customer source sheet — missing:", charSheet);
   }
 
   // ── Baker duo ───────────────────────────────────────────────────────────────

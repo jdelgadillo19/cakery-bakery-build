@@ -28,6 +28,7 @@ import { recordRun } from "@/lib/leaderboard.js";
 import { recordRunForUnlocks } from "@/lib/difficultyUnlocks.js";
 import { useDayTimer } from "@/hooks/useDayTimer";
 import { VILLAGES, DIFFICULTY_CONFIG, getProductsForDifficulty } from "@/lib/gameData";
+import { ownerArcadeTallyLine } from "@/lib/gameEngine";
 import { generateCashierProblem } from "@/lib/gameEngine";
 import AudioManager from "@/components/game/AudioManager";
 import DayTimer from "@/components/game/DayTimer";
@@ -36,17 +37,14 @@ import ProductMenu from "@/components/game/ProductMenu";
 import CustomerOrder from "@/components/game/CustomerOrder";
 import ProblemPanel from "@/components/game/ProblemPanel";
 import DebugOverlay from "@/components/game/DebugOverlay";
-import { useSpriteRegistry } from "@/hooks/useSpriteRegistry";
-import SpriteProcessingOverlay from "@/components/game/SpriteProcessingOverlay";
+import { getOwnerPortraitUrl } from "@/lib/localAssets";
 import ArcadeEndScreen from "@/components/game/ArcadeEndScreen";
 import ArcadeTallyScreen from "@/components/game/ArcadeTallyScreen";
+import WorkdaySceneBackdrop from "@/components/game/WorkdaySceneBackdrop";
+import { useWorkDayWeather } from "@/hooks/useWorkDayWeather";
 
 const MAX_ATTEMPTS = 2;
 const TIP_PER_PERFECT_TX = 1.00; // +$1.00 per fully first-try transaction
-
-const SCENE_IMAGES = Object.fromEntries(
-  Object.keys(VILLAGES).map((k) => [k, VILLAGES[k].bgImage]),
-);
 
 // Minimal session shape so shared components (GameHeader etc.) work
 function buildArcadeSession(villageKey, difficulty, playerName) {
@@ -140,9 +138,17 @@ export default function ArcadePlay() {
   const [tallyState, setTallyState]     = useState(null); // snapshot of dayState when tally begins
 
   const [debugMode, setDebugMode]       = useState(false);
-  // ownerPortraitUrl resolved by sprite registry
-  const { isProcessing, progress, getCustomerUrl, getOwnerUrl } = useSpriteRegistry();
+  /** @type {'morning'|'afternoon'|'night'} */
+  const [scenePeriod, setScenePeriod]   = useState("morning");
+  const [weatherSessionKey, setWeatherSessionKey] = useState(0);
 
+  const weatherActive = phase === "playing" || phase === "lastCall";
+  const { isRaining } = useWorkDayWeather(dayDuration, {
+    active: weatherActive,
+    resetKey: weatherSessionKey,
+  });
+
+  // Owner portrait: static asset URLs only (see localAssets).
   useEffect(() => { dayStateRef.current  = dayState; },  [dayState]);
   useEffect(() => { currentProblemRef.current = currentProblem; }, [currentProblem]);
   useEffect(() => { phaseRef.current     = phase; },     [phase]);
@@ -155,6 +161,13 @@ export default function ArcadePlay() {
     setDayDuration(getDayDuration(difficulty));
     unlockAudio();
     playBGM(villageKey);
+  }, []);
+
+  // Leaving arcade (menu, leaderboard, etc.): hub music replaces locale stream immediately.
+  useEffect(() => {
+    return () => {
+      playBGM("menu");
+    };
   }, []);
 
   // ── Timer expiry → lastCall ──────────────────────────────────────────────
@@ -173,13 +186,7 @@ export default function ArcadePlay() {
 
   // ── Build next cashier problem ───────────────────────────────────────────
   function nextProblem(prods) {
-    const problem = generateCashierProblem(villageKey, difficulty, prods || products);
-    if (problem?.order) {
-      const idx = problem.order.portraitIndex ?? 0;
-      const url = getCustomerUrl(villageKey, idx);
-      if (url) return { ...problem, order: { ...problem.order, portrait: url } };
-    }
-    return problem;
+    return generateCashierProblem(villageKey, difficulty, prods || products);
   }
 
   // ── Enter tally phase: show baker dialogue first, then tally input ───────
@@ -191,6 +198,7 @@ export default function ArcadePlay() {
     playSlowBGM(villageKey);
     const ds = stateOverride || dayStateRef.current;
     setTallyState(ds);
+    setScenePeriod("afternoon");
     setPhase("tallyDialogue");
     phaseRef.current = "tallyDialogue";
   }, [villageKey, timer]);
@@ -198,6 +206,7 @@ export default function ArcadePlay() {
   // ── End run (called after tally completes, or directly for Beginner) ─────
   const enterDone = useCallback(async (stateOverride, tallyBonus = 0) => {
     if (phaseRef.current === "done") return;
+    setScenePeriod("night");
     setPhase("done");
     phaseRef.current = "done";
 
@@ -230,6 +239,8 @@ export default function ArcadePlay() {
   const handleStart = useCallback(() => {
     playSFX("click");
     playFastBGM(villageKey);
+    setScenePeriod("morning");
+    setWeatherSessionKey((k) => k + 1);
     const fresh = createFreshArcadeState();
     dayStateRef.current = fresh;
     setDayState(fresh);
@@ -402,14 +413,15 @@ export default function ArcadePlay() {
   }, [currentProblem, dayState, difficulty, village, enterDone, enterTally, showTally]);
 
   const showTimer = phase === "playing" || phase === "lastCall";
+  const showRainPlate = weatherActive && isRaining;
 
   return (
     <div className="min-h-screen flex flex-col relative">
-      <AnimatePresence>
-        {isProcessing && <SpriteProcessingOverlay progress={progress} />}
-      </AnimatePresence>
-
-      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${SCENE_IMAGES[villageKey]})` }} />
+      <WorkdaySceneBackdrop
+        villageKey={villageKey}
+        period={phase === "ready" ? "morning" : scenePeriod}
+        raining={showRainPlate}
+      />
       <div className="absolute inset-0 bg-black/30" />
 
       {import.meta.env.DEV && (
@@ -550,15 +562,16 @@ export default function ArcadePlay() {
                 {/* Owner portrait + speech bubble */}
                 <div className="flex items-end gap-4">
                   <div className="w-20 h-20 flex-shrink-0">
-                    {getOwnerUrl(villageKey)
-                      ? <img src={getOwnerUrl(villageKey)} alt="Owner" className="w-full h-full object-contain drop-shadow-md" />
-                      : <div className="w-full h-full rounded-full bg-primary/10 flex items-center justify-center text-3xl">👨‍🍳</div>
-                    }
+                    <img
+                      src={getOwnerPortraitUrl(villageKey)}
+                      alt="Owner"
+                      className="w-full h-full object-contain drop-shadow-md"
+                    />
                   </div>
                   <div className="flex-1 relative bg-card border border-border rounded-2xl rounded-bl-sm px-4 py-3 shadow-md">
                     <div className="absolute -left-2.5 bottom-4 w-0 h-0 border-t-8 border-t-transparent border-r-[10px] border-r-card border-b-8 border-b-transparent" />
                     <p className="font-body text-sm text-foreground leading-relaxed">
-                      The day's done! Let's count up everything we made today.
+                      {ownerArcadeTallyLine(villageKey)}
                     </p>
                   </div>
                 </div>
@@ -594,7 +607,7 @@ export default function ArcadePlay() {
               breakdown={breakdown}
               playerName={playerName}
               currency={village?.currency || "$"}
-              ownerPortraitUrl={getOwnerUrl(villageKey)}
+              ownerPortraitUrl={getOwnerPortraitUrl(villageKey)}
             onPlayAgain={() => {
                 setPhase("ready");
                 phaseRef.current = "ready";

@@ -25,9 +25,9 @@ export const OWNER_PORTRAITS = OWNER_PORTRAIT_BY_VILLAGE;
 // Intro dialogues per village (owner speaks, post locale-selection)
 export const OWNER_INTRO_DIALOGUES = {
   paris: [
-    "Bienvenue! I am your head baker here in Montmartre.",
-    "We serve the finest pastries in all of Paris — but running a bakery takes sharp maths!",
-    "Day 1: You will work the cash register. Add up each customer's order correctly.",
+    "Bienvenue! I'm your head baker in Montmartre — striped apron, serious ovens.",
+    "We serve the finest pastries in Paris, but the ledger matters as much as the laminated dough.",
+    "Day 1: You're on the cash register. Add up each customer's order correctly.",
     "Allons-y — let's open the shop!",
   ],
   frontier_us: [
@@ -37,10 +37,10 @@ export const OWNER_INTRO_DIALOGUES = {
     "Let's get this show on the road!",
   ],
   ming_china: [
-    "Welcome, young apprentice! Our shop has served Suzhou for three generations.",
-    "Every mooncake, every bun must be counted with precision and care.",
-    "Day 1: You will manage the cashier's desk. Calculate totals for each customer.",
-    "Take a breath — and let us begin.",
+    "Welcome, apprentice. I tend these ovens — our family's baked along this canal for three generations.",
+    "Every mooncake, every bun is counted twice in practice and once on paper.",
+    "Day 1: You'll manage the cashier's ledger. Totals must balance before we close.",
+    "Breathe — then we'll lift the shutters.",
   ],
   london: [
     "Right then! Welcome to the bakery — finest scones in all of Covent Garden.",
@@ -49,6 +49,22 @@ export const OWNER_INTRO_DIALOGUES = {
     "Chop chop — customers are waiting!",
   ],
 };
+
+/** Arcade tally preamble — head baker voice before receipt sum */
+export const OWNER_ARCADE_TALLY_LINE_BY_VILLAGE = {
+  paris:
+    "Closing bell for Montmartre — let's reconcile every franc before the terraces steal our evening.",
+  ming_china:
+    "Doors down — stack the ledger with me; the ovens cool slower than the abacus should.",
+  frontier_us:
+    "Sun's low — day's done! Let's count up everything we made today.",
+  london:
+    "Last crumbs swept — let's tally today's take before the pubs steal good habits.",
+};
+
+export function ownerArcadeTallyLine(villageKey) {
+  return OWNER_ARCADE_TALLY_LINE_BY_VILLAGE[villageKey] ?? OWNER_ARCADE_TALLY_LINE_BY_VILLAGE.frontier_us;
+}
 
 // (Grandma's recipe replaced by locale-based recipe system in lib/recipeData.js)
 
@@ -144,8 +160,10 @@ export function generateCashierProblem(villageKey, difficulty, products) {
       type: "cashier_total",
       order: {
         customerName: "Guest",
+        customerHonorific: null,
         customerGender: null,
         customerTitle: null,
+        portraitCatalogId: null,
         items: [{ id: "fallback", name: "Pastry", emoji: "🧁", basePrice: 3, price: 3, quantity: 1, lineTotal: 3 }],
         subtotal: 3,
         couponPct: null,

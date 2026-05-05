@@ -222,6 +222,10 @@ export default function EndDayDebrief({
   gameSave,
   walletAfterPay,
   villageKey,
+  /** Snapshot when the work timer ended — blocks market trip in heavy rain */
+  rainedAtClockOut = false,
+  /** Called when the player steps out of the bakery (after owner's farewell) */
+  onLeavingBakery,
   currency,
   role,
   receipts = [],
@@ -252,8 +256,8 @@ export default function EndDayDebrief({
     role, receipts, packagingLog, ingredientTotals, currency
   );
 
-  const openingLines = buildOpeningLines(accuracyPct, role);
-  const closingLines = buildClosingLines(currentDay, isTutorial, accuracyPct);
+  const openingLines = buildOpeningLines(accuracyPct, role, { raining: rainedAtClockOut });
+  const closingLines = buildClosingLines(currentDay, isTutorial, accuracyPct, { raining: rainedAtClockOut });
 
   const [phase, setPhase] = useState("opening"); // opening | sum_check | earnings | farewell | travel_choice | market_choice | apartment_shop_stub | recipe_shop | closing | home | night | morning
   const [shoppingDraft, setShoppingDraft] = useState(null);
@@ -361,8 +365,8 @@ export default function EndDayDebrief({
   };
 
   // [HOME PHASE] — player presses "Go to Bed" → night dialogue → morning → onComplete
-  const nightLines = buildNightLines(accuracyPct);
-  const morningLines = buildMorningLines();
+  const nightLines = buildNightLines(accuracyPct, { raining: rainedAtClockOut });
+  const morningLines = buildMorningLines(villageKey, { raining: rainedAtClockOut });
   const [nightIndex, setNightIndex] = useState(0);
   const [morningIndex, setMorningIndex] = useState(0);
 
@@ -437,7 +441,7 @@ export default function EndDayDebrief({
           <>
             <OwnerSpeech
               villageKey={villageKey}
-              message={buildSumCheckOwnerIntro(role)}
+              message={buildSumCheckOwnerIntro(role, { raining: rainedAtClockOut })}
               ownerPortraitUrl={ownerPortraitUrl}
             />
             <p className="font-display font-bold text-foreground text-sm">{sumLabel}</p>
@@ -479,7 +483,7 @@ export default function EndDayDebrief({
           <>
             <OwnerSpeech
               villageKey={villageKey}
-              message="Here's how your numbers landed today — scan the breakdown before we clock out."
+              message={buildEarningsOwnerLine(rainedAtClockOut)}
               ownerPortraitUrl={ownerPortraitUrl}
             />
             <div className="flex items-center gap-2 mb-3">
@@ -506,13 +510,14 @@ export default function EndDayDebrief({
           <>
             <OwnerSpeech
               villageKey={villageKey}
-              message={buildFarewellLine(accuracyPct)}
+              message={buildFarewellLine(accuracyPct, { raining: rainedAtClockOut })}
               ownerPortraitUrl={ownerPortraitUrl}
             />
             <div className="flex justify-end pt-2">
               <Button
                 onClick={() => {
                   playSFX("click");
+                  onLeavingBakery?.();
                   if (isStory) setPhase("travel_choice");
                   else setPhase("closing");
                 }}
@@ -526,7 +531,7 @@ export default function EndDayDebrief({
 
         {phase === "travel_choice" && (
           <>
-            <NarratorSpeech message="Sun's dropping behind the roofs. Swing by the market, or cut straight home?" />
+            <NarratorSpeech message={travelChoiceNarration(rainedAtClockOut)} />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               <Button
                 type="button"
@@ -542,7 +547,10 @@ export default function EndDayDebrief({
               <Button
                 type="button"
                 className="font-display font-bold h-12"
+                disabled={rainedAtClockOut}
+                title={rainedAtClockOut ? "Too wet tonight — stalls won't stay dry." : undefined}
                 onClick={() => {
+                  if (rainedAtClockOut) return;
                   playSFX("click");
                   setPhase("market_choice");
                 }}
@@ -550,6 +558,11 @@ export default function EndDayDebrief({
                 Go to the market
               </Button>
             </div>
+            {rainedAtClockOut && (
+              <p className="text-center text-xs font-display text-muted-foreground pt-1">
+                The market&apos;s a wash tonight — rain&apos;s coming down in sheets.
+              </p>
+            )}
           </>
         )}
 
@@ -786,14 +799,39 @@ export default function EndDayDebrief({
   );
 }
 
-function buildFarewellLine(accuracyPct = 0) {
+function buildEarningsOwnerLine(raining) {
+  if (raining) {
+    return "Numbers first — we'll get you dry after. Rain's hammering the glass; let's clock out clean.";
+  }
+  return "Here's how your numbers landed today — scan the breakdown before we clock out.";
+}
+
+function travelChoiceNarration(raining) {
+  if (raining) {
+    return "Rain's drumming the awnings and the lanes are slick — sensible night to skip the stalls and head in.";
+  }
+  return "Sun's dropping behind the roofs. Swing by the market, or cut straight home?";
+}
+
+function buildFarewellLine(accuracyPct = 0, weather = {}) {
+  const { raining } = weather;
+  if (raining) {
+    if (accuracyPct >= 80) return "Solid shift — grab your coat; the walk home's a wet one. See you tomorrow!";
+    return "We'll shake off today in the dry — tomorrow's another oven. See you then!";
+  }
   if (accuracyPct >= 95) return "Outstanding work today — see you tomorrow!";
   if (accuracyPct >= 80) return "Great work today — see you tomorrow!";
   if (accuracyPct >= 60) return "Solid effort — get some rest, see you tomorrow!";
   return "Tough one out there — tomorrow's a fresh start. See you then!";
 }
 
-function buildSumCheckOwnerIntro(role) {
+function buildSumCheckOwnerIntro(role, weather = {}) {
+  const { raining } = weather;
+  if (raining) {
+    if (role === "cashier") return "Rain's singing on the roof — good night for careful math. Let's add those receipts.";
+    if (role === "packager") return "Weather turned; we'll keep this quick — tally what you packed before we lose the light.";
+    return "Storm's picking up — let's verify your ingredient totals and get you out of here.";
+  }
   if (role === "cashier") return "Before we wrap up, let's add up today's receipts together.";
   if (role === "packager") return "One more step — let's tally everything you packed today.";
   return "Let's verify your ingredient totals before we close out.";
@@ -864,14 +902,25 @@ function buildSumCheckData(role, receipts, packagingLog, ingredientTotals, curre
   return { correctAnswer: 0, sumLabel: "", itemRows: [], questionText: "", answerPrefix: "", answerSuffix: "" };
 }
 
-function buildOpeningLines(accuracy, role) {
-  const accuracyLine = accuracy >= 80
+function buildOpeningLines(accuracy, role, weather = {}) {
+  const { raining } = weather;
+  const accuracyLine = raining
+    ? accuracy >= 80
+      ? `${accuracy}% through a soggy rush — steady hands.`
+      : `${accuracy}% with weather against us — we'll sharpen it when the skies clear.`
+    : accuracy >= 80
     ? `You wrapped the shift at ${accuracy}% accuracy — that's what I like to see.`
     : accuracy >= 50
     ? `${accuracy}% today — solid enough; we'll tighten the loose ends tomorrow.`
     : `${accuracy}% isn't where we want it yet — we'll drill it until it sticks.`;
 
-  const roleIntro = role === "cashier"
+  const roleIntro = raining
+    ? role === "cashier"
+      ? "Rain's in the gutters — let's reconcile the drawer before you brave the walk."
+      : role === "packager"
+      ? "Boxes stayed dry, I hope — we still count every label before you step into that downpour."
+      : "Ovens held the heat while the sky opened — give me your ingredient totals before you go."
+    : role === "cashier"
     ? "Before you head out, we'll reconcile what rang through on your drawer."
     : role === "packager"
     ? "One more habit: we count boxes and labels before we call it closed."
@@ -881,7 +930,14 @@ function buildOpeningLines(accuracy, role) {
 }
 
 // First-person internal monologue after the player is home (not the owner).
-function buildNightLines(accuracyPct) {
+function buildNightLines(accuracyPct, weather = {}) {
+  const { raining } = weather;
+  if (raining) {
+    return [
+      { speaker: "narrator", text: "Coat's soaked at the hem. I kick my boots by the door and listen to rain on the sill." },
+      { speaker: "narrator", text: "Tea first, then sleep — the weather did half the mood for me." },
+    ];
+  }
   if (accuracyPct >= 80) {
     return [
       { speaker: "narrator", text: "Door shut. Apron finally off. The flat's quiet — I notice I can still smell flour on my sleeves." },
@@ -901,7 +957,26 @@ function buildNightLines(accuracyPct) {
 }
 
 /** Owner addressing the employee on the threshold of a new shift */
-function buildMorningLines() {
+function buildMorningLines(villageKey, weather = {}) {
+  const { raining } = weather;
+  if (raining) {
+    return [
+      "Sky's still spitting — apron dry? We'll warm the ovens while the gutters do their job.",
+      "Rain or shine, first batch sets the tone. Let's open clean.",
+    ];
+  }
+  if (villageKey === "paris") {
+    return [
+      "Morning — dough's resting and I'm already behind schedule in the best way.",
+      "I'll handle openers on the ovens; you keep the till singing.",
+    ];
+  }
+  if (villageKey === "ming_china") {
+    return [
+      "Morning, apprentice — steam's threading past the shutters.",
+      "Heat first, then ledger; we'll train both habits today.",
+    ];
+  }
   return [
     "Morning. You look rested — good. Hydrate before the rush hits.",
     "Openers are my call; you keep the line moving. Ready when you are.",
@@ -911,8 +986,13 @@ function buildMorningLines() {
 const TUTORIAL_NEXT_STATION_LABEL = { packager: "packaging", baker: "the ovens", cashier: "the counter" };
 
 /** Player's thoughts while leaving the bakery (narrator); not the owner's voice */
-function buildClosingLines(currentDay, isTutorial, accuracy) {
-  const open = accuracy >= 80
+function buildClosingLines(currentDay, isTutorial, accuracy, weather = {}) {
+  const { raining } = weather;
+  const open = raining
+    ? accuracy >= 80
+      ? "Locking up under a drumming roof — soaked hems, but I earned the ache in my feet."
+      : "Rain's washing the chalk off the specials board. I'm clocking out before I melt."
+    : accuracy >= 80
     ? "Locking up. Feet are tired in a good way — I know what I earned today."
     : accuracy >= 50
     ? "Clocking out. Not my cleanest shift, but it's in the books."

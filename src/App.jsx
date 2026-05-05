@@ -58,13 +58,18 @@ const AuthenticatedApp = () => {
 };
 
 
+function routerBasename() {
+  const b = import.meta.env.BASE_URL;
+  return b.endsWith("/") ? b.slice(0, -1) : b;
+}
+
 function App() {
 
   return (
     <BuildConfigProvider>
       <AuthProvider>
         <QueryClientProvider client={queryClientInstance}>
-          <Router>
+          <Router basename={routerBasename() || undefined}>
             <AuthenticatedApp />
           </Router>
           <Toaster />

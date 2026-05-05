@@ -10,9 +10,8 @@ import {
   resetSpriteConfig,
   DEFAULT_NAME_POOLS,
 } from "@/lib/spriteConfig";
-import { clearSpriteCache } from "@/lib/spriteProcessor";
 import { CUSTOMER_PORTRAITS, VILLAGES } from "@/lib/gameData";
-import { resolveAssetUrl } from "@/lib/localAssets";
+import { resolveAssetUrl, resolveAssetFallback } from "@/lib/localAssets";
 
 const VILLAGE_KEYS = ["frontier_us", "paris", "ming_china", "london"];
 
@@ -172,11 +171,6 @@ export default function SpriteMenu({ onClose }) {
     setSaved(false);
   };
 
-  const handleClearCache = () => {
-    clearSpriteCache();
-    alert("Sprite cache cleared. Reload the game page to re-process sprites.");
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -242,7 +236,11 @@ export default function SpriteMenu({ onClose }) {
                 </p>
                 <SpriteCard
                   sprite={sprite}
-                  portraitUrl={resolveAssetUrl(portraits[sprite.portraitIndex]) || null}
+                  portraitUrl={
+                    resolveAssetUrl(portraits[sprite.portraitIndex]) ||
+                    resolveAssetFallback(portraits[sprite.portraitIndex]) ||
+                    null
+                  }
                   onChange={(updated) => updateSprite(idx, updated)}
                 />
               </div>
@@ -271,9 +269,6 @@ export default function SpriteMenu({ onClose }) {
         <Button variant="outline" size="sm" onClick={handleReset} className="font-display gap-1 text-destructive border-destructive/30 hover:bg-destructive/10">
           <RotateCcw className="w-3.5 h-3.5" />
           Reset config
-        </Button>
-        <Button variant="outline" size="sm" onClick={handleClearCache} className="font-display gap-1 text-muted-foreground">
-          Clear Cache
         </Button>
         <Button size="sm" onClick={handleSave} className={`ml-auto font-display gap-1 ${saved ? "bg-success hover:bg-success" : ""}`}>
           <Save className="w-3.5 h-3.5" />
