@@ -15,6 +15,27 @@ npm run dev
 
 Open the URL Vite prints (usually `http://localhost:5173`).
 
+## Firebase profiles and tiers
+
+This app can run fully local (no Firebase), but profile-backed free/paid gating uses Firebase Auth + Firestore.
+
+1. Copy `.env.example` to `.env.local`
+2. Fill in `VITE_FIREBASE_*` values from your Firebase project
+3. Enable Firebase Auth providers:
+   - Google
+   - Email/Password
+4. Create a Firestore database and allow user profile docs under `users/{uid}`
+
+User profile docs include:
+- `tier: "free" | "paid"`
+- `displayName`, `email`, `createdAt`, `updatedAt`
+
+### Manual paid flag (first rollout)
+
+- In dev, open the existing debug panel and use the profile tier buttons to set `Free` or `Paid`.
+- This writes directly to the current user’s Firestore profile.
+- Feature gating then follows that tier sitewide using the existing feature registry.
+
 ## Build
 
 ```bash

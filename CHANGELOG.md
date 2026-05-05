@@ -16,12 +16,16 @@ when versioning releases.
 - Added local/runtime persistence for BGM constraints to survive app closure.
 - Added export and analysis scripts for BGM loop constraints.
 - Added new favicon pipeline output and home menu cupcake graphic from updated source art.
+- Added Firebase client wiring and Firestore profile store for backend user tiers.
+- Added runtime free/paid gate resolution from Firebase profile entitlements.
+- Added initial profile auth support (Google and email/password APIs) in auth context.
 
 ### Changed
 - Switched customer portraits to sprite organizer indexing flow.
 - Reworked owner portrait pipeline and dialogue mappings for locales.
 - Updated locale scene/baked good asset handling and references.
 - Ensured BGM editor and related debug controls are dev-only.
+- Updated build config context to respond to runtime tier changes from backend profiles.
 
 ### Fixed
 - Fixed non-seamless streamed loop behavior by applying explicit loop markers.

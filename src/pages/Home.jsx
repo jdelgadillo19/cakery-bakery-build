@@ -14,6 +14,7 @@ import SpriteMenu from "@/components/game/SpriteMenu";
 import { playBGM, playSFX, unlockAudio } from "@/lib/audio";
 import BuildConfigDebug from "@/components/game/BuildConfigDebug";
 import { getMenuSlotConfig } from "@/lib/recipeBook";
+import { useAuth } from "@/lib/AuthContext";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ export default function Home() {
   const [isRecipeBookOpen, setIsRecipeBookOpen] = useState(false);
   const [debugMode, setDebugMode] = useState(false);
   const [spriteMenuOpen, setSpriteMenuOpen] = useState(false);
+  const { isFirebaseConfigured, isAuthenticated, signInWithGoogle, logout, user, profileTier } = useAuth();
 
   // Menu music follows this screen; streamed arcade/game BGM stops here immediately.
   // First interaction still unlocks AudioContext autoplay limits.
@@ -178,6 +180,32 @@ export default function Home() {
           transition={{ delay: 0.5 }}
           className="mt-10 flex flex-col items-center gap-3"
         >
+          {isFirebaseConfigured && (
+            <div className="flex items-center gap-2">
+              {isAuthenticated ? (
+                <>
+                  <span className="text-xs text-white/70 font-body">
+                    {user?.full_name || "Player"} · {profileTier === "paid" ? "Paid" : "Free"}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => logout()}
+                    className="text-xs px-2 py-1 rounded bg-white/10 border border-white/20 text-white/80 hover:bg-white/20"
+                  >
+                    Sign out
+                  </button>
+                </>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => signInWithGoogle()}
+                  className="text-xs px-3 py-1 rounded bg-white/10 border border-white/20 text-white/80 hover:bg-white/20"
+                >
+                  Sign in with Google
+                </button>
+              )}
+            </div>
+          )}
           <AudioManager />
           <p className="text-sm text-white/60 font-body text-center">A math adventure for curious minds 🧮</p>
           {import.meta.env.DEV && (

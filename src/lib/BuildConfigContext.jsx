@@ -15,14 +15,15 @@
 // module, so it never triggers unnecessary re-renders.
 // ============================================================
 
-import React, { createContext, useContext, useMemo } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import {
-  BUILD_VERSION,
   FEATURE_REGISTRY,
+  getRuntimeBuildTier,
   isFeatureUnlocked,
   getFeatureMatrix,
   getUnlockedFeatures,
   getLockedFeatures,
+  subscribeRuntimeBuildTier,
 } from "@/lib/buildConfig";
 
 // ── Context ───────────────────────────────────────────────────────────────────
@@ -39,10 +40,14 @@ const BuildConfigContext = createContext(null);
  * memoized once and never changes at runtime.
  */
 export function BuildConfigProvider({ children }) {
+  const [buildVersion, setBuildVersion] = useState(getRuntimeBuildTier());
+
+  useEffect(() => subscribeRuntimeBuildTier(setBuildVersion), []);
+
   const value = useMemo(
     () => ({
       /** The active build tier string: "free" | "full" */
-      buildVersion: BUILD_VERSION,
+      buildVersion,
 
       /**
        * Returns true if the given feature is accessible in the current build.
@@ -65,7 +70,7 @@ export function BuildConfigProvider({ children }) {
       /** The full registry, for introspection. */
       featureRegistry: FEATURE_REGISTRY,
     }),
-    [] // stable — BUILD_VERSION never changes at runtime
+    [buildVersion]
   );
 
   return (

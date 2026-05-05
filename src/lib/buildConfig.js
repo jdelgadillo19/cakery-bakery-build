@@ -46,6 +46,9 @@ const TIER_RANK = {
 // "full"  → all features are unlocked.
 /** @type {"free"|"full"} */
 export const BUILD_VERSION = "free";
+/** @type {"free"|"full"} */
+let runtimeBuildTier = BUILD_VERSION;
+const runtimeTierListeners = new Set();
 
 // ── Feature Registry ──────────────────────────────────────────────────────────
 // Each entry defines:
@@ -115,9 +118,41 @@ export function isFeatureUnlocked(featureKey) {
     /* SSR / tests without localStorage */
   }
 
-  const currentRank = TIER_RANK[BUILD_VERSION] ?? 0;
+  const currentRank = TIER_RANK[runtimeBuildTier] ?? 0;
   const requiredRank = TIER_RANK[feature.minTier] ?? Infinity;
   return currentRank >= requiredRank;
+}
+
+/**
+ * Runtime tier override used by backend profile entitlements.
+ * Accepts "free" or "full".
+ * @param {"free"|"full"} tier
+ */
+export function setRuntimeBuildTier(tier) {
+  const next = BUILD_TIERS.includes(tier) ? tier : BUILD_VERSION;
+  if (runtimeBuildTier === next) return;
+  runtimeBuildTier = next;
+  for (const listener of runtimeTierListeners) {
+    try {
+      listener(runtimeBuildTier);
+    } catch (e) {}
+  }
+}
+
+/**
+ * @returns {"free"|"full"}
+ */
+export function getRuntimeBuildTier() {
+  return runtimeBuildTier;
+}
+
+/**
+ * @param {(tier:"free"|"full") => void} listener
+ * @returns {() => void}
+ */
+export function subscribeRuntimeBuildTier(listener) {
+  runtimeTierListeners.add(listener);
+  return () => runtimeTierListeners.delete(listener);
 }
 
 

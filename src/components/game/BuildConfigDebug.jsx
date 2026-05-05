@@ -6,11 +6,13 @@
 
 import React, { useState } from "react";
 import { useBuildConfig } from "@/lib/BuildConfigContext";
+import { useAuth } from "@/lib/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { Settings, ChevronDown, ChevronUp, CheckCircle, XCircle } from "lucide-react";
 
 export default function BuildConfigDebug() {
   const { buildVersion, getFeatureMatrix } = useBuildConfig();
+  const { user, profileTier, setProfileTier, isFirebaseConfigured } = useAuth();
   const [open, setOpen] = useState(false);
   const matrix = getFeatureMatrix();
 
@@ -48,6 +50,33 @@ export default function BuildConfigDebug() {
             </div>
 
             <div className="max-h-72 overflow-y-auto divide-y divide-border/50">
+              {isFirebaseConfigured && user?.id !== "local" && (
+                <div className="px-3 py-2 bg-muted/30">
+                  <p className="font-display text-xs text-foreground mb-2">Profile Tier ({user.email || user.id})</p>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setProfileTier("free")}
+                      className={`px-2 py-1 text-xs rounded border ${
+                        profileTier !== "paid"
+                          ? "bg-emerald-600/20 border-emerald-500 text-emerald-300"
+                          : "bg-transparent border-border text-muted-foreground"
+                      }`}
+                    >
+                      Free
+                    </button>
+                    <button
+                      onClick={() => setProfileTier("paid")}
+                      className={`px-2 py-1 text-xs rounded border ${
+                        profileTier === "paid"
+                          ? "bg-violet-600/20 border-violet-500 text-violet-300"
+                          : "bg-transparent border-border text-muted-foreground"
+                      }`}
+                    >
+                      Paid
+                    </button>
+                  </div>
+                </div>
+              )}
               {unlocked.map(([key, cfg]) => (
                 <div key={key} className="flex items-start gap-2 px-3 py-2">
                   <CheckCircle className="w-3 h-3 mt-0.5 text-emerald-500 shrink-0" />
