@@ -1,6 +1,6 @@
-import path from "node:path";
-import fs from "node:fs";
-import { fileURLToPath } from "node:url";
+import path from "path";
+import fs from "fs";
+import { fileURLToPath } from "url";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
@@ -27,7 +27,7 @@ function devBgmLoopCommitPlugin() {
         req.on("end", () => {
           try {
             const incoming = JSON.parse(body || "{}");
-            const incomingTracks = incoming?.tracks;
+            const incomingTracks = incoming && incoming.tracks;
             if (!incomingTracks || typeof incomingTracks !== "object") {
               throw new Error("Missing payload.tracks object");
             }
@@ -38,9 +38,9 @@ function devBgmLoopCommitPlugin() {
             }
 
             const next = {
-              version: existing?.version ?? 1,
+              version: (existing && existing.version) ?? 1,
               tracks: {
-                ...(existing?.tracks || {}),
+                ...((existing && existing.tracks) || {}),
                 ...incomingTracks,
               },
             };
@@ -52,7 +52,7 @@ function devBgmLoopCommitPlugin() {
           } catch (error) {
             res.statusCode = 400;
             res.setHeader("Content-Type", "application/json");
-            res.end(JSON.stringify({ ok: false, error: String(error?.message || error) }));
+            res.end(JSON.stringify({ ok: false, error: String((error && error.message) || error) }));
           }
         });
       });
