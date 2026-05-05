@@ -26,6 +26,7 @@ npm run preview   # optional: serve production build locally
 
 - Optional JSON **field reference** schemas: [`schemas/entities/`](schemas/entities/) (not loaded at runtime).
 - Architecture overview: [`CODEBASE_GUIDE.md`](CODEBASE_GUIDE.md).
+- Release notes and update history: [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Sprite tooling (offline)
 
