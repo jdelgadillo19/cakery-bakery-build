@@ -42,3 +42,9 @@ public/sprites/_sprite_duplicate_audit.md
 .bgmLoopConstraints.dev.json
 scripts/__pycache__/
 tmp_refs/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
