@@ -1,14 +1,23 @@
 import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { db, isFirebaseConfigured } from "@/lib/firebaseClient";
 
-export const DEFAULT_PROFILE_TIER = "free";
+/** Free registered account — short: Beef full: Gojito's Beefy Supreme Team */
+export const DEFAULT_PROFILE_TIER = "beef";
 
 function profileRef(uid) {
   return doc(db, "users", uid);
 }
 
+/** Canonical stored tiers: `beef` | `guac`. Legacy: mvp/free→beef, gold/paid→guac */
 function normalizeTier(tier) {
-  return tier === "paid" ? "paid" : DEFAULT_PROFILE_TIER;
+  if (tier === "guac" || tier === "gold" || tier === "paid") return "guac";
+  if (tier === "mvp" || tier === "free") return "beef";
+  return DEFAULT_PROFILE_TIER;
+}
+
+/** Exported for entitlement sync: canonical `beef` | `guac` string. */
+export function normalizeProfileTier(tier) {
+  return normalizeTier(tier);
 }
 
 export async function getUserProfile(uid) {
@@ -23,9 +32,10 @@ export async function ensureUserProfile(firebaseUser) {
   const existing = await getDoc(ref);
   if (existing.exists()) {
     const data = existing.data();
-    if (!data.tier) {
-      await updateDoc(ref, { tier: DEFAULT_PROFILE_TIER, updatedAt: serverTimestamp() });
-      return { ...data, tier: DEFAULT_PROFILE_TIER };
+    const normalizedTier = normalizeTier(data.tier);
+    if (data.tier !== normalizedTier) {
+      await updateDoc(ref, { tier: normalizedTier, updatedAt: serverTimestamp() });
+      return { ...data, tier: normalizedTier };
     }
     return data;
   }

@@ -185,7 +185,10 @@ export default function Home() {
               {isAuthenticated ? (
                 <>
                   <span className="text-xs text-white/70 font-body">
-                    {user?.full_name || "Player"} · {profileTier === "paid" ? "Paid" : "Free"}
+                    {user?.full_name || "Player"} ·{" "}
+                    {profileTier === "guac" || profileTier === "gold" || profileTier === "paid"
+                      ? "Guac"
+                      : "Beef"}
                   </span>
                   <button
                     type="button"

@@ -8,6 +8,7 @@ import {
 } from "firebase/auth";
 import { auth, googleProvider, isFirebaseConfigured } from "@/lib/firebaseClient";
 import { ensureUserProfile, getUserProfile, updateUserTier } from "@/lib/profileStore";
+import { syncFirestoreTierFromGojitoBackend } from "@/lib/gojitoEntitlements";
 import { setRuntimeBuildTier } from "@/lib/buildConfig";
 
 const AuthContext = createContext(null);
@@ -25,12 +26,14 @@ export function AuthProvider({ children }) {
   const [authError, setAuthError] = useState(null);
 
   const applyTier = useCallback((tier) => {
-    setRuntimeBuildTier(tier === "paid" ? "full" : "free");
+    setRuntimeBuildTier(
+      tier === "guac" || tier === "gold" || tier === "paid" ? "full" : "free",
+    );
   }, []);
 
   useEffect(() => {
     if (!isFirebaseConfigured || !auth) {
-      applyTier("free");
+      applyTier("beef");
       return;
     }
 
@@ -47,31 +50,65 @@ export function AuthProvider({ children }) {
           setProfile(null);
           setIsAuthenticated(false);
           setAuthError(null);
-          applyTier("free");
+          applyTier("beef");
           return;
         }
 
         const ensured = (await ensureUserProfile(firebaseUser)) || (await getUserProfile(firebaseUser.uid));
+        const backendSynced = await syncFirestoreTierFromGojitoBackend(firebaseUser);
+        const mergedProfile = backendSynced || ensured || null;
         setUser({
           id: firebaseUser.uid,
           role: "player",
-          full_name: firebaseUser.displayName || ensured?.displayName || "Player",
-          email: firebaseUser.email || ensured?.email || null,
+          full_name: firebaseUser.displayName || mergedProfile?.displayName || "Player",
+          email: firebaseUser.email || mergedProfile?.email || null,
         });
-        setProfile(ensured || null);
+        setProfile(mergedProfile);
         setIsAuthenticated(true);
         setAuthError(null);
-        applyTier(ensured?.tier || "free");
+        applyTier(mergedProfile?.tier || "beef");
       } catch (e) {
         setAuthError({ type: "auth_failed", message: e?.message || "Authentication failed" });
         setIsAuthenticated(false);
-        applyTier("free");
+        applyTier("beef");
       } finally {
         setIsLoadingAuth(false);
       }
     });
 
     return () => unsub();
+  }, [applyTier]);
+
+  useEffect(() => {
+    if (!isFirebaseConfigured || !auth || !isAuthenticated || user?.id === "local") return undefined;
+
+    const intervalMs = 5 * 60 * 1000;
+    const tick = () => {
+      const current = auth.currentUser;
+      if (!current) return;
+      syncFirestoreTierFromGojitoBackend(current).then((doc) => {
+        if (doc) {
+          setProfile(doc);
+          applyTier(doc.tier || "beef");
+        }
+      });
+    };
+
+    const id = window.setInterval(tick, intervalMs);
+    return () => window.clearInterval(id);
+  }, [applyTier, isAuthenticated, user?.id]);
+
+  const refreshEntitlements = useCallback(async () => {
+    if (!isFirebaseConfigured || !auth?.currentUser) return false;
+    const doc = await syncFirestoreTierFromGojitoBackend(auth.currentUser, {
+      forceRefreshToken: true,
+    });
+    if (doc) {
+      setProfile(doc);
+      applyTier(doc.tier || "beef");
+      return true;
+    }
+    return false;
   }, [applyTier]);
 
   const signInWithGoogle = useCallback(async () => {
@@ -103,7 +140,7 @@ export function AuthProvider({ children }) {
       await updateUserTier(user.id, tier);
       const refreshed = await getUserProfile(user.id);
       setProfile(refreshed);
-      applyTier(refreshed?.tier || "free");
+      applyTier(refreshed?.tier || "beef");
     },
     [applyTier, user?.id],
   );
@@ -112,7 +149,7 @@ export function AuthProvider({ children }) {
     () => ({
       user,
       profile,
-      profileTier: profile?.tier || "free",
+      profileTier: profile?.tier || "beef",
       isFirebaseConfigured,
       isAuthenticated,
       isLoadingAuth,
@@ -124,8 +161,9 @@ export function AuthProvider({ children }) {
       signInWithEmail,
       signUpWithEmail,
       setProfileTier,
+      refreshEntitlements,
       navigateToLogin: () => {},
-      checkAppState: async () => {},
+      checkAppState: refreshEntitlements,
     }),
     [
       authError,
@@ -133,6 +171,7 @@ export function AuthProvider({ children }) {
       isLoadingAuth,
       logout,
       profile,
+      refreshEntitlements,
       setProfileTier,
       signInWithEmail,
       signInWithGoogle,

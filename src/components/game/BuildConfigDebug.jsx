@@ -55,24 +55,24 @@ export default function BuildConfigDebug() {
                   <p className="font-display text-xs text-foreground mb-2">Profile Tier ({user.email || user.id})</p>
                   <div className="flex items-center gap-2">
                     <button
-                      onClick={() => setProfileTier("free")}
+                      onClick={() => setProfileTier("beef")}
                       className={`px-2 py-1 text-xs rounded border ${
-                        profileTier !== "paid"
+                        profileTier !== "guac" && profileTier !== "gold" && profileTier !== "paid"
                           ? "bg-emerald-600/20 border-emerald-500 text-emerald-300"
                           : "bg-transparent border-border text-muted-foreground"
                       }`}
                     >
-                      Free
+                      Beef
                     </button>
                     <button
-                      onClick={() => setProfileTier("paid")}
+                      onClick={() => setProfileTier("guac")}
                       className={`px-2 py-1 text-xs rounded border ${
-                        profileTier === "paid"
+                        profileTier === "guac" || profileTier === "gold" || profileTier === "paid"
                           ? "bg-violet-600/20 border-violet-500 text-violet-300"
                           : "bg-transparent border-border text-muted-foreground"
                       }`}
                     >
-                      Paid
+                      Guac
                     </button>
                   </div>
                 </div>
