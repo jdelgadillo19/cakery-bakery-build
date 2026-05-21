@@ -1,14 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-} from "firebase/auth";
-import { auth, googleProvider, isFirebaseConfigured } from "@/lib/firebaseClient";
+import { isSupabaseConfigured, supabase } from "@/lib/supabaseClient";
 import { ensureUserProfile, getUserProfile, updateUserTier } from "@/lib/profileStore";
-import { syncFirestoreTierFromGojitoBackend } from "@/lib/gojitoEntitlements";
+import { syncProfileTierFromGojitoBackend } from "@/lib/gojitoEntitlements";
 import { setRuntimeBuildTier } from "@/lib/buildConfig";
 
 const AuthContext = createContext(null);
@@ -21,8 +14,9 @@ export function AuthProvider({ children }) {
     email: null,
   });
   const [profile, setProfile] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(!isFirebaseConfigured);
-  const [isLoadingAuth, setIsLoadingAuth] = useState(isFirebaseConfigured);
+  const [session, setSession] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(!isSupabaseConfigured);
+  const [isLoadingAuth, setIsLoadingAuth] = useState(isSupabaseConfigured);
   const [authError, setAuthError] = useState(null);
 
   const applyTier = useCallback((tier) => {
@@ -31,16 +25,11 @@ export function AuthProvider({ children }) {
     );
   }, []);
 
-  useEffect(() => {
-    if (!isFirebaseConfigured || !auth) {
-      applyTier("beef");
-      return;
-    }
-
-    const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
+  const handleAuthUser = useCallback(
+    async (authUser, activeSession) => {
       try {
         setIsLoadingAuth(true);
-        if (!firebaseUser) {
+        if (!authUser) {
           setUser({
             id: "local",
             role: "player",
@@ -54,14 +43,20 @@ export function AuthProvider({ children }) {
           return;
         }
 
-        const ensured = (await ensureUserProfile(firebaseUser)) || (await getUserProfile(firebaseUser.uid));
-        const backendSynced = await syncFirestoreTierFromGojitoBackend(firebaseUser);
+        const ensured = (await ensureUserProfile(authUser)) || (await getUserProfile(authUser.id));
+        const backendSynced = await syncProfileTierFromGojitoBackend(authUser, {
+          session: activeSession,
+        });
         const mergedProfile = backendSynced || ensured || null;
         setUser({
-          id: firebaseUser.uid,
+          id: authUser.id,
           role: "player",
-          full_name: firebaseUser.displayName || mergedProfile?.displayName || "Player",
-          email: firebaseUser.email || mergedProfile?.email || null,
+          full_name:
+            mergedProfile?.displayName ||
+            authUser.user_metadata?.full_name ||
+            authUser.user_metadata?.name ||
+            "Player",
+          email: authUser.email || mergedProfile?.email || null,
         });
         setProfile(mergedProfile);
         setIsAuthenticated(true);
@@ -74,19 +69,37 @@ export function AuthProvider({ children }) {
       } finally {
         setIsLoadingAuth(false);
       }
-    });
-
-    return () => unsub();
-  }, [applyTier]);
+    },
+    [applyTier],
+  );
 
   useEffect(() => {
-    if (!isFirebaseConfigured || !auth || !isAuthenticated || user?.id === "local") return undefined;
+    if (!isSupabaseConfigured || !supabase) {
+      applyTier("beef");
+      return;
+    }
+
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session);
+      handleAuthUser(data.session?.user ?? null, data.session);
+    });
+
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      setSession(nextSession);
+      handleAuthUser(nextSession?.user ?? null, nextSession);
+    });
+
+    return () => listener.subscription.unsubscribe();
+  }, [applyTier, handleAuthUser]);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured || !supabase || !isAuthenticated || user?.id === "local") return undefined;
 
     const intervalMs = 5 * 60 * 1000;
     const tick = () => {
-      const current = auth.currentUser;
-      if (!current) return;
-      syncFirestoreTierFromGojitoBackend(current).then((doc) => {
+      const authUser = session?.user;
+      if (!authUser) return;
+      syncProfileTierFromGojitoBackend(authUser, { session }).then((doc) => {
         if (doc) {
           setProfile(doc);
           applyTier(doc.tier || "beef");
@@ -96,12 +109,14 @@ export function AuthProvider({ children }) {
 
     const id = window.setInterval(tick, intervalMs);
     return () => window.clearInterval(id);
-  }, [applyTier, isAuthenticated, user?.id]);
+  }, [applyTier, isAuthenticated, session, user?.id]);
 
   const refreshEntitlements = useCallback(async () => {
-    if (!isFirebaseConfigured || !auth?.currentUser) return false;
-    const doc = await syncFirestoreTierFromGojitoBackend(auth.currentUser, {
+    const authUser = session?.user;
+    if (!isSupabaseConfigured || !authUser) return false;
+    const doc = await syncProfileTierFromGojitoBackend(authUser, {
       forceRefreshToken: true,
+      session,
     });
     if (doc) {
       setProfile(doc);
@@ -109,34 +124,46 @@ export function AuthProvider({ children }) {
       return true;
     }
     return false;
-  }, [applyTier]);
+  }, [applyTier, session]);
 
   const signInWithGoogle = useCallback(async () => {
-    if (!isFirebaseConfigured || !auth) return;
+    if (!isSupabaseConfigured || !supabase) return;
     setAuthError(null);
-    await signInWithPopup(auth, googleProvider);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: window.location.href },
+    });
+    if (error) {
+      setAuthError({ type: "auth_failed", message: error.message });
+    }
   }, []);
 
   const signInWithEmail = useCallback(async (email, password) => {
-    if (!isFirebaseConfigured || !auth) return;
+    if (!isSupabaseConfigured || !supabase) return;
     setAuthError(null);
-    await signInWithEmailAndPassword(auth, email, password);
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      setAuthError({ type: "auth_failed", message: error.message });
+    }
   }, []);
 
   const signUpWithEmail = useCallback(async (email, password) => {
-    if (!isFirebaseConfigured || !auth) return;
+    if (!isSupabaseConfigured || !supabase) return;
     setAuthError(null);
-    await createUserWithEmailAndPassword(auth, email, password);
+    const { error } = await supabase.auth.signUp({ email, password });
+    if (error) {
+      setAuthError({ type: "auth_failed", message: error.message });
+    }
   }, []);
 
   const logout = useCallback(async () => {
-    if (!isFirebaseConfigured || !auth) return;
-    await signOut(auth);
+    if (!isSupabaseConfigured || !supabase) return;
+    await supabase.auth.signOut();
   }, []);
 
   const setProfileTier = useCallback(
     async (tier) => {
-      if (!isFirebaseConfigured || !user?.id || user.id === "local") return;
+      if (!isSupabaseConfigured || !user?.id || user.id === "local") return;
       await updateUserTier(user.id, tier);
       const refreshed = await getUserProfile(user.id);
       setProfile(refreshed);
@@ -150,7 +177,7 @@ export function AuthProvider({ children }) {
       user,
       profile,
       profileTier: profile?.tier || "beef",
-      isFirebaseConfigured,
+      isSupabaseConfigured,
       isAuthenticated,
       isLoadingAuth,
       isLoadingPublicSettings: false,

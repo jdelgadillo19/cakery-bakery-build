@@ -31,7 +31,7 @@ export default function Home() {
   const [isRecipeBookOpen, setIsRecipeBookOpen] = useState(false);
   const [debugMode, setDebugMode] = useState(false);
   const [spriteMenuOpen, setSpriteMenuOpen] = useState(false);
-  const { isFirebaseConfigured, isAuthenticated, signInWithGoogle, logout, user, profileTier } = useAuth();
+  const { isSupabaseConfigured, isAuthenticated, signInWithGoogle, logout, user, profileTier } = useAuth();
 
   // Menu music follows this screen; streamed arcade/game BGM stops here immediately.
   // First interaction still unlocks AudioContext autoplay limits.
@@ -180,7 +180,7 @@ export default function Home() {
           transition={{ delay: 0.5 }}
           className="mt-10 flex flex-col items-center gap-3"
         >
-          {isFirebaseConfigured && (
+          {isSupabaseConfigured && (
             <div className="flex items-center gap-2">
               {isAuthenticated ? (
                 <>

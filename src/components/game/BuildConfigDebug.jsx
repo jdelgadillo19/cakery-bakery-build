@@ -12,7 +12,7 @@ import { Settings, ChevronDown, ChevronUp, CheckCircle, XCircle } from "lucide-r
 
 export default function BuildConfigDebug() {
   const { buildVersion, getFeatureMatrix } = useBuildConfig();
-  const { user, profileTier, setProfileTier, isFirebaseConfigured } = useAuth();
+  const { user, profileTier, setProfileTier, isSupabaseConfigured } = useAuth();
   const [open, setOpen] = useState(false);
   const matrix = getFeatureMatrix();
 
@@ -50,7 +50,7 @@ export default function BuildConfigDebug() {
             </div>
 
             <div className="max-h-72 overflow-y-auto divide-y divide-border/50">
-              {isFirebaseConfigured && user?.id !== "local" && (
+              {isSupabaseConfigured && user?.id !== "local" && (
                 <div className="px-3 py-2 bg-muted/30">
                   <p className="font-display text-xs text-foreground mb-2">Profile Tier ({user.email || user.id})</p>
                   <div className="flex items-center gap-2">

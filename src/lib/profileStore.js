@@ -1,12 +1,7 @@
-import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
-import { db, isFirebaseConfigured } from "@/lib/firebaseClient";
+import { isSupabaseConfigured, supabase } from "@/lib/supabaseClient";
 
 /** Free registered account — short: Beef full: Gojito's Beefy Supreme Team */
 export const DEFAULT_PROFILE_TIER = "beef";
-
-function profileRef(uid) {
-  return doc(db, "users", uid);
-}
 
 /** Canonical stored tiers: `beef` | `guac`. Legacy: mvp/free→beef, gold/paid→guac */
 function normalizeTier(tier) {
@@ -20,42 +15,69 @@ export function normalizeProfileTier(tier) {
   return normalizeTier(tier);
 }
 
-export async function getUserProfile(uid) {
-  if (!isFirebaseConfigured || !uid) return null;
-  const snap = await getDoc(profileRef(uid));
-  return snap.exists() ? snap.data() : null;
+function rowToDoc(row) {
+  return {
+    uid: row.id,
+    displayName: row.display_name || "Player",
+    email: row.email,
+    tier: normalizeTier(row.tier),
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
 }
 
-export async function ensureUserProfile(firebaseUser) {
-  if (!isFirebaseConfigured || !firebaseUser?.uid) return null;
-  const ref = profileRef(firebaseUser.uid);
-  const existing = await getDoc(ref);
-  if (existing.exists()) {
-    const data = existing.data();
-    const normalizedTier = normalizeTier(data.tier);
-    if (data.tier !== normalizedTier) {
-      await updateDoc(ref, { tier: normalizedTier, updatedAt: serverTimestamp() });
-      return { ...data, tier: normalizedTier };
+function displayNameFromAuthUser(authUser) {
+  const meta = authUser.user_metadata;
+  if (meta && typeof meta === "object") {
+    if (typeof meta.full_name === "string" && meta.full_name) return meta.full_name;
+    if (typeof meta.name === "string" && meta.name) return meta.name;
+  }
+  return "Player";
+}
+
+export async function getUserProfile(uid) {
+  if (!isSupabaseConfigured || !supabase || !uid) return null;
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("id, display_name, email, tier, created_at, updated_at")
+    .eq("id", uid)
+    .maybeSingle();
+  if (error || !data) return null;
+  return rowToDoc(data);
+}
+
+export async function ensureUserProfile(authUser) {
+  if (!isSupabaseConfigured || !supabase || !authUser?.id) return null;
+
+  const existing = await getUserProfile(authUser.id);
+  if (existing) {
+    const normalizedTier = normalizeTier(existing.tier);
+    if (existing.tier !== normalizedTier) {
+      await updateUserTier(authUser.id, normalizedTier);
+      return { ...existing, tier: normalizedTier };
     }
-    return data;
+    return existing;
   }
 
+  const now = new Date().toISOString();
   const created = {
-    uid: firebaseUser.uid,
-    displayName: firebaseUser.displayName || "Player",
-    email: firebaseUser.email || null,
+    id: authUser.id,
+    display_name: displayNameFromAuthUser(authUser),
+    email: authUser.email || null,
     tier: DEFAULT_PROFILE_TIER,
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
+    created_at: now,
+    updated_at: now,
   };
-  await setDoc(ref, created, { merge: true });
-  return { ...created, createdAt: new Date(), updatedAt: new Date() };
+
+  const { error } = await supabase.from("profiles").insert(created);
+  if (error) return null;
+  return rowToDoc(created);
 }
 
 export async function updateUserTier(uid, tier) {
-  if (!isFirebaseConfigured || !uid) return;
-  await updateDoc(profileRef(uid), {
-    tier: normalizeTier(tier),
-    updatedAt: serverTimestamp(),
-  });
+  if (!isSupabaseConfigured || !supabase || !uid) return;
+  await supabase
+    .from("profiles")
+    .update({ tier: normalizeTier(tier), updated_at: new Date().toISOString() })
+    .eq("id", uid);
 }

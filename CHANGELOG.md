@@ -16,8 +16,8 @@ when versioning releases.
 - Added local/runtime persistence for BGM constraints to survive app closure.
 - Added export and analysis scripts for BGM loop constraints.
 - Added new favicon pipeline output and home menu cupcake graphic from updated source art.
-- Added Firebase client wiring and Firestore profile store for backend user tiers.
-- Added runtime free/paid gate resolution from Firebase profile entitlements.
+- Added Supabase client wiring and profiles table store for backend user tiers.
+- Added runtime free/paid gate resolution from Supabase profile entitlements.
 - Added initial profile auth support (Google and email/password APIs) in auth context.
 
 ### Changed
