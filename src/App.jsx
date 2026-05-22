@@ -15,6 +15,7 @@ import WeeklySummary from './pages/WeeklySummary';
 import Leaderboard from './pages/Leaderboard';
 import ArcadeSetup from './pages/ArcadeSetup';
 import ArcadePlay from './pages/ArcadePlay';
+import GojitoGameChrome from '@/components/GojitoGameChrome';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -70,7 +71,10 @@ function App() {
       <AuthProvider>
         <QueryClientProvider client={queryClientInstance}>
           <Router basename={routerBasename() || undefined}>
-            <AuthenticatedApp />
+            <GojitoGameChrome />
+            <div className="pt-12">
+              <AuthenticatedApp />
+            </div>
           </Router>
           <Toaster />
         </QueryClientProvider>

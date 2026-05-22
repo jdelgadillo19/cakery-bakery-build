@@ -1,6 +1,8 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { isSupabaseConfigured, supabase } from "@/lib/supabaseClient";
 import { ensureUserProfile, getUserProfile, updateUserTier } from "@/lib/profileStore";
+import { registerGojitoHubAccessBridge } from "@/lib/gojitoAccessBridge";
+import { syncCakerySavesWithAccount } from "@/lib/cloudGameSaves";
 import { syncProfileTierFromGojitoBackend } from "@/lib/gojitoEntitlements";
 import { setRuntimeBuildTier } from "@/lib/buildConfig";
 
@@ -62,6 +64,7 @@ export function AuthProvider({ children }) {
         setIsAuthenticated(true);
         setAuthError(null);
         applyTier(mergedProfile?.tier || "beef");
+        await syncCakerySavesWithAccount(authUser.id);
       } catch (e) {
         setAuthError({ type: "auth_failed", message: e?.message || "Authentication failed" });
         setIsAuthenticated(false);
@@ -72,6 +75,10 @@ export function AuthProvider({ children }) {
     },
     [applyTier],
   );
+
+  useEffect(() => {
+    registerGojitoHubAccessBridge();
+  }, []);
 
   useEffect(() => {
     if (!isSupabaseConfigured || !supabase) {

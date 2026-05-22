@@ -18,6 +18,8 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
+    "@gojito/entitlements": "file:../packages/entitlements",
+    "@gojito/shared": "file:../packages/gojito-shared",
     "@hello-pangea/dnd": "^17.0.0",
     "@hookform/resolvers": "^4.1.2",
     "@radix-ui/react-accordion": "^1.2.3",

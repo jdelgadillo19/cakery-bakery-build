@@ -1,18 +1,18 @@
-import { supabase } from "@/platform/supabase/client";
+import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
+import { CAKERY_GAME_ID } from "@gojito/shared/saves";
 
 export type GameSaveRow = {
   id: string;
   user_id: string;
   game_id: string;
-  save_data: any;
+  save_data: Record<string, unknown>;
   updated_at: string | null;
 };
 
-// -------------------------
-// Load save(s)
-// -------------------------
-
 export async function getGameSave(saveId: string) {
+  if (!isSupabaseConfigured || !supabase) {
+    throw new Error("Supabase not configured");
+  }
   const { data, error } = await supabase
     .from("game_saves")
     .select("*")
@@ -24,23 +24,26 @@ export async function getGameSave(saveId: string) {
 }
 
 export async function getUserGameSaves(userId: string) {
+  if (!isSupabaseConfigured || !supabase) {
+    throw new Error("Supabase not configured");
+  }
   const { data, error } = await supabase
     .from("game_saves")
     .select("*")
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .eq("game_id", CAKERY_GAME_ID);
 
   if (error) throw error;
   return data as GameSaveRow[];
 }
 
-// -------------------------
-// Update save
-// -------------------------
-
 export async function updateGameSave(
   id: string,
-  patch: Partial<GameSaveRow["save_data"]>
+  patch: Record<string, unknown>,
 ) {
+  if (!isSupabaseConfigured || !supabase) {
+    throw new Error("Supabase not configured");
+  }
   const { data: existing, error: fetchError } = await supabase
     .from("game_saves")
     .select("save_data")

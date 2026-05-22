@@ -1,3 +1,4 @@
+import { parseEntitlementApiResponse } from "@gojito/entitlements";
 import { isSupabaseConfigured, supabase } from "@/lib/supabaseClient";
 import { getUserProfile, normalizeProfileTier, updateUserTier } from "@/lib/profileStore";
 
@@ -58,7 +59,8 @@ export async function syncProfileTierFromGojitoBackend(authUser, opts = {}) {
     return null;
   }
 
-  const remoteTier = data.profileTier === "guac" ? "guac" : "beef";
+  const snapshot = parseEntitlementApiResponse(data);
+  const remoteTier = snapshot?.accessTier === "guac" ? "guac" : "beef";
 
   try {
     const existing = await getUserProfile(authUser.id);

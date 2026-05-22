@@ -14,6 +14,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(rootDir, "./src"),
+      "@gojito/entitlements": path.resolve(rootDir, "../packages/entitlements/src/core.js"),
+      "@gojito/shared": path.resolve(rootDir, "../packages/gojito-shared/src"),
     },
   },
 });

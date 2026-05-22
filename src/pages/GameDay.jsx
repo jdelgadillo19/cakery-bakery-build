@@ -24,7 +24,6 @@ import { recordRunForUnlocks } from "@/lib/difficultyUnlocks.js";
 import { isStorySave, mergeStoryStatsAfterDay } from "@/lib/storyStats";
 import { getEffectiveDifficulty } from "@/lib/storyDifficulty";
 import { useDayTimer } from "@/hooks/useDayTimer";
-import { updateGameSave } from "@/lib/gameSaveService";
 import UpgradeModal from "@/components/game/UpgradeModal";
 import Day5UnlockModal from "@/components/game/Day5UnlockModal";
 import FreeRunEndScreen from "@/components/game/FreeRunEndScreen";
@@ -578,7 +577,7 @@ export default function GameDay() {
     };
     if (recipeBookPatch) updatePayload.recipe_book = recipeBookPatch;
 
-    await updateGameSave(gameSave.id, updatePayload);
+    await GameSave.update(gameSave.id, updatePayload);
     setPendingWalletAfterPay(newCoins);
     queryClient.invalidateQueries({ queryKey: ["gameSave", saveId] });
     setSavingDay(false);

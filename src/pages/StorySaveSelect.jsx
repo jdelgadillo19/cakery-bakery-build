@@ -61,6 +61,14 @@ export default function StorySaveSelect() {
     initialData: [],
   });
 
+  useEffect(() => {
+    const onSavesSynced = () => {
+      queryClient.invalidateQueries({ queryKey: ["gameSaves"] });
+    };
+    window.addEventListener("gojito-cakery-saves-synced", onSavesSynced);
+    return () => window.removeEventListener("gojito-cakery-saves-synced", onSavesSynced);
+  }, [queryClient]);
+
   const { data: slotAssignments } = useQuery({
     queryKey: ["storySlots"],
     queryFn: () => getStorySlotAssignments(),

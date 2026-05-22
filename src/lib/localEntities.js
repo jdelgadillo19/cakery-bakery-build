@@ -3,7 +3,15 @@
 // Game saves + leaderboard live in localStorage (device-local).
 // ============================================================
 
-const STORAGE_GAME_SAVES = "cakery_bakery_v1_game_saves";
+import { CAKERY_LOCAL_SAVES_KEY } from "@gojito/shared/saves";
+import {
+  deleteCloudSaveByLocalId,
+  getAuthenticatedUserId,
+  listCloudSaves,
+  syncRowToCloud,
+} from "@/lib/cloudGameSaves";
+
+const STORAGE_GAME_SAVES = CAKERY_LOCAL_SAVES_KEY;
 const STORAGE_LEADERBOARD = "cakery_bakery_v1_leaderboard_entries";
 
 function readJson(key, fallback) {
@@ -41,16 +49,30 @@ function sortByUpdatedDesc(rows) {
   });
 }
 
+async function listForCurrentUser(sortSpec, limit) {
+  const userId = await getAuthenticatedUserId();
+  if (userId) {
+    let rows = readSaves();
+    if (!rows.length) {
+      rows = await listCloudSaves(userId);
+      if (rows.length) writeSaves(rows);
+    }
+    if (String(sortSpec).includes("updated")) rows = sortByUpdatedDesc(rows);
+    return rows.slice(0, limit);
+  }
+  let rows = readSaves();
+  if (String(sortSpec).includes("updated")) rows = sortByUpdatedDesc(rows);
+  return rows.slice(0, limit);
+}
+
 /** Story / progression saves */
 export const GameSave = {
   async list(sortSpec = "-updated_date", limit = 100) {
-    let rows = readSaves();
-    if (String(sortSpec).includes("updated")) rows = sortByUpdatedDesc(rows);
-    return rows.slice(0, limit);
+    return listForCurrentUser(sortSpec, limit);
   },
 
   async filter(where = {}, sortSpec, limit) {
-    let rows = readSaves();
+    let rows = await listForCurrentUser(sortSpec ?? "-updated_date", 500);
     if (where.id != null) rows = rows.filter((r) => r.id === where.id);
     if (sortSpec != null && String(sortSpec).includes("updated")) {
       rows = sortByUpdatedDesc(rows);
@@ -70,6 +92,7 @@ export const GameSave = {
     };
     rows.push(row);
     writeSaves(rows);
+    await syncRowToCloud(row);
     return row;
   },
 
@@ -84,11 +107,14 @@ export const GameSave = {
       updated_date: nowIso(),
     };
     writeSaves(rows);
-    return rows[i];
+    const updated = rows[i];
+    await syncRowToCloud(updated);
+    return updated;
   },
 
   async delete(id) {
     writeSaves(readSaves().filter((r) => r.id !== id));
+    await deleteCloudSaveByLocalId(id);
   },
 };
 
