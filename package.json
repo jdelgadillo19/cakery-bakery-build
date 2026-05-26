@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@gojito/entitlements": "file:../packages/entitlements",
+    "@gojito/nav": "file:../gojito-platform/packages/gojito-nav",
     "@gojito/shared": "file:../packages/gojito-shared",
     "@hello-pangea/dnd": "^17.0.0",
     "@hookform/resolvers": "^4.1.2",

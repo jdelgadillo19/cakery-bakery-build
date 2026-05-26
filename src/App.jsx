@@ -72,7 +72,7 @@ function App() {
         <QueryClientProvider client={queryClientInstance}>
           <Router basename={routerBasename() || undefined}>
             <GojitoGameChrome />
-            <div className="pt-12">
+            <div className="gojito-nav-offset">
               <AuthenticatedApp />
             </div>
           </Router>
