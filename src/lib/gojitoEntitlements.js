@@ -74,3 +74,19 @@ export async function syncProfileTierFromGojitoBackend(authUser, opts = {}) {
     return null;
   }
 }
+
+/**
+ * Refresh tier for the active session: backend KV when API URL is set,
+ * otherwise re-read Supabase `profiles.tier` (manual guac grants).
+ *
+ * @param {import('@supabase/supabase-js').User} authUser
+ * @param {{ forceRefreshToken?: boolean, session?: import('@supabase/supabase-js').Session | null }} [opts]
+ * @returns {Promise<object|null>}
+ */
+export async function refreshAccountProfileTier(authUser, opts = {}) {
+  if (gojitoApiBaseUrl()) {
+    return syncProfileTierFromGojitoBackend(authUser, opts);
+  }
+  if (!authUser?.id) return null;
+  return getUserProfile(authUser.id);
+}

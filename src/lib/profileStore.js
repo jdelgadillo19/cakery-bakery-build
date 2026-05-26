@@ -15,6 +15,17 @@ export function normalizeProfileTier(tier) {
   return normalizeTier(tier);
 }
 
+/** Row patch for profiles: tier drives guac_active / is_premium (matches DB trigger). */
+export function entitlementColumnsForTier(tier) {
+  const canonical = normalizeTier(tier);
+  const isGuac = canonical === "guac";
+  return {
+    tier: canonical,
+    guac_active: isGuac,
+    is_premium: isGuac,
+  };
+}
+
 function rowToDoc(row) {
   return {
     uid: row.id,
@@ -64,7 +75,7 @@ export async function ensureUserProfile(authUser) {
     id: authUser.id,
     display_name: displayNameFromAuthUser(authUser),
     email: authUser.email || null,
-    tier: DEFAULT_PROFILE_TIER,
+    ...entitlementColumnsForTier(DEFAULT_PROFILE_TIER),
     created_at: now,
     updated_at: now,
   };
@@ -78,6 +89,9 @@ export async function updateUserTier(uid, tier) {
   if (!isSupabaseConfigured || !supabase || !uid) return;
   await supabase
     .from("profiles")
-    .update({ tier: normalizeTier(tier), updated_at: new Date().toISOString() })
+    .update({
+      ...entitlementColumnsForTier(tier),
+      updated_at: new Date().toISOString(),
+    })
     .eq("id", uid);
 }

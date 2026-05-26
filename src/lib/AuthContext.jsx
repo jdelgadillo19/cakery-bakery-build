@@ -3,7 +3,10 @@ import { isSupabaseConfigured, supabase } from "@/lib/supabaseClient";
 import { ensureUserProfile, getUserProfile, updateUserTier } from "@/lib/profileStore";
 import { registerGojitoHubAccessBridge } from "@/lib/gojitoAccessBridge";
 import { syncCakerySavesWithAccount } from "@/lib/cloudGameSaves";
-import { syncProfileTierFromGojitoBackend } from "@/lib/gojitoEntitlements";
+import {
+  refreshAccountProfileTier,
+  syncProfileTierFromGojitoBackend,
+} from "@/lib/gojitoEntitlements";
 import { setRuntimeBuildTier } from "@/lib/buildConfig";
 
 const AuthContext = createContext(null);
@@ -106,7 +109,7 @@ export function AuthProvider({ children }) {
     const tick = () => {
       const authUser = session?.user;
       if (!authUser) return;
-      syncProfileTierFromGojitoBackend(authUser, { session }).then((doc) => {
+      refreshAccountProfileTier(authUser, { session }).then((doc) => {
         if (doc) {
           setProfile(doc);
           applyTier(doc.tier || "beef");
@@ -121,7 +124,7 @@ export function AuthProvider({ children }) {
   const refreshEntitlements = useCallback(async () => {
     const authUser = session?.user;
     if (!isSupabaseConfigured || !authUser) return false;
-    const doc = await syncProfileTierFromGojitoBackend(authUser, {
+    const doc = await refreshAccountProfileTier(authUser, {
       forceRefreshToken: true,
       session,
     });
