@@ -2,7 +2,7 @@ import { parseEntitlementApiResponse } from "@gojito/entitlements";
 import { isSupabaseConfigured, supabase } from "@/lib/supabaseClient";
 import { getUserProfile, normalizeProfileTier, updateUserTier } from "@/lib/profileStore";
 
-/** Production Workers URL without trailing slash, e.g. `https://gojito-backend.<account>.workers.dev` */
+/** Optional legacy API base URL. Leave unset — entitlements come from Supabase profiles. */
 export function gojitoApiBaseUrl() {
   const raw = import.meta.env.VITE_GOJITO_API_URL;
   if (typeof raw !== "string") return "";
@@ -21,7 +21,7 @@ async function getAccessToken(session, forceRefresh) {
 }
 
 /**
- * Authoritative entitlement sync from gojito-backend into Supabase `profiles.tier`.
+ * Authoritative entitlement sync from Supabase `profiles.tier` (optional legacy API when configured).
  * Recommended: call after login and periodically while authenticated.
  *
  * @param {import('@supabase/supabase-js').User} authUser
