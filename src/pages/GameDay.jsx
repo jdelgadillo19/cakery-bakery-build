@@ -21,6 +21,7 @@ import { getDayDuration } from "@/lib/timerEngine";
 import { computeFinalScore, calcProblemEarnings } from "@/lib/economyEngine";
 import { recordRun } from "@/lib/leaderboard.js";
 import { recordRunForUnlocks } from "@/lib/difficultyUnlocks.js";
+import { setGojitoGameplayActive } from "@gojito/shared";
 import { isStorySave, mergeStoryStatsAfterDay } from "@/lib/storyStats";
 import { getEffectiveDifficulty } from "@/lib/storyDifficulty";
 import { useDayTimer } from "@/hooks/useDayTimer";
@@ -86,6 +87,16 @@ export default function GameDay() {
 
   useEffect(() => { dayStateRef.current  = dayState;  }, [dayState]);
   useEffect(() => { dayPhaseRef.current  = dayPhase;  }, [dayPhase]);
+
+  useEffect(() => {
+    const inRun =
+      dayPhase === "preDay" || dayPhase === "activeDay" || dayPhase === "lastCall";
+    if (inRun) {
+      setGojitoGameplayActive(true);
+      return () => setGojitoGameplayActive(false);
+    }
+    return undefined;
+  }, [dayPhase]);
 
   const [pendingScoreBreakdown, setPendingScoreBreakdown] = useState(null);
   const [pendingWalletAfterPay, setPendingWalletAfterPay] = useState(null);

@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { isSupabaseConfigured, supabase } from "@/lib/supabaseClient";
 import { ensureUserProfile, getUserProfile, updateUserTier } from "@/lib/profileStore";
 import { registerGojitoHubAccessBridge } from "@/lib/gojitoAccessBridge";
@@ -8,8 +8,24 @@ import {
   syncProfileTierFromGojitoBackend,
 } from "@/lib/gojitoEntitlements";
 import { setRuntimeBuildTier } from "@/lib/buildConfig";
+import {
+  submitFullAccessRequest,
+  isGojitoGameplayActive,
+  dispatchGojitoProfileTierChange,
+  clearSessionTierSynced,
+  clearGojitoProfileCache,
+} from "@gojito/shared";
+import { mergeArcadeLocaleUnlocks } from "@/lib/arcadeLocaleUnlocks";
 
 const AuthContext = createContext(null);
+
+/** Pull cloud saves only on cold start and explicit sign-in. */
+const SAVE_SYNC_EVENTS = new Set(["INITIAL_SESSION", "SIGNED_IN"]);
+
+export async function syncCakeryCloudSaves(userId) {
+  if (!userId || isGojitoGameplayActive()) return;
+  await syncCakerySavesWithAccount(userId);
+}
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState({
@@ -23,60 +39,91 @@ export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(!isSupabaseConfigured);
   const [isLoadingAuth, setIsLoadingAuth] = useState(isSupabaseConfigured);
   const [authError, setAuthError] = useState(null);
+  const initialSessionHandledRef = useRef(false);
 
-  const applyTier = useCallback((tier) => {
+  const applyTier = useCallback((tier, { broadcast = true } = {}) => {
     setRuntimeBuildTier(
       tier === "guac" || tier === "gold" || tier === "paid" ? "full" : "free",
     );
+    if (broadcast) dispatchGojitoProfileTierChange(tier);
   }, []);
 
-  const handleAuthUser = useCallback(
-    async (authUser, activeSession) => {
-      try {
-        setIsLoadingAuth(true);
-        if (!authUser) {
-          setUser({
-            id: "local",
-            role: "player",
-            full_name: "Player",
-            email: null,
-          });
-          setProfile(null);
-          setIsAuthenticated(false);
-          setAuthError(null);
-          applyTier("beef");
-          return;
-        }
+  const applyGuestState = useCallback(() => {
+    clearSessionTierSynced();
+    clearGojitoProfileCache();
+    setUser({
+      id: "local",
+      role: "player",
+      full_name: "Player",
+      email: null,
+    });
+    setProfile(null);
+    setIsAuthenticated(false);
+    setAuthError(null);
+    applyTier("beef", { broadcast: false });
+    setIsLoadingAuth(false);
+    initialSessionHandledRef.current = true;
+  }, [applyTier]);
 
+  const applyProfileState = useCallback(
+    (authUser, mergedProfile) => {
+      setUser({
+        id: authUser.id,
+        role: "player",
+        full_name:
+          mergedProfile?.displayName ||
+          authUser.user_metadata?.full_name ||
+          authUser.user_metadata?.name ||
+          "Player",
+        email: authUser.email || mergedProfile?.email || null,
+      });
+      setProfile(mergedProfile);
+      setIsAuthenticated(true);
+      setAuthError(null);
+      applyTier(mergedProfile?.tier || "beef");
+    },
+    [applyTier],
+  );
+
+  const handleAuthUser = useCallback(
+    async (authUser, activeSession, event) => {
+      if (event === "TOKEN_REFRESHED") {
+        setSession(activeSession);
+        return;
+      }
+
+      if (!authUser) {
+        applyGuestState();
+        return;
+      }
+
+      const shouldSyncSaves = SAVE_SYNC_EVENTS.has(event) && !isGojitoGameplayActive();
+      const showLoading = !initialSessionHandledRef.current && !isGojitoGameplayActive();
+
+      if (showLoading) setIsLoadingAuth(true);
+
+      try {
         const ensured = (await ensureUserProfile(authUser)) || (await getUserProfile(authUser.id));
         const backendSynced = await syncProfileTierFromGojitoBackend(authUser, {
           session: activeSession,
         });
         const mergedProfile = backendSynced || ensured || null;
-        setUser({
-          id: authUser.id,
-          role: "player",
-          full_name:
-            mergedProfile?.displayName ||
-            authUser.user_metadata?.full_name ||
-            authUser.user_metadata?.name ||
-            "Player",
-          email: authUser.email || mergedProfile?.email || null,
-        });
-        setProfile(mergedProfile);
-        setIsAuthenticated(true);
-        setAuthError(null);
-        applyTier(mergedProfile?.tier || "beef");
-        await syncCakerySavesWithAccount(authUser.id);
+        applyProfileState(authUser, mergedProfile);
+
+        if (shouldSyncSaves) {
+          mergeArcadeLocaleUnlocks();
+          await syncCakeryCloudSaves(authUser.id);
+        }
       } catch (e) {
         setAuthError({ type: "auth_failed", message: e?.message || "Authentication failed" });
         setIsAuthenticated(false);
-        applyTier("beef");
+        applyTier("beef", { broadcast: false });
       } finally {
         setIsLoadingAuth(false);
+        initialSessionHandledRef.current = true;
       }
     },
-    [applyTier],
+    [applyGuestState, applyProfileState, applyTier],
   );
 
   useEffect(() => {
@@ -85,45 +132,29 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     if (!isSupabaseConfigured || !supabase) {
-      applyTier("beef");
+      applyTier("beef", { broadcast: false });
+      setIsLoadingAuth(false);
       return;
     }
 
     supabase.auth.getSession().then(({ data }) => {
       setSession(data.session);
-      handleAuthUser(data.session?.user ?? null, data.session);
+      handleAuthUser(data.session?.user ?? null, data.session, "INITIAL_SESSION");
     });
 
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+    const { data: listener } = supabase.auth.onAuthStateChange((event, nextSession) => {
       setSession(nextSession);
-      handleAuthUser(nextSession?.user ?? null, nextSession);
+      if (event === "INITIAL_SESSION") return;
+      handleAuthUser(nextSession?.user ?? null, nextSession, event);
     });
 
     return () => listener.subscription.unsubscribe();
   }, [applyTier, handleAuthUser]);
 
-  useEffect(() => {
-    if (!isSupabaseConfigured || !supabase || !isAuthenticated || user?.id === "local") return undefined;
-
-    const intervalMs = 5 * 60 * 1000;
-    const tick = () => {
-      const authUser = session?.user;
-      if (!authUser) return;
-      refreshAccountProfileTier(authUser, { session }).then((doc) => {
-        if (doc) {
-          setProfile(doc);
-          applyTier(doc.tier || "beef");
-        }
-      });
-    };
-
-    const id = window.setInterval(tick, intervalMs);
-    return () => window.clearInterval(id);
-  }, [applyTier, isAuthenticated, session, user?.id]);
-
   const refreshEntitlements = useCallback(async () => {
     const authUser = session?.user;
     if (!isSupabaseConfigured || !authUser) return false;
+    if (isGojitoGameplayActive()) return false;
     const doc = await refreshAccountProfileTier(authUser, {
       forceRefreshToken: true,
       session,
@@ -131,6 +162,7 @@ export function AuthProvider({ children }) {
     if (doc) {
       setProfile(doc);
       applyTier(doc.tier || "beef");
+      await syncCakeryCloudSaves(authUser.id);
       return true;
     }
     return false;
@@ -182,11 +214,27 @@ export function AuthProvider({ children }) {
     [applyTier, user?.id],
   );
 
+  const requestFullAccess = useCallback(
+    async (source = "cakery_bakery", contextNote = null) => {
+      if (!isAuthenticated || user?.id === "local") {
+        return submitFullAccessRequest(null, { userId: "", source, contextNote });
+      }
+      return submitFullAccessRequest(supabase, {
+        userId: user.id,
+        email: user.email,
+        displayName: user.full_name,
+        source,
+        contextNote,
+      });
+    },
+    [isAuthenticated, user],
+  );
+
   const value = useMemo(
     () => ({
       user,
       profile,
-      profileTier: profile?.tier || "beef",
+      profileTier: isAuthenticated ? profile?.tier || "beef" : undefined,
       isSupabaseConfigured,
       isAuthenticated,
       isLoadingAuth,
@@ -199,6 +247,7 @@ export function AuthProvider({ children }) {
       signUpWithEmail,
       setProfileTier,
       refreshEntitlements,
+      requestFullAccess,
       navigateToLogin: () => {},
       checkAppState: refreshEntitlements,
     }),
@@ -209,6 +258,7 @@ export function AuthProvider({ children }) {
       logout,
       profile,
       refreshEntitlements,
+      requestFullAccess,
       setProfileTier,
       signInWithEmail,
       signInWithGoogle,

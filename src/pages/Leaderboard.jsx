@@ -1,7 +1,7 @@
 // ============================================================
 // CAKERY BAKERY — Leaderboard
 //
-// Global tab:  all runs ranked by score, filterable by difficulty
+// Global tab:  all runs on this device, filterable by difficulty
 // My Runs tab: runs for the locally-active player name (device-local identity)
 //              shows personal best + top 3
 //
@@ -306,7 +306,9 @@ export default function Leaderboard() {
             <div>
               <h1 className="font-display font-bold text-2xl text-foreground">Leaderboard</h1>
               <p className="font-body text-xs text-muted-foreground">
-                {category === "arcade" ? "Arcade runs ranked by score" : "Story saves — lifetime stats"}
+                {category === "arcade"
+                  ? "Arcade scores saved on this device — online leaderboards coming soon"
+                  : "Story saves — lifetime stats"}
               </p>
             </div>
             <Button variant="ghost" size="icon" onClick={load} className="ml-auto" title="Refresh">
@@ -424,7 +426,7 @@ export default function Leaderboard() {
               }`}
             >
               <Globe className="w-3.5 h-3.5" />
-              All Runs ({allSorted.length})
+              This device ({allSorted.length})
             </button>
             <button
               onClick={() => setTab("personal")}

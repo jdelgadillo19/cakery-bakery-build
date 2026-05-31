@@ -12,6 +12,8 @@
     "preview": "npm run build && vite preview",
     "import-assets": "node scripts/import-sticker-assets.mjs",
     "build-sprite-index": "node scripts/build-sprite-organizer-index.mjs",
+    "generate-apartment-sprites": "python3 scripts/generate-apartment-sprites.py",
+    "process-apartment-ai": "python3 scripts/process-apartment-ai-batch.py",
     "analyze-bgm-loop": "python3 scripts/analyze-bgm-loop.py",
     "commit-bgm-loop": "python3 scripts/analyze-bgm-loop.py public/audio/bgm/paris_piano.mp3 --pause 0.5 --grid 384 --write src/data/bgmLoopConstraints.json",
     "export-bgm-constraints": "python3 scripts/export-bgm-constraints.py",

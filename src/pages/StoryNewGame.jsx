@@ -17,7 +17,12 @@ import { GameSave } from "@/lib/localEntities";
 import { getStoryNewSaveRecipeFields } from "@/lib/recipeBook";
 import { VILLAGES } from "@/lib/gameData";
 import { isFeatureUnlocked } from "@/lib/buildConfig";
-import { isLocalePlayableInFree } from "@/lib/freeSessionState";
+import {
+  ARCADE_VILLAGE_ORDER,
+  getLocaleGateStatus,
+  hasFullAccountAccess,
+} from "@/lib/arcadeLocaleUnlocks";
+import { useAuth } from "@/lib/AuthContext";
 import UpgradeModal from "@/components/game/UpgradeModal";
 import { playBGM, playSFX, unlockAudio } from "@/lib/audio";
 import {
@@ -27,35 +32,23 @@ import {
   removeSaveFromStorySlots,
 } from "@/lib/storySlots";
 
-const FREE_LOCALE_MESSAGES = {
-  frontier_us: "Complete Day 5 to permanently unlock Frontier US!",
-  ming_china: "Get the full version to play in Suzhou Watertown!",
-  london: "Get the full version to play in Covent Garden, London!",
-};
-
-function isVillageLocked(villageKey) {
-  if (isFeatureUnlocked("multiVillage")) return false;
-  if (villageKey === "paris") return false;
-  if (villageKey === "frontier_us") return !isLocalePlayableInFree("frontier_us");
-  return true;
-}
-
-function isVillageUpgradeRequired(villageKey) {
-  return villageKey === "ming_china" || villageKey === "london" || villageKey === "frontier_us";
-}
-
 const STEPS = ["names", "locale", "tutorial", "review"];
 
 export default function StoryNewGame() {
   const navigate = useNavigate();
   const location = useLocation();
   const queryClient = useQueryClient();
+  const { profileTier } = useAuth();
+  const hasGuac = hasFullAccountAccess(profileTier);
+
+  const isVillageLocked = (villageKey) => !getLocaleGateStatus(villageKey, hasGuac).accessible;
 
   const slotIndex =
     typeof location.state?.slotIndex === "number" ? location.state.slotIndex : NaN;
   const replaceSaveId = location.state?.replaceSaveId ?? null;
 
   const [upgradeModal, setUpgradeModal] = useState({ open: false, message: "" });
+  const [achievementHint, setAchievementHint] = useState("");
 
   const [step, setStep] = useState("names");
   const [playerName, setPlayerName] = useState("");
@@ -168,7 +161,7 @@ export default function StoryNewGame() {
     }
   };
 
-  const villageKeys = ["paris", "frontier_us", "ming_china", "london"];
+  const villageKeys = ARCADE_VILLAGE_ORDER;
 
   const stepIndex = STEPS.indexOf(step);
 
@@ -290,11 +283,16 @@ export default function StoryNewGame() {
               <p className="text-center font-body text-muted-foreground mb-6 text-sm">
                 Tap a village, then accept to lock in your choice.
               </p>
+              {achievementHint && (
+                <p className="text-center font-body text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mb-4">
+                  {achievementHint}
+                </p>
+              )}
               <div className="grid grid-cols-2 gap-3 mb-6">
                 {villageKeys.map((key) => {
                   const v = VILLAGES[key];
-                  const locked = isVillageLocked(key);
-                  const upgradeRequired = isVillageUpgradeRequired(key);
+                  const gate = getLocaleGateStatus(key, hasGuac);
+                  const locked = !gate.accessible;
                   const selected = localeDraft === key;
                   return (
                     <motion.button
@@ -304,16 +302,17 @@ export default function StoryNewGame() {
                       whileTap={!locked ? { scale: 0.98 } : {}}
                       onClick={() => {
                         if (!locked) {
+                          setAchievementHint("");
                           setLocaleDraft(key);
                           playSFX("click");
                           return;
                         }
-                        if (upgradeRequired) {
-                          setUpgradeModal({
-                            open: true,
-                            message: FREE_LOCALE_MESSAGES[key] || "Get the full version!",
-                          });
+                        if (gate.wall === "paywall") {
+                          setAchievementHint("");
+                          setUpgradeModal({ open: true, message: gate.message });
+                          return;
                         }
+                        setAchievementHint(gate.message);
                       }}
                       className={`relative overflow-hidden rounded-xl border-2 text-left transition-all ${
                         locked

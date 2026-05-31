@@ -14,6 +14,8 @@ import SpriteMenu from "@/components/game/SpriteMenu";
 import { playBGM, playSFX, unlockAudio } from "@/lib/audio";
 import BuildConfigDebug from "@/components/game/BuildConfigDebug";
 import { getMenuSlotConfig } from "@/lib/recipeBook";
+import { publicUrl } from "@/lib/publicUrl";
+
 export default function Home() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -73,7 +75,7 @@ export default function Home() {
             transition={{ duration: 2, repeat: Infinity }}
           >
             <img
-              src="/sprites/ui/menu_cupcake.png"
+              src={publicUrl("sprites/ui/menu_cupcake.png")}
               alt="Floating cupcake"
               className="w-20 h-20 object-contain"
             />
@@ -113,7 +115,7 @@ export default function Home() {
                 </p>
                 <p className="mt-3 pt-3 border-t border-white/15 font-body text-xs text-white/70 leading-relaxed">
                   <span className="sr-only">Mode highlights: </span>
-                  Quick sessions with global leaderboard rankings — runs stay on this device until you submit a score.
+                  Quick sessions with scores saved on this device — online leaderboards coming soon.
                 </p>
               </div>
             </div>

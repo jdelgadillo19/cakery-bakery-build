@@ -26,6 +26,8 @@ import { getDayDuration } from "@/lib/timerEngine";
 import { getDifficultyMult } from "@/lib/economyEngine";
 import { recordRun } from "@/lib/leaderboard.js";
 import { recordRunForUnlocks } from "@/lib/difficultyUnlocks.js";
+import { recordArcadeLocaleRunScore } from "@/lib/arcadeLocaleUnlocks.js";
+import { setGojitoGameplayActive } from "@gojito/shared";
 import { useDayTimer } from "@/hooks/useDayTimer";
 import { VILLAGES, DIFFICULTY_CONFIG, getProductsForDifficulty } from "@/lib/gameData";
 import { ownerArcadeTallyLine } from "@/lib/gameEngine";
@@ -153,6 +155,11 @@ export default function ArcadePlay() {
   useEffect(() => { currentProblemRef.current = currentProblem; }, [currentProblem]);
   useEffect(() => { phaseRef.current     = phase; },     [phase]);
 
+  useEffect(() => {
+    setGojitoGameplayActive(true);
+    return () => setGojitoGameplayActive(false);
+  }, []);
+
   // ── Init resources once ──────────────────────────────────────────────────
   useEffect(() => {
     if (resourcesReadyRef.current) return;
@@ -233,7 +240,8 @@ export default function ArcadePlay() {
       correctTransactions: ds.tippedTransactions || 0,
     });
     recordRunForUnlocks(bdWithBonus.finalScore);
-  }, [villageKey, difficulty, playerName, tallyState]);
+    recordArcadeLocaleRunScore(bdWithBonus.finalScore);
+  }, [villageKey, difficulty, playerName, tallyState, arcadeSession.bakery_name]);
 
   // ── Start run ────────────────────────────────────────────────────────────
   const handleStart = useCallback(() => {

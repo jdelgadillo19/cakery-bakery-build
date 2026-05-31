@@ -1,13 +1,13 @@
 // ============================================================
 // CAKERY BAKERY — Day 5 Unlock Modal
 // Shown once per session when Day 5 is completed in free build.
-// Celebrates unlocking Frontier US locale + Hard difficulty.
+// Celebrates unlocking Frontier US locale.
 // ============================================================
 
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Star, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { playSFX } from "@/lib/audio";
 import { VILLAGES } from "@/lib/gameData";
 
@@ -71,7 +71,7 @@ export default function Day5UnlockModal({ open, onClose }) {
                 Day 5 Complete!
               </h2>
               <p className="font-body text-sm text-muted-foreground mb-5 leading-relaxed">
-                You've permanently unlocked two new options:
+                You've permanently unlocked a new locale:
               </p>
 
               {/* Unlock list */}
@@ -83,19 +83,10 @@ export default function Day5UnlockModal({ open, onClose }) {
                     <p className="font-body text-xs text-muted-foreground">New bakery locale permanently unlocked</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5">
-                  <div className="flex gap-0.5">
-                    {[1,2,3].map((i) => <Star key={i} className="w-4 h-4 text-red-500 fill-red-500" />)}
-                  </div>
-                  <div>
-                    <p className="font-display font-bold text-sm text-foreground">Hard Difficulty</p>
-                    <p className="font-body text-xs text-muted-foreground">Permanently unlocked for your account</p>
-                  </div>
-                </div>
               </div>
 
               <p className="font-body text-xs text-muted-foreground mb-4 leading-relaxed">
-                These unlocks are saved permanently. Get the full version for all locales and game modes!
+                This unlock is saved permanently. Request full access from the account menu for all locales and game modes!
               </p>
 
               <Button

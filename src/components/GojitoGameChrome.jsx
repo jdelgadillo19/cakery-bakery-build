@@ -14,6 +14,7 @@ export default function GojitoGameChrome() {
     signInWithGoogle,
     logout,
     refreshEntitlements,
+    requestFullAccess,
   } = useAuth();
 
   return (
@@ -30,6 +31,7 @@ export default function GojitoGameChrome() {
       onSignIn={() => void signInWithGoogle()}
       onSignOut={() => void logout()}
       onRefreshAccess={() => refreshEntitlements()}
+      onRequestFullAccess={() => requestFullAccess("cakery_bakery")}
     />
   );
 }

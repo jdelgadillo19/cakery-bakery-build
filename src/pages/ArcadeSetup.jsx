@@ -14,34 +14,26 @@ import { Label } from "@/components/ui/label";
 import { VILLAGES, DIFFICULTY_CONFIG } from "@/lib/gameData";
 import { ArrowLeft, ArrowRight, MapPin, Star, Lock, Sparkles, Zap, Plus, Check, User, Trash2 } from "lucide-react";
 import UpgradeModal from "@/components/game/UpgradeModal";
-import { isEasyUnlocked, isMediumUnlocked, isHardUnlocked, isExpertUnlocked, isFrontierUnlocked, MEDIUM_UNLOCK_THRESHOLD } from "@/lib/difficultyUnlocks";
-import { isAllLocalesUnlocked } from "@/lib/debugOverrides";
+import { isEasyUnlocked, isMediumUnlocked, MEDIUM_UNLOCK_THRESHOLD } from "@/lib/difficultyUnlocks";
+import { isFeatureUnlocked } from "@/lib/buildConfig";
+import {
+  ARCADE_VILLAGE_ORDER,
+  getLocaleGateStatus,
+  hasFullAccountAccess,
+} from "@/lib/arcadeLocaleUnlocks";
 import { getLocalNames, addLocalName, removeLocalName, getActivePlayerName } from "@/lib/localNames";
+import { useAuth } from "@/lib/AuthContext";
 
 const DIFFICULTY_ORDER = ["beginner", "easy", "medium", "hard", "expert"];
 const DIFFICULTY_STARS = { beginner: 0, easy: 1, medium: 2, hard: 3, expert: 4 };
-const ARCADE_VILLAGES  = ["paris", "frontier_us", "ming_china", "london"];
 
 function getDifficultyLockInfo(key) {
   if (key === "beginner") return { locked: false, paywalled: false, reason: "" };
-  if (key === "easy")   return { locked: !isEasyUnlocked(),   paywalled: false, reason: "Complete your first run to unlock Easy!" };
+  if (key === "easy") return { locked: !isEasyUnlocked(), paywalled: false, reason: "Complete your first run to unlock Easy!" };
   if (key === "medium") return { locked: !isMediumUnlocked(), paywalled: false, reason: `Reach a score of ${MEDIUM_UNLOCK_THRESHOLD} to unlock Medium!` };
-  if (key === "hard")   return { locked: !isHardUnlocked(),   paywalled: !isHardUnlocked(),   reason: "Hard difficulty requires the full version!" };
-  if (key === "expert") return { locked: !isExpertUnlocked(), paywalled: !isExpertUnlocked(), reason: "Expert difficulty requires the full version!" };
+  if (key === "hard") return { locked: !isFeatureUnlocked("difficultyHard"), paywalled: !isFeatureUnlocked("difficultyHard"), reason: "Hard difficulty requires full access!" };
+  if (key === "expert") return { locked: !isFeatureUnlocked("difficultyHard"), paywalled: !isFeatureUnlocked("difficultyHard"), reason: "Expert difficulty requires full access!" };
   return { locked: false, paywalled: false, reason: "" };
-}
-
-const VILLAGE_LOCK_MSG = {
-  frontier_us: "Keep playing to unlock Frontier US — earn more runs to progress!",
-  ming_china:  "Get the full version to play Suzhou Watertown in Arcade Mode!",
-  london:      "Get the full version to play Covent Garden in Arcade Mode!",
-};
-
-function isVillageLocked(key) {
-  if (key === "paris") return false;
-  if (key === "frontier_us") return !isFrontierUnlocked() && !isAllLocalesUnlocked();
-  // ming_china and london are paywalled (or override)
-  return !isAllLocalesUnlocked();
 }
 
 // ── Name Selector Component ───────────────────────────────────────────────────
@@ -188,11 +180,14 @@ function NameSelector({ onSelect }) {
 // ── Main Setup Page ───────────────────────────────────────────────────────────
 export default function ArcadeSetup() {
   const navigate = useNavigate();
+  const { profileTier } = useAuth();
+  const hasGuac = hasFullAccountAccess(profileTier);
   const [step, setStep] = useState(0); // 0=village, 1=name, 2=difficulty
   const [village, setVillage] = useState(null);
   const [playerName, setPlayerName] = useState("");
   const [difficulty, setDifficulty] = useState("beginner");
   const [upgradeModal, setUpgradeModal] = useState({ open: false, message: "" });
+  const [achievementHint, setAchievementHint] = useState("");
 
   const handleStart = () => {
     const lockInfo = getDifficultyLockInfo(difficulty);
@@ -244,26 +239,35 @@ export default function ArcadeSetup() {
             <motion.div key="village" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }}>
               <h2 className="font-display font-bold text-2xl text-center text-foreground mb-2">Choose Your Village</h2>
               <p className="text-center font-body text-muted-foreground mb-6 text-sm">Where will today's run take place?</p>
+              {achievementHint && (
+                <p className="text-center font-body text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mb-4">
+                  {achievementHint}
+                </p>
+              )}
               <div className="grid grid-cols-2 gap-4">
-                {ARCADE_VILLAGES.map((key) => {
+                {ARCADE_VILLAGE_ORDER.map((key) => {
                   const v = VILLAGES[key];
                   if (!v) return null;
-                  const isLocked = isVillageLocked(key);
+                  const gate = getLocaleGateStatus(key, hasGuac);
+                  const isLocked = !gate.accessible;
                   return (
                     <motion.button
                       key={key}
                       whileHover={!isLocked ? { scale: 1.03 } : {}}
                       whileTap={!isLocked ? { scale: 0.97 } : {}}
                       onClick={() => {
-                        if (isLocked) {
-                          // frontier_us is progression-locked (no paywall), others are paywalled
-                          if (key !== "frontier_us") {
-                            setUpgradeModal({ open: true, message: VILLAGE_LOCK_MSG[key] || "Get the full version!" });
-                          }
+                        if (!isLocked) {
+                          setAchievementHint("");
+                          setVillage(key);
+                          setStep(1);
                           return;
                         }
-                        setVillage(key);
-                        setStep(1);
+                        if (gate.wall === "paywall") {
+                          setAchievementHint("");
+                          setUpgradeModal({ open: true, message: gate.message });
+                          return;
+                        }
+                        setAchievementHint(gate.message);
                       }}
                       className={`relative overflow-hidden rounded-xl border-2 text-left transition-all ${
                         isLocked ? "border-border opacity-60 cursor-not-allowed"
@@ -279,7 +283,7 @@ export default function ArcadeSetup() {
                             <div className="bg-card/90 rounded-xl px-3 py-1.5 flex items-center gap-1.5 shadow">
                               <Lock className="w-3.5 h-3.5 text-muted-foreground" />
                               <span className="font-display text-xs font-bold text-foreground">
-                                {key === "frontier_us" ? "Keep playing to unlock!" : "Full version"}
+                                {gate.wall === "achievement" ? "Score to unlock" : "Full access"}
                               </span>
                             </div>
                           </div>

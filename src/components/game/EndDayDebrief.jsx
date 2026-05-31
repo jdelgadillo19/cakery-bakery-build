@@ -587,13 +587,14 @@ export default function EndDayDebrief({
               <Button
                 type="button"
                 variant="secondary"
-                className="font-display font-bold h-11"
-                onClick={() => {
-                  playSFX("click");
-                  setPhase("apartment_shop_stub");
-                }}
+                className="font-display font-bold h-11 opacity-60 cursor-not-allowed"
+                disabled
+                title="Coming soon!"
               >
                 Apartment improvements
+                <span className="ml-2 text-[10px] font-semibold uppercase tracking-wide opacity-80">
+                  Coming soon!
+                </span>
               </Button>
               <Button type="button" variant="ghost" className="font-display text-xs" onClick={() => { playSFX("click"); setPhase("travel_choice"); }}>
                 ← Leave the market

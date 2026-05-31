@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "backgroundSize": { "width": 768, "height": 512 },
+  "locales": ["paris", "london", "ming_china", "frontier_us"],
+  "categories": ["furniture", "wall_decor", "tables", "kitchen", "carpets"],
+  "items": {
+    "furniture": ["bed_basic", "bed_upgrade", "dresser", "armchair"],
+    "wall_decor": ["wall_clock", "framed_art", "wall_shelf"],
+    "tables": ["dining_table", "side_table"],
+    "kitchen": ["stove", "coffee_maker", "kitchen_sink"],
+    "carpets": ["rug_round", "rug_runner"]
+  }
+}

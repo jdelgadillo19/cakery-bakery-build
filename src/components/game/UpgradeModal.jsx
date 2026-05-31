@@ -1,31 +1,59 @@
 // ============================================================
-// CAKERY BAKERY — Upgrade CTA Modal
-// Shown whenever a locked feature is tapped in free build.
+// CAKERY BAKERY — Upgrade / full-access request modal
+// Shown whenever a locked feature is tapped in the free build.
 // ============================================================
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Lock, Sparkles, X } from "lucide-react";
+import { Lock, Mail, Sparkles, X } from "lucide-react";
+import { useAuth } from "@/lib/AuthContext";
+import {
+  FULL_ACCESS_PAYMENT_MESSAGE,
+  FULL_ACCESS_REQUEST_SENT_MESSAGE,
+  FULL_ACCESS_SIGN_IN_MESSAGE,
+  hasLocalFullAccessRequest,
+} from "@gojito/shared";
 
 /**
- * Placeholder — replace with real URL when ready.
- */
-function handleUpgradeClick() {
-  // TODO: replace with actual upgrade URL
-  // window.open("https://your-upgrade-url.com", "_blank");
-  console.log("[UpgradeModal] Upgrade button clicked — wire up URL here.");
-}
-
-/**
- * @param {{ open: boolean, onClose: () => void, message?: string }} props
+ * @param {{
+ *   open: boolean,
+ *   onClose: () => void,
+ *   message?: string,
+ * }} props
  */
 export default function UpgradeModal({ open, onClose, message }) {
+  const { isAuthenticated, isSupabaseConfigured, user, requestFullAccess, signInWithGoogle } = useAuth();
+  const [busy, setBusy] = useState(false);
+  const [statusNote, setStatusNote] = useState("");
+
+  useEffect(() => {
+    if (!open) {
+      setStatusNote("");
+      setBusy(false);
+      return;
+    }
+    if (isAuthenticated && user?.id && user.id !== "local" && hasLocalFullAccessRequest(user.id)) {
+      setStatusNote(FULL_ACCESS_REQUEST_SENT_MESSAGE);
+    }
+  }, [open, isAuthenticated, user?.id]);
+
+  const handleRequestAccess = async () => {
+    if (!isAuthenticated) {
+      void signInWithGoogle();
+      return;
+    }
+    setBusy(true);
+    setStatusNote("");
+    const result = await requestFullAccess("cakery_bakery", message || null);
+    setStatusNote(result.message || (result.ok ? FULL_ACCESS_REQUEST_SENT_MESSAGE : "Could not send your request."));
+    setBusy(false);
+  };
+
   return (
     <AnimatePresence>
       {open && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -34,7 +62,6 @@ export default function UpgradeModal({ open, onClose, message }) {
             onClick={onClose}
           />
 
-          {/* Card */}
           <motion.div
             initial={{ opacity: 0, scale: 0.88, y: 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -42,7 +69,6 @@ export default function UpgradeModal({ open, onClose, message }) {
             transition={{ type: "spring", stiffness: 320, damping: 28 }}
             className="relative z-10 bg-card border border-border rounded-2xl shadow-2xl p-8 max-w-sm w-full text-center"
           >
-            {/* Close */}
             <button
               onClick={onClose}
               className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors"
@@ -50,7 +76,6 @@ export default function UpgradeModal({ open, onClose, message }) {
               <X className="w-4 h-4" />
             </button>
 
-            {/* Icon */}
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
               <div className="relative">
                 <Lock className="w-7 h-7 text-primary" />
@@ -58,28 +83,51 @@ export default function UpgradeModal({ open, onClose, message }) {
               </div>
             </div>
 
-            {/* Heading */}
             <h2 className="font-display font-bold text-2xl text-foreground mb-2">
-              Get the Full Version!
+              Full access
             </h2>
 
-            {/* Sub-message */}
             <p className="font-body text-muted-foreground text-sm mb-2 leading-relaxed">
               {message || "This feature is part of the full Cakery Bakery experience."}
             </p>
-            <p className="font-body text-muted-foreground text-sm mb-6 leading-relaxed">
-              Unlock all villages, game modes, recipes, and unlimited weeks!
+            <p className="font-body text-muted-foreground text-sm mb-4 leading-relaxed">
+              Unlock all villages, roles, recipes, and unlimited weeks when full access is enabled on your account.
+            </p>
+            <p className="font-body text-xs text-muted-foreground mb-5 leading-relaxed rounded-xl border border-border bg-muted/40 px-3 py-2.5 text-left">
+              {FULL_ACCESS_PAYMENT_MESSAGE}
             </p>
 
-            {/* CTA */}
-            <Button
-              size="lg"
-              className="w-full h-12 font-display font-bold text-base shadow-lg"
-              onClick={() => { handleUpgradeClick(); onClose(); }}
-            >
-              <Sparkles className="w-4 h-4 mr-2" />
-              Upgrade Now
-            </Button>
+            {statusNote ? (
+              <p className="font-body text-sm text-primary mb-4 leading-relaxed">{statusNote}</p>
+            ) : null}
+
+            {!isAuthenticated ? (
+              <Button
+                size="lg"
+                className="w-full h-12 font-display font-bold text-base shadow-lg"
+                onClick={() => {
+                  void signInWithGoogle();
+                  onClose();
+                }}
+                disabled={!isSupabaseConfigured}
+              >
+                Sign in to request access
+              </Button>
+            ) : (
+              <Button
+                size="lg"
+                className="w-full h-12 font-display font-bold text-base shadow-lg"
+                onClick={() => void handleRequestAccess()}
+                disabled={busy || !isSupabaseConfigured}
+              >
+                <Mail className="w-4 h-4 mr-2" />
+                {busy ? "Sending request…" : "Request full access"}
+              </Button>
+            )}
+
+            {!isSupabaseConfigured ? (
+              <p className="mt-3 text-xs text-muted-foreground font-body">{FULL_ACCESS_SIGN_IN_MESSAGE}</p>
+            ) : null}
 
             <button
               onClick={onClose}
