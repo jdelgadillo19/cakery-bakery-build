@@ -84,14 +84,14 @@ export default function UpgradeModal({ open, onClose, message }) {
             </div>
 
             <h2 className="font-display font-bold text-2xl text-foreground mb-2">
-              Full access
+              More to explore
             </h2>
 
             <p className="font-body text-muted-foreground text-sm mb-2 leading-relaxed">
-              {message || "This feature is part of the full Cakery Bakery experience."}
+              {message || "This part of the game is part of the full Cakery Bakery experience."}
             </p>
             <p className="font-body text-muted-foreground text-sm mb-4 leading-relaxed">
-              Unlock all villages, roles, recipes, and unlimited weeks when full access is enabled on your account.
+              Unlock extra villages, roles, recipes, and longer story runs when full access is enabled.
             </p>
             <p className="font-body text-xs text-muted-foreground mb-5 leading-relaxed rounded-xl border border-border bg-muted/40 px-3 py-2.5 text-left">
               {FULL_ACCESS_PAYMENT_MESSAGE}
@@ -121,7 +121,7 @@ export default function UpgradeModal({ open, onClose, message }) {
                 disabled={busy || !isSupabaseConfigured}
               >
                 <Mail className="w-4 h-4 mr-2" />
-                {busy ? "Sending request…" : "Request full access"}
+                {busy ? "Enabling…" : "Unlock beta preview"}
               </Button>
             )}
 
