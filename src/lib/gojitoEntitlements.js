@@ -1,6 +1,6 @@
 import { parseEntitlementApiResponse } from "@gojito/entitlements";
 import { isSupabaseConfigured, supabase } from "@/lib/supabaseClient";
-import { getUserProfile, normalizeProfileTier, updateUserTier } from "@/lib/profileStore";
+import { getUserProfile, normalizeProfileTier } from "@/lib/profileStore";
 
 /** Optional legacy API base URL. Leave unset — entitlements come from Supabase profiles. */
 export function gojitoApiBaseUrl() {
@@ -68,8 +68,8 @@ export async function syncProfileTierFromGojitoBackend(authUser, opts = {}) {
     if (localTier === remoteTier) {
       return existing;
     }
-    await updateUserTier(authUser.id, remoteTier);
-    return await getUserProfile(authUser.id);
+    // Phase 1: do not write remote tier onto profiles. Entitlement is server-controlled.
+    return existing;
   } catch {
     return null;
   }

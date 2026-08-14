@@ -62,11 +62,6 @@ export async function ensureUserProfile(authUser) {
 
   const existing = await getUserProfile(authUser.id);
   if (existing) {
-    const normalizedTier = normalizeTier(existing.tier);
-    if (existing.tier !== normalizedTier) {
-      await updateUserTier(authUser.id, normalizedTier);
-      return { ...existing, tier: normalizedTier };
-    }
     return existing;
   }
 
@@ -75,7 +70,6 @@ export async function ensureUserProfile(authUser) {
     id: authUser.id,
     display_name: displayNameFromAuthUser(authUser),
     email: authUser.email || null,
-    ...entitlementColumnsForTier(DEFAULT_PROFILE_TIER),
     created_at: now,
     updated_at: now,
   };
@@ -87,6 +81,8 @@ export async function ensureUserProfile(authUser) {
 
 export async function updateUserTier(uid, tier) {
   if (!isSupabaseConfigured || !supabase || !uid) return;
+  // Entitlement columns are not client-writable (Phase 1 commercial security).
+  // Callers such as the debug panel must re-read the profile; the write is rejected by RLS.
   await supabase
     .from("profiles")
     .update({
